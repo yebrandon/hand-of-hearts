@@ -43,6 +43,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        FindObjectOfType<SwitchScene>().NextScene();
         Debug.Log("End of Conversation");
     }
 }
