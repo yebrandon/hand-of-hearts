@@ -69,7 +69,6 @@ public class Battle : MonoBehaviour
             state = BattleState.OPPONENTTURN;
             StartCoroutine(OpponentAttack());
         }
-
     }
 
     public IEnumerator PlayerDefend(int amnt)
