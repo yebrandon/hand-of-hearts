@@ -44,20 +44,21 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (tag == "PlayArea")
         {
             Debug.Log(eventData.pointerDrag.name + " was played!");
+            Debug.Log(cardDisplay.card.name);
 
             // Play the card
 
             if (cardDisplay.card.name == "Strike")
             {
-                battle.PlayerAttack(10);
+                StartCoroutine(battle.PlayerAttack(10));
             }
             else if (cardDisplay.card.name == "Guard")
             {
-                battle.PlayerDefend(10);
+                StartCoroutine(battle.PlayerDefend(10));
             }
             else if (cardDisplay.card.name == "Recover")
             {
-                battle.PlayerHeal(5);
+                StartCoroutine(battle.PlayerHeal(5));
             }
 
             Destroy(cardDisplay.gameObject);

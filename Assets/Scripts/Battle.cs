@@ -52,11 +52,13 @@ public class Battle : MonoBehaviour
 
     public IEnumerator PlayerAttack(int dmg)
     {
+        Debug.Log("playerattack");
+        Debug.Log(opponentUnit.HP);
         bool isDead = opponentUnit.TakeDamage(dmg);
 
         opponentHUD.SetHP(opponentUnit.HP);
         dialogueText.text = "the attack hit em";
-
+        Debug.Log(opponentUnit.HP);
         yield return new WaitForSeconds(2f);
 
         if (isDead)

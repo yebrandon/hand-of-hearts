@@ -82,10 +82,10 @@ public class CardDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     void Update()
     {
-        if (FindObjectOfType<Battle>().state != BattleState.PLAYERTURN)
-        {
-            gameObject.SetActive(false);
-        }
+        /*         if (FindObjectOfType<Battle>().state != BattleState.PLAYERTURN)
+                {
+                    gameObject.SetActive(false);
+                } */
     }
 
 }

@@ -31,6 +31,11 @@ public class Duelist : MonoBehaviour
         }
         return false;
     }
+
+    void Awake()
+    {
+        deck = FindObjectOfType<Deck>();
+    }
 }
 
 

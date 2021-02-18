@@ -14,14 +14,17 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log('a');
         for (int i = 0; i < 3; i++)
         {
+            Debug.Log('b');
             Draw();
         }
     }
 
     public void Draw()
     {
+        Debug.Log('c');
         GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + cards[Random.Range(0, cards.Count)]));
 
         card.transform.SetParent(hand.transform);

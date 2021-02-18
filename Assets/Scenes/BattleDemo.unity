@@ -459,6 +459,8 @@ MonoBehaviour:
     type: 3}
   opponentBattleStation: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
     type: 3}
+  playerUnit: {fileID: 0}
+  opponentUnit: {fileID: 0}
   playerHUD: {fileID: 88456789}
   opponentHUD: {fileID: 535191627}
   dialogueText: {fileID: 1040223261}
@@ -1140,7 +1142,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &879311153
 GameObject:
@@ -1583,7 +1585,7 @@ Canvas:
   m_GameObject: {fileID: 1100456763}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1125379104}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1615,9 +1617,8 @@ RectTransform:
   - {fileID: 713895552}
   - {fileID: 1340717711}
   - {fileID: 2104796934}
-  - {fileID: 1809413777}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2020,6 +2021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350021f6a57163d49ae3f46418427156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battle: {fileID: 0}
 --- !u!114 &1340717713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2712,37 +2714,37 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1100456767}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 60.988934
+      value: 25.920298
       objectReference: {fileID: 0}
     - target: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 16.526903
+      value: 7.023934
       objectReference: {fileID: 0}
     - target: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 13.6907835
+      value: 5.818583
       objectReference: {fileID: 0}
     - target: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 651
+      value: 718
       objectReference: {fileID: 0}
     - target: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 72
+      value: 263
       objectReference: {fileID: 0}
     - target: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
@@ -2797,7 +2799,7 @@ PrefabInstance:
     - target: {fileID: 6591429194535873975, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6591429194535873975, guid: 186f91bc6bab6ce41b01351c1638ac4f,
         type: 3}
@@ -2880,12 +2882,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760648625}
   m_CullTransparentMesh: 0
---- !u!4 &1809413777 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1752301059}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1810071838
 GameObject:
   m_ObjectHideFlags: 0
@@ -3222,6 +3218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350021f6a57163d49ae3f46418427156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battle: {fileID: 380886180}
 --- !u!114 &2104796936
 MonoBehaviour:
   m_ObjectHideFlags: 0
