@@ -68,6 +68,14 @@ public class Battle : MonoBehaviour
         }
 
     }
+
+    IEnumerator PlayerTalk () {
+        dialogueText.text = "we do be talking";
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(OpponentAttack());
+    }
+
     IEnumerator OpponentAttack() {
             dialogueText.text = opponentUnit.charName + " hits ya";
 
@@ -108,5 +116,13 @@ public class Battle : MonoBehaviour
         }
 
         StartCoroutine(PlayerAttack());
+    }
+
+    public void OnTalkButton(){
+        if (state != BattleState.PLAYERTURN){
+            return;
+        }
+
+        StartCoroutine(PlayerTalk());
     }
 }
