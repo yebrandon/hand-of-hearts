@@ -15,12 +15,16 @@ public class Duelist : MonoBehaviour
     public int damage;
 
     public bool TakeDamage(int dmg) {
-        HP -= dmg;
+        if (shield != 0){
+            shield -= dmg;
+        }
+        else if (shield <= 0) {
+            HP -= dmg;
+        }
 
         if (HP <= 0) {
             return true;
         }
         return false;
     }
-
 }
