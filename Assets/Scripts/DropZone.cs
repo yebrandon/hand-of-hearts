@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
+
+    public Battle battle;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null)
@@ -41,6 +44,22 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (tag == "PlayArea")
         {
             Debug.Log(eventData.pointerDrag.name + " was played!");
+
+            // Play the card
+
+            if (cardDisplay.card.name == "Strike")
+            {
+                battle.PlayerAttack(10);
+            }
+            else if (cardDisplay.card.name == "Guard")
+            {
+                battle.PlayerDefend(10);
+            }
+            else if (cardDisplay.card.name == "Recover")
+            {
+                battle.PlayerHeal(5);
+            }
+
             Destroy(cardDisplay.gameObject);
         }
         else if (cardDisplay != null)

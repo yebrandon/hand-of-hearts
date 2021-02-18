@@ -9,18 +9,28 @@ public class Duelist : MonoBehaviour
     public int maxHP;
     public int shield;
     public int maxShield;
-    // public Deck deck;
+    public Deck deck;
     public bool hasWon;
 
     public int damage;
 
-    public bool TakeDamage(int dmg) {
-        HP -= dmg;
+    public bool TakeDamage(int dmg)
+    {
+        if (shield != 0)
+        {
+            shield -= dmg;
+        }
+        else if (shield <= 0)
+        {
+            HP -= dmg;
+        }
 
-        if (HP <= 0) {
+        if (HP <= 0)
+        {
             return true;
         }
         return false;
     }
-
 }
+
+

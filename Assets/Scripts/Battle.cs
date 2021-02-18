@@ -7,15 +7,15 @@ public enum BattleState { START, PLAYERTURN, OPPONENTTURN, WON, LOST }
 public class Battle : MonoBehaviour
 {
     public BattleState state;
-    
+
     public GameObject playerPrefab;
     public GameObject opponentPrefab;
 
     public Transform playerBattleStation;
     public Transform opponentBattleStation;
 
-    Duelist playerUnit;
-    Duelist opponentUnit;
+    public Duelist playerUnit;
+    public Duelist opponentUnit;
 
     public BattleHUD playerHUD;
     public BattleHUD opponentHUD;
@@ -35,7 +35,7 @@ public class Battle : MonoBehaviour
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Duelist>();
-        
+
         GameObject opponentGO = Instantiate(opponentPrefab, opponentBattleStation);
         opponentUnit = opponentGO.GetComponent<Duelist>();
 
@@ -50,76 +50,123 @@ public class Battle : MonoBehaviour
         PlayerTurn();
     }
 
-    IEnumerator PlayerAttack() {
-        bool isDead = opponentUnit.TakeDamage(playerUnit.damage);
+    public IEnumerator PlayerAttack(int dmg)
+    {
+        bool isDead = opponentUnit.TakeDamage(dmg);
 
         opponentHUD.SetHP(opponentUnit.HP);
         dialogueText.text = "the attack hit em";
 
         yield return new WaitForSeconds(2f);
 
-        if (isDead){
+        if (isDead)
+        {
             state = BattleState.WON;
             EndBattle();
         }
-        else {
+        else
+        {
             state = BattleState.OPPONENTTURN;
             StartCoroutine(OpponentAttack());
         }
 
     }
 
-    IEnumerator PlayerTalk () {
+    public IEnumerator PlayerDefend(int amnt)
+    {
+        playerUnit.shield += amnt;
+        playerHUD.SetShield(playerUnit.shield);
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.OPPONENTTURN;
+        StartCoroutine(OpponentAttack());
+    }
+
+    public IEnumerator PlayerHeal(int amnt)
+    {
+        if (playerUnit.HP + amnt >= playerUnit.maxHP)
+        {
+            playerUnit.HP = playerUnit.maxHP;
+            playerHUD.SetHP(playerUnit.HP);
+        }
+        else
+        {
+            playerUnit.HP += amnt;
+            playerHUD.SetHP(playerUnit.HP);
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.OPPONENTTURN;
+        StartCoroutine(OpponentAttack());
+    }
+
+
+    IEnumerator PlayerTalk()
+    {
         dialogueText.text = "we do be talking";
         yield return new WaitForSeconds(2f);
 
         StartCoroutine(OpponentAttack());
     }
 
-    IEnumerator OpponentAttack() {
-            dialogueText.text = opponentUnit.charName + " hits ya";
+    IEnumerator OpponentAttack()
+    {
+        dialogueText.text = opponentUnit.charName + " hits ya";
 
-            yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);
 
-            bool isDead = playerUnit.TakeDamage(opponentUnit.damage);
+        bool isDead = playerUnit.TakeDamage(opponentUnit.damage);
 
-            playerHUD.SetHP(playerUnit.HP);
+        playerHUD.SetHP(playerUnit.HP);
 
-            yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);
 
-            if (isDead){
-                state = BattleState.LOST;
-                EndBattle();
-            }
-            else {
-                state = BattleState.PLAYERTURN;
-                PlayerTurn();
-            }
+        if (isDead)
+        {
+            state = BattleState.LOST;
+            EndBattle();
         }
-
-    void PlayerTurn () {
-        dialogueText.text = "ur turn";
+        else
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
     }
 
-    void EndBattle() {
-        if (state == BattleState.WON) {
+    void PlayerTurn()
+    {
+        dialogueText.text = "ur turn";
+        playerUnit.deck.Draw();
+    }
+
+    void EndBattle()
+    {
+        if (state == BattleState.WON)
+        {
             dialogueText.text = "congrats u won against " + opponentUnit.charName;
         }
-        else if (state == BattleState.LOST) {
+        else if (state == BattleState.LOST)
+        {
             dialogueText.text = "u lost against " + opponentUnit.charName + ", wow whatta loser";
         }
     }
 
-    public void OnAttackButton(){
-        if (state != BattleState.PLAYERTURN){
+    public void OnAttackButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
             return;
         }
 
-        StartCoroutine(PlayerAttack());
+        StartCoroutine(PlayerAttack(10));
     }
 
-    public void OnTalkButton(){
-        if (state != BattleState.PLAYERTURN){
+    public void OnTalkButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
             return;
         }
 
