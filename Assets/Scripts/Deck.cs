@@ -14,16 +14,19 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++)
+        {
             GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + cards[Random.Range(0, cards.Count)]));
+
             card.transform.SetParent(hand.transform);
             card.GetComponent<CardDisplay>().home = hand.transform;
+            card.transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

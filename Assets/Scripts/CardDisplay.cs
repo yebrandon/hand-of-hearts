@@ -12,6 +12,8 @@ public class CardDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public Image artworkImage;
 
     public Transform home;
+    public Transform placeholderHome;
+
     GameObject placeholder;
 
     // Use this for initialization
@@ -35,6 +37,7 @@ public class CardDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         placeholder.transform.SetSiblingIndex(transform.GetSiblingIndex());
 
         home = transform.parent;
+        placeholderHome = home;
         transform.SetParent(transform.parent.parent);
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -44,6 +47,11 @@ public class CardDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
+
+        if (placeholder.transform.parent != placeholderHome)
+        {
+            placeholder.transform.SetParent(placeholderHome);
+        }
 
         int newSiblingIndex = home.childCount;
 
