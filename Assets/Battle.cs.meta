@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - playerPrefab: {fileID: 2281655955096702181, guid: 8d2ecf9b4c27eb541bb301fb97b220bf,
       type: 3}
-  - opponentPrefab: {fileID: 2443248868261663879, guid: 869723ce937f31744b36c14d3e283c43,
+  - opponentPrefab: {fileID: 5489421980471922654, guid: 869723ce937f31744b36c14d3e283c43,
       type: 3}
   - playerBattleStation: {fileID: 2727870488083960849, guid: d0b47bc560fc71347a41810377f0642f,
       type: 3}
