@@ -7,12 +7,32 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 {
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (eventData.pointerDrag == null)
+        {
+            return;
+        }
 
+        CardDisplay cardDisplay = eventData.pointerDrag.GetComponent<CardDisplay>();
+
+        if (cardDisplay != null)
+        {
+            cardDisplay.placeholderHome = transform;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (eventData.pointerDrag == null)
+        {
+            return;
+        }
 
+        CardDisplay cardDisplay = eventData.pointerDrag.GetComponent<CardDisplay>();
+
+        if (cardDisplay != null && cardDisplay.placeholderHome == transform)
+        {
+            cardDisplay.placeholderHome = cardDisplay.home;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -23,10 +43,9 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             Debug.Log(eventData.pointerDrag.name + " was played!");
             Destroy(cardDisplay.gameObject);
         }
-        else if (cardDisplay != null && tag == "PlayArea")
+        else if (cardDisplay != null)
         {
             cardDisplay.home = transform;
-
         }
     }
 
