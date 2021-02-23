@@ -13,19 +13,19 @@ public class ChoiceScript : MonoBehaviour
 
     public void ChoiceOption1 ()
     {
-        TextBox.GetComponent<Text>().text = "Choice 1";
+        TextBox.GetComponent<Text>().text = "Yeah, like I'd believe that";
         ChoiceMade = 1;
     }
 
     public void ChoiceOption2 ()
     {
-        TextBox.GetComponent<Text>().text = "Choice 2";
+        TextBox.GetComponent<Text>().text = "Absolutely not!";
         ChoiceMade = 2;
     }
 
     public void ChoiceOption3 ()
     {
-        TextBox.GetComponent<Text>().text = "Choice 3";
+        TextBox.GetComponent<Text>().text = "Do not mock me with that condescending tone.";
         ChoiceMade = 3;
     }
 
