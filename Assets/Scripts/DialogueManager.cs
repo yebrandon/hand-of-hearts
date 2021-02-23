@@ -41,7 +41,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = sentence;
     }
 
-    void EndDialogue()
+    public void EndDialogue()
     {
         FindObjectOfType<SwitchScene>().NextScene();
     }
