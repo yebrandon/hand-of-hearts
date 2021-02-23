@@ -43,26 +43,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
         if (tag == "PlayArea")
         {
-            Debug.Log(eventData.pointerDrag.name + " was played!");
-            Debug.Log(cardDisplay.card.name);
-
-            // Play the card
-
-            if (cardDisplay.card.name == "Strike")
-            {
-                Debug.Log('c');
-                StartCoroutine(battle.PlayerAttack(10));
-            }
-            else if (cardDisplay.card.name == "Guard")
-            {
-                StartCoroutine(battle.PlayerDefend(10));
-            }
-            else if (cardDisplay.card.name == "Recover")
-            {
-                Debug.Log('c');
-                StartCoroutine(battle.PlayerHeal(5));
-            }
-
+            StartCoroutine(battle.PlayerAttack(cardDisplay.card.name, 10));
             Destroy(draggable.gameObject);
             Destroy(draggable.placeholder);
         }

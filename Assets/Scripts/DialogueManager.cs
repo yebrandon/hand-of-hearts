@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
-    public void StartDialogue (Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue)
     {
         nameText.text = dialogue.name;
 
@@ -29,7 +29,7 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-    public void DisplayNextSentence ()
+    public void DisplayNextSentence()
     {
         if (sentences.Count == 0)
         {
@@ -44,6 +44,5 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         FindObjectOfType<SwitchScene>().NextScene();
-        Debug.Log("End of Conversation");
     }
 }

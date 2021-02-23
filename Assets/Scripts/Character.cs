@@ -21,8 +21,7 @@ public class Character : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Sprite Switch");
-            if(rend.sprite == gorbSprite)
+            if (rend.sprite == gorbSprite)
                 rend.sprite = yorbSprite;
             else if (rend.sprite == yorbSprite)
                 rend.sprite = gorbSprite;

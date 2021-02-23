@@ -25,82 +25,69 @@ public class Battle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        state = BattleState.START;
+        state = BattleState.START; // set to the start state when the first frame is updated
+        // set up the battle and start the coroutine
         SetUpBattle();
         StartCoroutine(SetUpBattle());
     }
 
-    // Update is called once per frame
+    // sets up the battle by setting up the player and opponent GUI
     IEnumerator SetUpBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Player>();
+        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation); // instantiating the player's gameobject
+        playerUnit = playerGO.GetComponent<Player>(); // gets the player's component
 
-        dialogueText.text = "Woah, " + opponentUnit.charName + " appeared!";
+        dialogueText.text = "Woah, " + opponentUnit.charName + " appeared!"; // sets the dialogue text
 
-        playerHUD.SetHUD(playerUnit);
-        opponentHUD.SetHUD(opponentUnit);
+        playerHUD.SetHUD(playerUnit); // setup player HUD
+        opponentHUD.SetHUD(opponentUnit); // setup opponent HUD
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f); // wait for two seconds
 
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        state = BattleState.PLAYERTURN; // change the battle state to be the player's turn
+        PlayerTurn(); // run the player's turn function
     }
 
-    public IEnumerator PlayerAttack(int dmg)
+    // deals with the player's turn, executes when a card is placed into the dropzone
+    public IEnumerator PlayerAttack(string card, int amnt)
     {
-        Debug.Log("playerattack");
-        Debug.Log(opponentUnit.HP);
-        bool isDead = opponentUnit.TakeDamage(dmg);
+        bool isDead = false; // true if the opponent is dead, false otherwise
 
-        opponentHUD.SetHP(opponentUnit.HP);
-        dialogueText.text = "the attack hit em";
-        Debug.Log(opponentUnit.HP);
+        if (card == "Strike") // strike card is played
+        {
+            isDead = opponentUnit.TakeDamage(50); // deals damage to the opponent and returns true if the opponent is dead
+            opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
+            opponentHUD.SetShield(opponentUnit.shield);
+            dialogueText.text = "The attack hit " + opponentUnit.charName + " [-" + 50 + " hp]"; // change the dialogue text
+        }
+
+        else if (card == "Guard") // guard card is played
+        {
+            playerUnit.Guard(10); // heals the player's shield
+            playerHUD.SetShield(playerUnit.shield); // updates the player's shield
+            dialogueText.text = "Your shield has been healed [+" + 10 + " shield]"; // change the dialogue text
+        }
+
+        else if (card == "Recover") // recover card is played
+        {
+            playerUnit.Recover(30); // heals the player's hp
+            playerHUD.SetHP(playerUnit.HP); // updates the player's hp
+            dialogueText.text = "Your HP has been healed [+" + 30 + " hp]"; // change the dialogue text
+        }
+
         yield return new WaitForSeconds(2f);
 
-        if (isDead)
+        if (isDead) // if the opponent is dead
         {
-            state = BattleState.WON;
-            EndBattle();
+            state = BattleState.WON; // change the battle state
+            EndBattle(); // run endbattle function
         }
         else
         {
-            state = BattleState.OPPONENTTURN;
-            StartCoroutine(OpponentAttack());
+
+            StartCoroutine(OpponentAttack()); // start opponent attack coroutine
         }
     }
-
-    public IEnumerator PlayerDefend(int amnt)
-    {
-        playerUnit.shield += amnt;
-        playerHUD.SetShield(playerUnit.shield);
-
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.OPPONENTTURN;
-        StartCoroutine(OpponentAttack());
-    }
-
-    public IEnumerator PlayerHeal(int amnt)
-    {
-        Debug.Log('a');
-        if (playerUnit.HP + amnt >= playerUnit.maxHP)
-        {
-            playerUnit.HP = playerUnit.maxHP;
-            playerHUD.SetHP(playerUnit.HP);
-        }
-        else
-        {
-            playerUnit.HP += amnt;
-            playerHUD.SetHP(playerUnit.HP);
-        }
-
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.OPPONENTTURN;
-        StartCoroutine(OpponentAttack());
-    }
-
 
     IEnumerator PlayerTalk()
     {
@@ -112,15 +99,28 @@ public class Battle : MonoBehaviour
 
     IEnumerator OpponentAttack()
     {
+        state = BattleState.OPPONENTTURN; // change the battle state
         dialogueText.text = opponentUnit.charName + " hits ya";
 
         yield return new WaitForSeconds(2f);
 
         opponentUnit.Play();
+        bool isDead = playerUnit.TakeDamage(opponentUnit.damage);
+
+        playerHUD.SetHP(playerUnit.HP);
+        playerHUD.SetShield(playerUnit.shield);
 
         yield return new WaitForSeconds(2f);
 
-        PlayerTurn();
+        if (isDead)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else
+        {
+            PlayerTurn();
+        }
     }
 
     void PlayerTurn()
@@ -133,33 +133,13 @@ public class Battle : MonoBehaviour
 
     void EndBattle()
     {
-        if (state == BattleState.WON)
+        if (state == BattleState.WON) // if the player has won
         {
-            dialogueText.text = "congrats u won against " + opponentUnit.charName;
+            dialogueText.text = "congrats u won against " + opponentUnit.charName; // change the dialogue text
         }
-        else if (state == BattleState.LOST)
+        else if (state == BattleState.LOST) // if the player has lost
         {
-            dialogueText.text = "u lost against " + opponentUnit.charName + ", wow whatta loser";
+            dialogueText.text = "u lost against " + opponentUnit.charName + ", wow whatta loser"; // change the dialogue text
         }
-    }
-
-    public void OnAttackButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-        {
-            return;
-        }
-
-        StartCoroutine(PlayerAttack(10));
-    }
-
-    public void OnTalkButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-        {
-            return;
-        }
-
-        StartCoroutine(PlayerTalk());
     }
 }
