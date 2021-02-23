@@ -147,11 +147,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20315369}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3028, y: 1194, z: 0}
-  m_LocalScale: {x: 106.493904, y: 99.83802, z: 106.493904}
+  m_LocalPosition: {x: 722.825, y: 314.4125, z: 0}
+  m_LocalScale: {x: 19.302021, y: 18.095642, z: 19.302021}
   m_Children: []
-  m_Father: {fileID: 1100456767}
-  m_RootOrder: 9
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &20315371
 MonoBehaviour:
@@ -162,17 +162,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 20315369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e30d63f289138d94a9b2a3c50aba443a, type: 3}
+  m_Script: {fileID: 11500000, guid: 84c7e5f14eb947a4ab48acbbad99fdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charName: 
-  HP: 0
-  maxHP: 0
-  shield: 0
-  maxShield: 0
-  deck: {fileID: 0}
+  charName: B)
+  HP: 100
+  maxHP: 100
+  shield: 20
+  maxShield: 20
   hasWon: 0
-  damage: 0
+  damage: 10
+  cards:
+  - Strike
+  - Recover
+  - Guard
+  cardZone: {fileID: 2104796935}
 --- !u!212 &20315372
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -562,7 +566,7 @@ MonoBehaviour:
   opponentBattleStation: {fileID: 6591429194535873968, guid: 186f91bc6bab6ce41b01351c1638ac4f,
     type: 3}
   playerUnit: {fileID: 0}
-  opponentUnit: {fileID: 0}
+  opponentUnit: {fileID: 20315371}
   playerHUD: {fileID: 88456789}
   opponentHUD: {fileID: 535191627}
   dialogueText: {fileID: 1040223261}
@@ -1166,7 +1170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &879311153
 GameObject:
@@ -1639,9 +1643,8 @@ RectTransform:
   - {fileID: 713895552}
   - {fileID: 1340717711}
   - {fileID: 2104796934}
-  - {fileID: 20315370}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2865,6 +2868,7 @@ GameObject:
   - component: {fileID: 2104796937}
   - component: {fileID: 2104796936}
   - component: {fileID: 2104796935}
+  - component: {fileID: 2104796938}
   m_Layer: 5
   m_Name: Card Zone
   m_TagString: PlayArea
@@ -2941,6 +2945,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104796933}
   m_CullTransparentMesh: 0
+--- !u!114 &2104796938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104796933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &2104819525
 GameObject:
   m_ObjectHideFlags: 0
