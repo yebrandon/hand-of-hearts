@@ -48,19 +48,8 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
             // Play the card
 
-            if (cardDisplay.card.name == "Strike")
-            {
-                StartCoroutine(battle.PlayerAttack(10));
-            }
-            else if (cardDisplay.card.name == "Guard")
-            {
-                StartCoroutine(battle.PlayerDefend(10));
-            }
-            else if (cardDisplay.card.name == "Recover")
-            {
-                StartCoroutine(battle.PlayerHeal(5));
-            }
-
+            StartCoroutine(battle.PlayerAttack(cardDisplay.card.name, 10));
+            
             Destroy(cardDisplay.gameObject);
         }
         else if (cardDisplay != null)
