@@ -935,9 +935,8 @@ MonoBehaviour:
   dialogue:
     name: Jibb
     sentences:
-    - Hey!
-    - You there!
-    - You are tresspassing on the property of our dear leader.
+    - As a guard of the capital, I cannot allow you to pass through here.
+    - I will stop you at all costs!
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0
