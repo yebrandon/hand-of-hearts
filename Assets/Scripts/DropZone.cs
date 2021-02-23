@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
     public Battle battle;
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -15,11 +14,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             return;
         }
 
-        CardDisplay cardDisplay = eventData.pointerDrag.GetComponent<CardDisplay>();
+        Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
 
-        if (cardDisplay != null)
+        if (draggable != null)
         {
-            cardDisplay.placeholderHome = transform;
+            draggable.placeholderHome = transform;
         }
     }
 
@@ -30,17 +29,18 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             return;
         }
 
-        CardDisplay cardDisplay = eventData.pointerDrag.GetComponent<CardDisplay>();
+        Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
 
-        if (cardDisplay != null && cardDisplay.placeholderHome == transform)
+        if (draggable != null && draggable.placeholderHome == transform)
         {
-            cardDisplay.placeholderHome = cardDisplay.home;
+            draggable.placeholderHome = draggable.home;
         }
     }
 
     public void OnDrop(PointerEventData eventData)
     {
         CardDisplay cardDisplay = eventData.pointerDrag.GetComponent<CardDisplay>();
+        Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
         if (tag == "PlayArea")
         {
             Debug.Log(eventData.pointerDrag.name + " was played!");
@@ -50,6 +50,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
             if (cardDisplay.card.name == "Strike")
             {
+                Debug.Log('c');
                 StartCoroutine(battle.PlayerAttack(10));
             }
             else if (cardDisplay.card.name == "Guard")
@@ -58,14 +59,16 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             }
             else if (cardDisplay.card.name == "Recover")
             {
+                Debug.Log('c');
                 StartCoroutine(battle.PlayerHeal(5));
             }
 
-            Destroy(cardDisplay.gameObject);
+            Destroy(draggable.gameObject);
+            Destroy(draggable.placeholder);
         }
-        else if (cardDisplay != null)
+        else if (draggable != null)
         {
-            cardDisplay.home = transform;
+            draggable.home = transform;
         }
     }
 

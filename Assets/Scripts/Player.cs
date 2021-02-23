@@ -4,22 +4,10 @@ using UnityEngine;
 
 public class Player : Duelist
 {
-    public int turns;
-    public enum Relationship { PALS, FRIENDS, LOVERS }
-    // SpriteRenderer m_SpriteRenderer;
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-    //     //Fetch the SpriteRenderer from the GameObject
-    //     m_SpriteRenderer = GetComponent<SpriteRenderer>();
-    //     //Set the GameObject's Color quickly to a set Color (blue)
-    //     m_SpriteRenderer.color = Color.blue;
-        
-    // }
+    public Deck deck;
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    void Awake()
+    {
+        deck = GameObject.Find("Deck").GetComponent<Deck>();
+    }
 }

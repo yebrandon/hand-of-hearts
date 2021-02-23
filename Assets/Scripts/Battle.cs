@@ -14,8 +14,8 @@ public class Battle : MonoBehaviour
     public Transform playerBattleStation;
     public Transform opponentBattleStation;
 
-    public Duelist playerUnit;
-    public Duelist opponentUnit;
+    public Player playerUnit;
+    public Opponent opponentUnit;
 
     public BattleHUD playerHUD;
     public BattleHUD opponentHUD;
@@ -34,10 +34,7 @@ public class Battle : MonoBehaviour
     IEnumerator SetUpBattle()
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Duelist>();
-
-        GameObject opponentGO = Instantiate(opponentPrefab, opponentBattleStation);
-        opponentUnit = opponentGO.GetComponent<Duelist>();
+        playerUnit = playerGO.GetComponent<Player>();
 
         dialogueText.text = "Woah, " + opponentUnit.charName + " appeared!";
 
@@ -86,6 +83,7 @@ public class Battle : MonoBehaviour
 
     public IEnumerator PlayerHeal(int amnt)
     {
+        Debug.Log('a');
         if (playerUnit.HP + amnt >= playerUnit.maxHP)
         {
             playerUnit.HP = playerUnit.maxHP;
@@ -118,26 +116,17 @@ public class Battle : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        bool isDead = playerUnit.TakeDamage(opponentUnit.damage);
-
-        playerHUD.SetHP(playerUnit.HP);
+        opponentUnit.Play();
 
         yield return new WaitForSeconds(2f);
 
-        if (isDead)
-        {
-            state = BattleState.LOST;
-            EndBattle();
-        }
-        else
-        {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
-        }
+        PlayerTurn();
     }
 
     void PlayerTurn()
     {
+        state = BattleState.PLAYERTURN;
+        opponentUnit.EndTurn();
         dialogueText.text = "ur turn";
         playerUnit.deck.Draw();
     }

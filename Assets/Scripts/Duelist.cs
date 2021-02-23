@@ -9,10 +9,7 @@ public class Duelist : MonoBehaviour
     public int maxHP;
     public int shield;
     public int maxShield;
-    public Deck deck;
     public bool hasWon;
-
-    public int damage;
 
     public bool TakeDamage(int dmg)
     {
@@ -30,11 +27,6 @@ public class Duelist : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    void Awake()
-    {
-        deck = FindObjectOfType<Deck>();
     }
 }
 
