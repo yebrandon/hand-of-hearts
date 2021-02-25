@@ -34,7 +34,8 @@ public class Battle : MonoBehaviour
     // sets up the battle by setting up the player and opponent GUI
     IEnumerator SetUpBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation); // instantiating the player's gameobject
+        GameObject playerGO = Instantiate(playerPrefab); // instantiating the player's gameobject
+        //playerGO.transform.SetParent(playerBattleStation);
         playerUnit = playerGO.GetComponent<Player>(); // gets the player's component
 
         dialogueText.text = "Woah, " + opponentUnit.charName + " appeared!"; // sets the dialogue text
