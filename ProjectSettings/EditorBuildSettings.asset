@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleDemo.unity
     guid: 41f56d51fdb944045b823a12483a52e0
+  - enabled: 1
+    path: Assets/Scenes/BattleTest.unity
+    guid: 1817c70b5de95c842964615b802cd0d5
+  - enabled: 1
+    path: Assets/Scenes/CardsDemo.unity
+    guid: 18595448b69333749908138e2c7be756
+  - enabled: 1
+    path: Assets/Scenes/Talk.unity
+    guid: 2ed07034caf712b488bc1e01980b12c9
   m_configObjects: {}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, OPPONENTTURN, WON, LOST }
 public class Battle : MonoBehaviour
@@ -78,7 +79,8 @@ public class Battle : MonoBehaviour
         }
         else if (card == "Talk")
         {
-            dialogueText.text = "WE DO BE TALKIN THO";
+            SceneManager.LoadScene("Talk", LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Talk"));
         }
 
         yield return new WaitForSeconds(2f); // waits for two seconds
@@ -88,11 +90,16 @@ public class Battle : MonoBehaviour
             state = BattleState.WON; // change the battle state
             EndBattle(); // run endbattle function
         }
+        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk"))
+        {
+
+        }
         else
         {
             StartCoroutine(OpponentAttack()); // start opponent attack coroutine
         }
     }
+
 
     IEnumerator PlayerTalk()
     {
@@ -102,7 +109,7 @@ public class Battle : MonoBehaviour
         StartCoroutine(OpponentAttack()); // starts the opponent attack coroutine
     }
 
-    IEnumerator OpponentAttack()
+    public IEnumerator OpponentAttack()
     {
         state = BattleState.OPPONENTTURN; // change the battle state
         dialogueText.text = opponentUnit.charName + "'s turn: "; // changes the dialogue text
