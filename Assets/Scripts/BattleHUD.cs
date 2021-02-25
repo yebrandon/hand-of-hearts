@@ -9,8 +9,11 @@ public class BattleHUD : MonoBehaviour
     public Text nameText;
     public Slider hpSlider;
     public Slider shieldSlider;
+    public Text hpNum;
+    public Text shieldNum;
 
-    public void SetHUD(Duelist duelist) {
+    public void SetHUD(Duelist duelist)
+    {
         nameText.text = duelist.charName;
         hpSlider.maxValue = duelist.maxHP;
         shieldSlider.maxValue = duelist.maxShield;
@@ -18,11 +21,15 @@ public class BattleHUD : MonoBehaviour
         SetShield(duelist.shield);
     }
 
-    public void SetHP(int hp) {
+    public void SetHP(int hp)
+    {
         hpSlider.value = hp;
+        hpNum.text = hp.ToString();
     }
 
-    public void SetShield(int shield) {
+    public void SetShield(int shield)
+    {
         shieldSlider.value = shield;
+        shieldNum.text = shield.ToString();
     }
 }
