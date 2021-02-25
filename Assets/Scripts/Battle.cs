@@ -52,6 +52,7 @@ public class Battle : MonoBehaviour
     // deals with the player's turn, executes when a card is placed into the dropzone
     public IEnumerator PlayerAttack(string card, int amnt)
     {
+        playerUnit.shield = 0;
         bool isDead = false; // true if the opponent is dead, false otherwise
 
         if (card == "Strike") // strike card is played
