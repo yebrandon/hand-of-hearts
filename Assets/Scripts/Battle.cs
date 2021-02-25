@@ -43,7 +43,7 @@ public class Battle : MonoBehaviour
         playerHUD.SetHUD(playerUnit); // setup player HUD
         opponentHUD.SetHUD(opponentUnit); // setup opponent HUD
 
-        yield return new WaitForSeconds(2f); // wait for two seconds
+        yield return new WaitForSeconds(2f); // waits for two seconds
 
         state = BattleState.PLAYERTURN; // change the battle state to be the player's turn
         PlayerTurn(); // run the player's turn function
@@ -76,7 +76,7 @@ public class Battle : MonoBehaviour
             dialogueText.text = "Your HP has been healed [+" + 30 + " hp]"; // change the dialogue text
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f); // waits for two seconds
 
         if (isDead) // if the opponent is dead
         {
@@ -85,42 +85,62 @@ public class Battle : MonoBehaviour
         }
         else
         {
-
             StartCoroutine(OpponentAttack()); // start opponent attack coroutine
         }
     }
 
     IEnumerator PlayerTalk()
     {
-        dialogueText.text = "we do be talking";
-        yield return new WaitForSeconds(2f);
+        dialogueText.text = "we do be talking"; // changes the dialogue text
+        yield return new WaitForSeconds(2f); // waits two seconds
 
-        StartCoroutine(OpponentAttack());
+        StartCoroutine(OpponentAttack()); // starts the opponent attack coroutine
     }
 
     IEnumerator OpponentAttack()
     {
         state = BattleState.OPPONENTTURN; // change the battle state
-        dialogueText.text = opponentUnit.charName + " hits ya";
+        dialogueText.text = opponentUnit.charName + "'s turn: "; // changes the dialogue text
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f); // waits for two seconds
+        opponentUnit.Play(); // calls function where opponent chooses a random card 
+        string card = opponentUnit.playCard;
+        Debug.Log(opponentUnit.playCard + " played by opponent");
 
-        opponentUnit.Play();
-        bool isDead = playerUnit.TakeDamage(opponentUnit.damage);
+        bool isDead = false; // true if the player is dead, false otherwise
 
-        playerHUD.SetHP(playerUnit.HP);
-        playerHUD.SetShield(playerUnit.shield);
-
-        yield return new WaitForSeconds(2f);
-
-        if (isDead)
+        if (card == "Strike") // strike card is played
         {
-            state = BattleState.LOST;
-            EndBattle();
+            isDead = playerUnit.TakeDamage(50); // deals damage to the player and returns true if the player is dead
+            playerHUD.SetHP(playerUnit.HP); // update the player's HP
+            playerHUD.SetShield(playerUnit.shield); // update the player's shield
+            dialogueText.text = "The attack hit you for [-" + 50 + " hp]"; // change the dialogue text
+        }
+
+        else if (card == "Guard") // guard card is played
+        {
+            opponentUnit.Guard(10); // heals the opponent's shield
+            opponentHUD.SetShield(opponentUnit.shield); // updates the opponent's shield
+            dialogueText.text = opponentUnit.charName + "'s shield has been healed [+" + 10 + " shield]"; // change the dialogue text
+        }
+
+        else if (card == "Recover") // recover card is played
+        {
+            opponentUnit.Recover(30); // heals the opponent's hp
+            opponentHUD.SetHP(opponentUnit.HP); // updates the opponents's hp
+            dialogueText.text = opponentUnit.charName + "'s HP has been healed [+" + 30 + " hp]"; // change the dialogue text
+        }
+
+        yield return new WaitForSeconds(2f); // waits for two seconds
+
+        if (isDead) // if the player is dead
+        {
+            state = BattleState.LOST; // change the battle state
+            EndBattle(); // run endbattle function
         }
         else
         {
-            PlayerTurn();
+            PlayerTurn(); // start playerturn function
         }
     }
 
