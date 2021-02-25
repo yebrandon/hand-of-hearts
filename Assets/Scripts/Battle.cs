@@ -75,6 +75,10 @@ public class Battle : MonoBehaviour
             playerHUD.SetHP(playerUnit.HP); // updates the player's hp
             dialogueText.text = "Your HP has been healed [+" + 30 + " hp]"; // change the dialogue text
         }
+        else if (card == "Talk")
+        {
+            dialogueText.text = "WE DO BE TALKIN THO";
+        }
 
         yield return new WaitForSeconds(2f); // waits for two seconds
 

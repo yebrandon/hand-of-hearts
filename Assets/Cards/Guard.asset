@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Guard
   description: Gain 10 shield for 1 turn.
-  artwork: {fileID: 21300000, guid: e5a91e03c8c53794db640db8884b0c35, type: 3}
+  artwork: {fileID: 21300000, guid: 80aa7d948bcbbb748be9d9a8880f91de, type: 3}

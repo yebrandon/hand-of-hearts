@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Recover
   description: Heal 7 life.
-  artwork: {fileID: 21300000, guid: e5fecd816932d48429d2b1d0f04b10d2, type: 3}
+  artwork: {fileID: 21300000, guid: 65dd2eb14fb558f418c7dd7f21426132, type: 3}
