@@ -17,10 +17,13 @@ public class Duelist : MonoBehaviour
     public bool TakeDamage(int dmg)
     {
         if (shield > 0)
-        { // if the shield has not been depleted
+        { // if the shield has not been depleted previously
             shield -= dmg; // subtract damage from the shield
-            if (shield < 0)
+            if (shield < 0) // if the attack depleted the shield
+            {
+                HP += shield; // subtract remaining damage from HP
                 shield = 0;
+            }
         }
         else if (shield <= 0)
         { // if the shield has been depleted
