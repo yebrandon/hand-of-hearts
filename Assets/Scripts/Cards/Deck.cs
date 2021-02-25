@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    public List<string> cards = new List<string>(){
-        "Strike",
-        "Guard",
-        "Recover"
-    };
+    private List<string> cards;
+
     public DropZone hand;
 
     // Start is called before the first frame update
     void Start()
     {
+        cards = new List<string>()
+        {
+            "Strike",
+            "Guard",
+            "Recover",
+            "Talk"
+        };
         for (int i = 0; i < 3; i++)
         {
             Draw();
