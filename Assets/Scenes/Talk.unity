@@ -707,6 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a500019f8eb114c960c9f50bae32f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  talkChoice: {fileID: 763025708}
 --- !u!114 &342102823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,7 +966,7 @@ GameObject:
   - component: {fileID: 763025709}
   - component: {fileID: 763025708}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ChoiceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -988,6 +989,7 @@ MonoBehaviour:
   Choice02: {fileID: 935722471}
   Choice03: {fileID: 1827243969}
   ChoiceMade: 0
+  continueBtn: {fileID: 342102820}
 --- !u!4 &763025709
 Transform:
   m_ObjectHideFlags: 0

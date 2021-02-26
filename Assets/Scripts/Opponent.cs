@@ -8,15 +8,10 @@ public class Opponent : Duelist
     public DropZone cardZone;
     public string playCard;
 
-    public string chooseRandom()
-    {
-        return cards[Random.Range(0, cards.Count)];
-    }
-
     public void Play()
     {
-        playCard = chooseRandom();
-        GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/JibbCards/" + playCard));
+        string cardToPlay = cards[Random.Range(0, cards.Count)];
+        GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/JibbCards/" + cardToPlay));
         card.transform.SetParent(cardZone.transform);
         card.GetComponent<Draggable>().home = cardZone.transform;
         card.transform.localScale = new Vector3(1, 1, 1);
@@ -24,6 +19,7 @@ public class Opponent : Duelist
 
     public void EndTurn()
     {
+        // Destroy invisible card placeholder
         if (cardZone.transform.childCount == 1)
         {
             Destroy(cardZone.transform.GetChild(0).gameObject);

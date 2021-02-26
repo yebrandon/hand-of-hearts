@@ -80,7 +80,6 @@ public class Battle : MonoBehaviour
         else if (card == "Talk")
         {
             SceneManager.LoadScene("Talk", LoadSceneMode.Additive);
-            //SceneManager.SetActiveScene(SceneManager.GetSceneByName("Talk"));
         }
 
         yield return new WaitForSeconds(2f); // waits for two seconds
@@ -90,10 +89,9 @@ public class Battle : MonoBehaviour
             state = BattleState.WON; // change the battle state
             EndBattle(); // run endbattle function
         }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk"))
+        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk")) // Pause if talk card was played, resume if talk scene is exited
         {
             yield return new WaitWhile(() => SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk"));
-            Debug.Log('a');
             StartCoroutine(OpponentAttack());
         }
         else

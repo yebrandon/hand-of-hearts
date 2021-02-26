@@ -18,7 +18,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
         if (draggable != null)
         {
-            draggable.placeholderHome = transform;
+            draggable.placeholderHome = transform; // Create placeholder
         }
     }
 
@@ -33,7 +33,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
         if (draggable != null && draggable.placeholderHome == transform)
         {
-            draggable.placeholderHome = draggable.home;
+            draggable.placeholderHome = draggable.home; // Remove placeholder
         }
     }
 
@@ -41,15 +41,17 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     {
         CardDisplay cardDisplay = eventData.pointerDrag.GetComponent<CardDisplay>();
         Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
+
         if (tag == "PlayArea")
         {
+            // Play card
             StartCoroutine(battle.PlayerAttack(cardDisplay.card.name, 10));
             Destroy(draggable.gameObject);
             Destroy(draggable.placeholder);
         }
         else if (draggable != null)
         {
-            draggable.home = transform;
+            draggable.home = transform; // Return card to hand
         }
     }
 

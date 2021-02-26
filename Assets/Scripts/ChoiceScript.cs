@@ -10,33 +10,39 @@ public class ChoiceScript : MonoBehaviour
     public GameObject Choice02;
     public GameObject Choice03;
     public int ChoiceMade;
+    public GameObject continueBtn;
 
-    public void ChoiceOption1 ()
+    public void ChoiceOption1()
     {
         TextBox.GetComponent<Text>().text = "Yeah, like I'd believe that";
         ChoiceMade = 1;
     }
 
-    public void ChoiceOption2 ()
+    public void ChoiceOption2()
     {
         TextBox.GetComponent<Text>().text = "Absolutely not!";
         ChoiceMade = 2;
     }
 
-    public void ChoiceOption3 ()
+    public void ChoiceOption3()
     {
         TextBox.GetComponent<Text>().text = "Do not mock me with that condescending tone.";
         ChoiceMade = 3;
     }
 
+    void Start()
+    {
+        continueBtn.SetActive(false);
+    }
+
     void Update()
     {
-        if(ChoiceMade >= 1)
+        if (ChoiceMade >= 1)
         {
             Choice01.SetActive(false);
             Choice02.SetActive(false);
             Choice03.SetActive(false);
-            //FindObjectOfType<SwitchScene>().NextScene();
+            continueBtn.SetActive(true);
         }
     }
 }
