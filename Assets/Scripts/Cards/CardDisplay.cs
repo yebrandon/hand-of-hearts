@@ -10,7 +10,6 @@ public class CardDisplay : MonoBehaviour
     public Text descriptionText;
     public Image artworkImage;
 
-    // Use this for initialization
     void Start()
     {
         nameText.text = card.name;
@@ -20,6 +19,7 @@ public class CardDisplay : MonoBehaviour
 
     void Update()
     {
+        // Prevent player from playing cards if it is not their turn
         if (FindObjectOfType<Battle>().state != BattleState.PLAYERTURN)
         {
             GetComponent<Draggable>().enabled = false;

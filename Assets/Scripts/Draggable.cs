@@ -12,6 +12,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // Create placeholder
         placeholder = new GameObject();
         placeholder.transform.SetParent(transform.parent);
         LayoutElement le = placeholder.AddComponent<LayoutElement>();
@@ -19,9 +20,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         le.preferredWidth = GetComponent<LayoutElement>().preferredWidth;
         le.flexibleHeight = 0;
         le.flexibleWidth = 0;
-
         placeholder.transform.SetSiblingIndex(transform.GetSiblingIndex());
 
+        // Set parents
         home = transform.parent;
         placeholderHome = home;
         transform.SetParent(transform.parent.parent);
@@ -31,8 +32,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnDrag(PointerEventData eventData)
     {
-        this.transform.position = eventData.position;
+        transform.position = eventData.position; // Make card follow cursor
 
+        // Place placeholder correctly
         if (placeholder.transform.parent != placeholderHome)
         {
             placeholder.transform.SetParent(placeholderHome);
@@ -58,6 +60,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        // Set card back to correct position
         transform.SetParent(home);
         transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
         GetComponent<CanvasGroup>().blocksRaycasts = true;

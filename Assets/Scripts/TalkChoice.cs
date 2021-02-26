@@ -10,6 +10,7 @@ public class TalkChoice : MonoBehaviour
     public GameObject Choice02;
     public GameObject Choice03;
     public int ChoiceMade;
+    public GameObject continueBtn;
 
     public void ChoiceOption1()
     {
@@ -29,6 +30,11 @@ public class TalkChoice : MonoBehaviour
         ChoiceMade = 3;
     }
 
+    void Start()
+    {
+        continueBtn.SetActive(false);
+    }
+
     void Update()
     {
         if (ChoiceMade >= 1)
@@ -36,7 +42,7 @@ public class TalkChoice : MonoBehaviour
             Choice01.SetActive(false);
             Choice02.SetActive(false);
             Choice03.SetActive(false);
-            //FindObjectOfType<SwitchScene>().NextScene();
+            continueBtn.SetActive(true);
         }
     }
 }

@@ -1154,6 +1154,7 @@ MonoBehaviour:
   Choice02: {fileID: 71189993}
   Choice03: {fileID: 142197384}
   ChoiceMade: 0
+  continueBtn: {fileID: 1943880047}
 --- !u!4 &1070481113
 Transform:
   m_ObjectHideFlags: 0
