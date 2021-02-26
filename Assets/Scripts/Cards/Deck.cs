@@ -14,6 +14,8 @@ public class Deck : MonoBehaviour
         cards = new List<string>()
         {
             "Strike",
+            "Strike",
+            "Strike",
             "Guard",
             "Recover",
             "Talk"
