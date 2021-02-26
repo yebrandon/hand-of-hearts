@@ -15,7 +15,6 @@ public class Deck : MonoBehaviour
         {
             "Strike",
             "Strike",
-            "Strike",
             "Guard",
             "Recover",
             "Talk"
