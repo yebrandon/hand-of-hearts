@@ -148,7 +148,7 @@ MonoBehaviour:
   charName: B)
   HP: 100
   maxHP: 200
-  shield: 10
-  maxShield: 10
+  shield: 50
+  maxShield: 50
   hasWon: 0
   damage: 20
