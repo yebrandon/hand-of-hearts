@@ -125,8 +125,8 @@ public class Battle : MonoBehaviour
 
         yield return new WaitForSeconds(2f); // waits for two seconds
         opponentUnit.Play(); // calls function where opponent chooses a random card 
-        string card = opponentUnit.playCard;
-        Debug.Log(opponentUnit.playCard + " played by opponent");
+        string card = opponentUnit.cardToPlay;
+        Debug.Log(opponentUnit.cardToPlay + " played by opponent");
 
         bool isDead = false; // true if the player is dead, false otherwise
 

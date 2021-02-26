@@ -6,11 +6,11 @@ public class Opponent : Duelist
 {
     public List<string> cards = new List<string>() { };
     public DropZone cardZone;
-    public string playCard;
+    public string cardToPlay;
 
     public void Play()
     {
-        string cardToPlay = cards[Random.Range(0, cards.Count)];
+        cardToPlay = cards[Random.Range(0, cards.Count)];
         GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/JibbCards/" + cardToPlay));
         card.transform.SetParent(cardZone.transform);
         card.GetComponent<Draggable>().home = cardZone.transform;
