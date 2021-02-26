@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleDemo.unity
     guid: 41f56d51fdb944045b823a12483a52e0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BattleTest.unity
     guid: 1817c70b5de95c842964615b802cd0d5
   - enabled: 1
