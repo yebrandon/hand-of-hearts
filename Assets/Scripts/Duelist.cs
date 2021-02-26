@@ -22,6 +22,8 @@ public class Duelist : MonoBehaviour
             if (shield < 0) // if the attack depleted the shield
             {
                 HP += shield; // subtract remaining damage from HP
+                if (HP < 0)
+                    HP = 0;
                 shield = 0;
             }
         }
@@ -44,7 +46,7 @@ public class Duelist : MonoBehaviour
     public void Guard(int amnt)
     {
         Debug.Log(shield + " shield");
-        if ((shield += amnt) >= maxShield)
+        if ((shield + amnt) >= maxShield)
         { // if the heal will be equal to or exceed the max
             shield = maxShield; // set shield to the max
         }
@@ -57,7 +59,8 @@ public class Duelist : MonoBehaviour
     // function that heals the user's hp
     public void Recover(int amnt)
     {
-        if ((HP += amnt) >= maxHP)
+        Debug.Log (HP + " hp");
+        if ((HP + amnt) >= maxHP)
         { // if the heal will be equal or exceed the max
             HP = maxHP; // set HP to the max
         }

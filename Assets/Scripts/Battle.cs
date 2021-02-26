@@ -46,6 +46,15 @@ public class Battle : MonoBehaviour
 
         yield return new WaitForSeconds(2f); // waits for two seconds
 
+        Debug.Log("player hp" + playerUnit.HP);
+        Debug.Log("player shield" + playerUnit.shield);
+        Debug.Log("opponent hp" + opponentUnit.HP);
+        Debug.Log("opponent hp" + opponentUnit.shield);
+
+
+
+
+
         state = BattleState.PLAYERTURN; // change the battle state to be the player's turn
         PlayerTurn(); // run the player's turn function
     }
@@ -53,7 +62,7 @@ public class Battle : MonoBehaviour
     // deals with the player's turn, executes when a card is placed into the dropzone
     public IEnumerator PlayerAttack(string card, int amnt)
     {
-        playerUnit.shield = 0;
+        // playerUnit.shield = 0;
         bool isDead = false; // true if the opponent is dead, false otherwise
 
         if (card == "Strike") // strike card is played
@@ -61,7 +70,7 @@ public class Battle : MonoBehaviour
             isDead = opponentUnit.TakeDamage(50); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
             opponentHUD.SetShield(opponentUnit.shield);
-            dialogueText.text = "The attack hit " + opponentUnit.charName + " [-" + 50 + " hp]"; // change the dialogue text
+            dialogueText.text = "The attack hit " + opponentUnit.charName + " [-" + 50 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
@@ -75,7 +84,7 @@ public class Battle : MonoBehaviour
         {
             playerUnit.Recover(30); // heals the player's hp
             playerHUD.SetHP(playerUnit.HP); // updates the player's hp
-            dialogueText.text = "Your HP has been healed [+" + 30 + " hp]"; // change the dialogue text
+            dialogueText.text = "Your HP has been healed [+" + 30 + " life]"; // change the dialogue text
         }
         else if (card == "Talk")
         {
@@ -126,7 +135,7 @@ public class Battle : MonoBehaviour
             isDead = playerUnit.TakeDamage(50); // deals damage to the player and returns true if the player is dead
             playerHUD.SetHP(playerUnit.HP); // update the player's HP
             playerHUD.SetShield(playerUnit.shield); // update the player's shield
-            dialogueText.text = "The attack hit you for [-" + 50 + " hp]"; // change the dialogue text
+            dialogueText.text = "The attack hit you for [-" + 50 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
@@ -140,7 +149,7 @@ public class Battle : MonoBehaviour
         {
             opponentUnit.Recover(30); // heals the opponent's hp
             opponentHUD.SetHP(opponentUnit.HP); // updates the opponents's hp
-            dialogueText.text = opponentUnit.charName + "'s HP has been healed [+" + 30 + " hp]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + "'s HP has been healed [+" + 30 + " life]"; // change the dialogue text
         }
 
         yield return new WaitForSeconds(2f); // waits for two seconds
