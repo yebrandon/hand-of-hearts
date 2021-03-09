@@ -67,24 +67,24 @@ public class Battle : MonoBehaviour
 
         if (card == "Strike") // strike card is played
         {
-            isDead = opponentUnit.TakeDamage(50); // deals damage to the opponent and returns true if the opponent is dead
+            isDead = opponentUnit.TakeDamage(20); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
             opponentHUD.SetShield(opponentUnit.shield);
-            dialogueText.text = "The attack hit " + opponentUnit.charName + " [-" + 50 + " damage]"; // change the dialogue text
+            dialogueText.text = "The attack hit " + opponentUnit.charName + " [-" + 20 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
         {
-            playerUnit.Guard(10); // heals the player's shield
+            playerUnit.Guard(15); // heals the player's shield
             playerHUD.SetShield(playerUnit.shield); // updates the player's shield
-            dialogueText.text = "Your shield has been healed [+" + 10 + " shield]"; // change the dialogue text
+            dialogueText.text = "Your shield has been healed [+" + 15 + " shield]"; // change the dialogue text
         }
 
         else if (card == "Recover") // recover card is played
         {
-            playerUnit.Recover(30); // heals the player's hp
+            playerUnit.Recover(15); // heals the player's hp
             playerHUD.SetHP(playerUnit.HP); // updates the player's hp
-            dialogueText.text = "Your HP has been healed [+" + 30 + " life]"; // change the dialogue text
+            dialogueText.text = "Your HP has been healed [+" + 15 + " life]"; // change the dialogue text
         }
         else if (card == "Talk")
         {
@@ -132,24 +132,24 @@ public class Battle : MonoBehaviour
 
         if (card == "Strike") // strike card is played
         {
-            isDead = playerUnit.TakeDamage(50); // deals damage to the player and returns true if the player is dead
+            isDead = playerUnit.TakeDamage(20); // deals damage to the player and returns true if the player is dead
             playerHUD.SetHP(playerUnit.HP); // update the player's HP
             playerHUD.SetShield(playerUnit.shield); // update the player's shield
-            dialogueText.text = "The attack hit you for [-" + 50 + " damage]"; // change the dialogue text
+            dialogueText.text = "The attack hit you for [-" + 20 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
         {
-            opponentUnit.Guard(10); // heals the opponent's shield
+            opponentUnit.Guard(15); // heals the opponent's shield
             opponentHUD.SetShield(opponentUnit.shield); // updates the opponent's shield
-            dialogueText.text = opponentUnit.charName + "'s shield has been healed [+" + 10 + " shield]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + "'s shield has been healed [+" + 15 + " shield]"; // change the dialogue text
         }
 
         else if (card == "Recover") // recover card is played
         {
-            opponentUnit.Recover(30); // heals the opponent's hp
+            opponentUnit.Recover(15); // heals the opponent's hp
             opponentHUD.SetHP(opponentUnit.HP); // updates the opponents's hp
-            dialogueText.text = opponentUnit.charName + "'s HP has been healed [+" + 30 + " life]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + "'s HP has been healed [+" + 15 + " life]"; // change the dialogue text
         }
 
         yield return new WaitForSeconds(2f); // waits for two seconds

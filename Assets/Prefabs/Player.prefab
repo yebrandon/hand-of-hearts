@@ -46,8 +46,8 @@ MonoBehaviour:
   charName: you
   HP: 100
   maxHP: 100
-  shield: 50
-  maxShield: 50
+  shield: 25
+  maxShield: 25
   hasWon: 0
   damage: 0
   deck: {fileID: 0}
