@@ -51,10 +51,6 @@ public class Battle : MonoBehaviour
         Debug.Log("opponent hp" + opponentUnit.HP);
         Debug.Log("opponent hp" + opponentUnit.shield);
 
-
-
-
-
         state = BattleState.PLAYERTURN; // change the battle state to be the player's turn
         PlayerTurn(); // run the player's turn function
     }
@@ -62,6 +58,7 @@ public class Battle : MonoBehaviour
     // deals with the player's turn, executes when a card is placed into the dropzone
     public IEnumerator PlayerAttack(string card, int amnt)
     {
+        Debug.Log("player relationship:" + playerUnit.relationship.getStatus());
         // playerUnit.shield = 0;
         bool isDead = false; // true if the opponent is dead, false otherwise
 
@@ -101,6 +98,8 @@ public class Battle : MonoBehaviour
         else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk")) // Pause if talk card was played, resume if talk scene is exited
         {
             yield return new WaitWhile(() => SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk"));
+            Debug.Log(TalkChoice.getChoice());
+            playerUnit.relationship.setStatus(TalkChoice.getChoice());
             StartCoroutine(OpponentAttack());
         }
         else

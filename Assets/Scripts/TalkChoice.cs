@@ -9,7 +9,7 @@ public class TalkChoice : MonoBehaviour
     public GameObject Choice01;
     public GameObject Choice02;
     public GameObject Choice03;
-    public int ChoiceMade;
+    public static int ChoiceMade = 0;
     public GameObject continueBtn;
 
     public void ChoiceOption1()
@@ -28,6 +28,11 @@ public class TalkChoice : MonoBehaviour
     {
         TextBox.GetComponent<Text>().text = "Dam, u right";
         ChoiceMade = 3;
+    }
+
+    public static int getChoice()
+    {
+        return ChoiceMade;
     }
 
     void Start()
