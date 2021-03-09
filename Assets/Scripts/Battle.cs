@@ -22,6 +22,7 @@ public class Battle : MonoBehaviour
     public BattleHUD opponentHUD;
 
     public Text dialogueText;
+    public Text turnText;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,8 @@ public class Battle : MonoBehaviour
         //playerGO.transform.SetParent(playerBattleStation);
         playerUnit = playerGO.GetComponent<Player>(); // gets the player's component
 
-        dialogueText.text = "Woah, " + opponentUnit.charName + " appeared!"; // sets the dialogue text
+        turnText.text = "Your Turn";
+        dialogueText.text = "The battle begins!"; // sets the dialogue text
 
         playerHUD.SetHUD(playerUnit); // setup player HUD
         opponentHUD.SetHUD(opponentUnit); // setup opponent HUD
@@ -50,10 +52,6 @@ public class Battle : MonoBehaviour
         Debug.Log("player shield" + playerUnit.shield);
         Debug.Log("opponent hp" + opponentUnit.HP);
         Debug.Log("opponent hp" + opponentUnit.shield);
-
-
-
-
 
         state = BattleState.PLAYERTURN; // change the battle state to be the player's turn
         PlayerTurn(); // run the player's turn function
@@ -70,21 +68,21 @@ public class Battle : MonoBehaviour
             isDead = opponentUnit.TakeDamage(20); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
             opponentHUD.SetShield(opponentUnit.shield);
-            dialogueText.text = "The attack hit " + opponentUnit.charName + " [-" + 20 + " damage]"; // change the dialogue text
+            dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
         {
             playerUnit.Guard(15); // heals the player's shield
             playerHUD.SetShield(playerUnit.shield); // updates the player's shield
-            dialogueText.text = "Your shield has been healed [+" + 15 + " shield]"; // change the dialogue text
+            dialogueText.text = "You gained [+" + 15 + " shield]"; // change the dialogue text
         }
 
         else if (card == "Recover") // recover card is played
         {
             playerUnit.Recover(15); // heals the player's hp
             playerHUD.SetHP(playerUnit.HP); // updates the player's hp
-            dialogueText.text = "Your HP has been healed [+" + 15 + " life]"; // change the dialogue text
+            dialogueText.text = "You gained [+" + 15 + " life]"; // change the dialogue text
         }
         else if (card == "Talk")
         {
@@ -101,6 +99,8 @@ public class Battle : MonoBehaviour
         else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk")) // Pause if talk card was played, resume if talk scene is exited
         {
             yield return new WaitWhile(() => SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk"));
+            turnText.text = opponentUnit.charName + "'s Turn";
+            dialogueText.text = "";
             StartCoroutine(OpponentAttack());
         }
         else
@@ -112,7 +112,7 @@ public class Battle : MonoBehaviour
 
     IEnumerator PlayerTalk()
     {
-        dialogueText.text = "we do be talking"; // changes the dialogue text
+        //dialogueText.text = "we do be talking"; // changes the dialogue text
         yield return new WaitForSeconds(2f); // waits two seconds
 
         StartCoroutine(OpponentAttack()); // starts the opponent attack coroutine
@@ -121,7 +121,10 @@ public class Battle : MonoBehaviour
     public IEnumerator OpponentAttack()
     {
         state = BattleState.OPPONENTTURN; // change the battle state
-        dialogueText.text = opponentUnit.charName + "'s turn: "; // changes the dialogue text
+
+        turnText.text = opponentUnit.charName + "'s Turn";
+        dialogueText.text = "";
+        //dialogueText.text = opponentUnit.charName + "'s turn: "; // changes the dialogue text
 
         yield return new WaitForSeconds(2f); // waits for two seconds
         opponentUnit.Play(); // calls function where opponent chooses a random card 
@@ -135,21 +138,21 @@ public class Battle : MonoBehaviour
             isDead = playerUnit.TakeDamage(20); // deals damage to the player and returns true if the player is dead
             playerHUD.SetHP(playerUnit.HP); // update the player's HP
             playerHUD.SetShield(playerUnit.shield); // update the player's shield
-            dialogueText.text = "The attack hit you for [-" + 20 + " damage]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 20 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
         {
             opponentUnit.Guard(15); // heals the opponent's shield
             opponentHUD.SetShield(opponentUnit.shield); // updates the opponent's shield
-            dialogueText.text = opponentUnit.charName + "'s shield has been healed [+" + 15 + " shield]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + " gained [+" + 15 + " shield]"; // change the dialogue text
         }
 
         else if (card == "Recover") // recover card is played
         {
             opponentUnit.Recover(15); // heals the opponent's hp
             opponentHUD.SetHP(opponentUnit.HP); // updates the opponents's hp
-            dialogueText.text = opponentUnit.charName + "'s HP has been healed [+" + 15 + " life]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + " gained [+" + 15 + " life]"; // change the dialogue text
         }
 
         yield return new WaitForSeconds(2f); // waits for two seconds
@@ -169,7 +172,8 @@ public class Battle : MonoBehaviour
     {
         state = BattleState.PLAYERTURN;
         opponentUnit.EndTurn();
-        dialogueText.text = "ur turn";
+        turnText.text = "Your Turn";
+        dialogueText.text = "";
         playerUnit.deck.Draw();
     }
 
@@ -177,11 +181,11 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.WON) // if the player has won
         {
-            dialogueText.text = "congrats u won against " + opponentUnit.charName; // change the dialogue text
+            dialogueText.text = "You defeated " + opponentUnit.charName + "!"; // change the dialogue text
         }
         else if (state == BattleState.LOST) // if the player has lost
         {
-            dialogueText.text = "u lost against " + opponentUnit.charName + ", wow whatta loser"; // change the dialogue text
+            dialogueText.text = "You lost against " + opponentUnit.charName + "!"; // change the dialogue text
         }
     }
 }
