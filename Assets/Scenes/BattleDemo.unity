@@ -316,8 +316,8 @@ MonoBehaviour:
   charName: B)
   HP: 100
   maxHP: 100
-  shield: 50
-  maxShield: 50
+  shield: 25
+  maxShield: 25
   hasWon: 0
   damage: 10
   cards:
@@ -1324,7 +1324,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100
+  m_Text: 25
 --- !u!222 &672175829
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2101,7 +2101,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100
+  m_Text: 25
 --- !u!222 &935968442
 CanvasRenderer:
   m_ObjectHideFlags: 0
