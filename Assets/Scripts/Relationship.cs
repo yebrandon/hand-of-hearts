@@ -19,7 +19,6 @@ public class Relationship : MonoBehaviour
     void Start()
     {
         current = 0;
-        int i = 0;
         dialogueText.text = status[current].ToString();
     }
 
@@ -30,10 +29,11 @@ public class Relationship : MonoBehaviour
 
     public void setStatus(int choice)
     {
-        if (choice == 1)
+        if (choice == 1 && current < 2)
         {
             current++; 
         }
+
         Debug.Log("setting status");
         Debug.Log(current);
         Debug.Log(status[current].ToString());
@@ -43,6 +43,6 @@ public class Relationship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -9,7 +9,7 @@ public class TalkChoice : MonoBehaviour
     public GameObject Choice01;
     public GameObject Choice02;
     public GameObject Choice03;
-    public static int ChoiceMade = 0;
+    public static int ChoiceMade;
     public GameObject continueBtn;
 
     public void ChoiceOption1()
@@ -33,6 +33,11 @@ public class TalkChoice : MonoBehaviour
     public static int getChoice()
     {
         return ChoiceMade;
+    }
+
+    public static void setChoice(int num)
+    {
+        ChoiceMade = num;
     }
 
     void Start()

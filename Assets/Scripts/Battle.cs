@@ -100,6 +100,7 @@ public class Battle : MonoBehaviour
             yield return new WaitWhile(() => SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk"));
             Debug.Log(TalkChoice.getChoice());
             playerUnit.relationship.setStatus(TalkChoice.getChoice());
+            TalkChoice.setChoice(0);
             StartCoroutine(OpponentAttack());
         }
         else
