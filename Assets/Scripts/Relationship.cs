@@ -4,17 +4,19 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
-public enum RelationshipStatus { ENEMIES, PALS, FRIENDS, CHUMS, LOVERS }
+public enum RelationshipStatus { STRANGERS, ACQUAINTANCES, FRIENDS, HEARTWON }
 public class Relationship : MonoBehaviour
 {
+    public Opponent opponent;
     public Text dialogueText;
     public int current = 0;
-    public Dictionary<int, RelationshipStatus> status = new Dictionary<int,RelationshipStatus>{
-        {0, RelationshipStatus.ENEMIES},
-        {1, RelationshipStatus.PALS},
-        {2, RelationshipStatus.FRIENDS}
+    public Dictionary<int, RelationshipStatus> status = new Dictionary<int, RelationshipStatus>{
+        {0, RelationshipStatus.STRANGERS},
+        {1, RelationshipStatus.ACQUAINTANCES},
+        {2, RelationshipStatus.FRIENDS},
+        {3, RelationshipStatus.HEARTWON}
     };
-        
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,13 +33,16 @@ public class Relationship : MonoBehaviour
     {
         if (choice == 1 && current < 2)
         {
-            current++; 
+            current++;
         }
 
         Debug.Log("setting status");
         Debug.Log(current);
         Debug.Log(status[current].ToString());
         dialogueText.text = status[current].ToString();
+
+        // set relationship status in data type thing that stays what is comments
+        Relationships.relationships[opponent.charName] = getStatus();
     }
 
     // Update is called once per frame

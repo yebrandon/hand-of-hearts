@@ -3557,6 +3557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 096386ffa0a711c42b04bce0b234e3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  opponent: {fileID: 20315371}
   dialogueText: {fileID: 254391235}
   current: 0
 --- !u!1 &1948267962
