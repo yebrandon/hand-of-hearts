@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalkChoice : MonoBehaviour
+
+public class ConstantsChoice3 : MonoBehaviour
 {
     public GameObject TextBox;
     public GameObject Choice01;
@@ -12,22 +13,24 @@ public class TalkChoice : MonoBehaviour
     public static int ChoiceMade;
     public GameObject continueBtn;
 
+
     public void ChoiceOption1()
     {
-        TextBox.GetComponent<Text>().text = "I'm glad to hear that!";
+        TextBox.GetComponent<Text>().text = "a fine specimen, i wish to see one someday!";
         ChoiceMade = 1;
     }
 
     public void ChoiceOption2()
     {
-        TextBox.GetComponent<Text>().text = "That's unfortunate...";
+        TextBox.GetComponent<Text>().text = "oh my... some geese are absolutely horrid...";
         ChoiceMade = 2;
     }
 
     public void ChoiceOption3()
     {
-        TextBox.GetComponent<Text>().text = "Dam, u right";
+        TextBox.GetComponent<Text>().text = "ducks! i love them, they're soo cute!";
         ChoiceMade = 3;
+        Relationships.relationships["Constants"]++;
     }
 
     public static int getChoice()

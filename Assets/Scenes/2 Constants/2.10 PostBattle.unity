@@ -235,7 +235,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 321.7, y: 5.600006}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_SizeDelta: {x: 600, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510908245
 MonoBehaviour:
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecd483261f0b947499e2e80bb568c103, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -783,7 +783,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847572395}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1847572397
 Camera:
   m_ObjectHideFlags: 0
@@ -933,19 +933,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Blossom
+    name: Name
     sentences:
-    - Have you heard that Rosa just announced that taxes and farming quotas are going
-      to triple starting next month!?
-    - This is insane! We gotta find this Rosa guy and beat 'em up!!
-    - HELL YEA IM MAD THEY BOUTTA TAKE AWAY OUR FAMILY'S LIVELIHOODS
-    - Didn't your mom say that we should leave the village together and build a better
-      life?
-    - Let's build a better life for ALL of us and go beat up Rosa!!
-    - We can use that deck of cards your mom gave you, she told me its been in your
-      family for generations!
-    - What?? Are you stupid??
-    - You don't know how to use them?? Here, let me show you then!
+    - ah, it appears i have lost!
+    - y-you seem to be a very strong duelist... i guess as per our agreement, i must
+      join you on our quest now...
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

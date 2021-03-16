@@ -24,9 +24,12 @@ public class Battle : MonoBehaviour
     public Text dialogueText;
     public Text turnText;
 
+    public static int talksPlayed;
+
     // Start is called before the first frame update
     void Start()
     {
+        talksPlayed = 0;
         state = BattleState.START; // set to the start state when the first frame is updated
         // set up the battle and start the coroutine
         SetUpBattle();
@@ -60,15 +63,16 @@ public class Battle : MonoBehaviour
     // deals with the player's turn, executes when a card is placed into the dropzone
     public IEnumerator PlayerAttack(string card, int amnt)
     {
+        Debug.Log("player relationship:" + playerUnit.relationship.getStatus());
         // playerUnit.shield = 0;
         bool isDead = false; // true if the opponent is dead, false otherwise
 
         if (card == "Strike") // strike card is played
         {
-            isDead = opponentUnit.TakeDamage(20); // deals damage to the opponent and returns true if the opponent is dead
+            isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
             opponentHUD.SetShield(opponentUnit.shield);
-            dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " damage]"; // change the dialogue text
+            dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
@@ -86,7 +90,9 @@ public class Battle : MonoBehaviour
         }
         else if (card == "Talk")
         {
-            SceneManager.LoadScene("Talk", LoadSceneMode.Additive);
+            talksPlayed++;
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 + (talksPlayed - 1) * 2, LoadSceneMode.Additive);
         }
 
         yield return new WaitForSeconds(2f); // waits for two seconds
@@ -96,11 +102,15 @@ public class Battle : MonoBehaviour
             state = BattleState.WON; // change the battle state
             EndBattle(); // run endbattle function
         }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk")) // Pause if talk card was played, resume if talk scene is exited
+        else if (SceneManager.GetActiveScene() != gameObject.scene) // Pause if talk card was played, resume if talk scene is exited
         {
-            yield return new WaitWhile(() => SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Talk"));
+            yield return new WaitWhile(() => SceneManager.GetActiveScene() != gameObject.scene);
             turnText.text = opponentUnit.charName + "'s Turn";
             dialogueText.text = "";
+            playerUnit.relationship.setStatus(opponentUnit.charName);
+            /*             Debug.Log(TalkChoice.getChoice());
+                        playerUnit.relationship.setStatus(TalkChoice.getChoice());
+                        TalkChoice.setChoice(0); */
             StartCoroutine(OpponentAttack());
         }
         else
@@ -135,10 +145,10 @@ public class Battle : MonoBehaviour
 
         if (card == "Strike") // strike card is played
         {
-            isDead = playerUnit.TakeDamage(20); // deals damage to the player and returns true if the player is dead
+            isDead = playerUnit.TakeDamage(30); // deals damage to the player and returns true if the player is dead
             playerHUD.SetHP(playerUnit.HP); // update the player's HP
             playerHUD.SetShield(playerUnit.shield); // update the player's shield
-            dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 20 + " damage]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 30 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
@@ -182,10 +192,12 @@ public class Battle : MonoBehaviour
         if (state == BattleState.WON) // if the player has won
         {
             dialogueText.text = "You defeated " + opponentUnit.charName + "!"; // change the dialogue text
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7);
         }
         else if (state == BattleState.LOST) // if the player has lost
         {
             dialogueText.text = "You lost against " + opponentUnit.charName + "!"; // change the dialogue text
+            SceneManager.LoadScene("GameOver");
         }
     }
 }

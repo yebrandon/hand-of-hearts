@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,6 +14,24 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
+    }
+
+
+    // Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
+    // Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled.
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.SetActiveScene(gameObject.scene);
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -31,11 +50,20 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
+
         if (sentences.Count == 0)
         {
-            EndDialogue();
-            return;
+            if (SceneManager.sceneCount == 1)
+            {
+                EndDialogue();
+                return;
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Additive);
+            }
         }
+
 
         string sentence = sentences.Dequeue();
         dialogueText.text = sentence;
@@ -43,6 +71,6 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        FindObjectOfType<SwitchScene>().NextScene();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

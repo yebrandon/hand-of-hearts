@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class BackToBattle : MonoBehaviour
 {
-    public TalkChoice talkChoice;
 
     // Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
     void OnEnable()
@@ -21,12 +20,15 @@ public class BackToBattle : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Talk"));
+        SceneManager.SetActiveScene(gameObject.scene);
     }
 
     public void UnloadScene()
     {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("BattleDemo"));
-        SceneManager.UnloadSceneAsync("Talk");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex - Battle.talksPlayed * 2));
+        Debug.Log(SceneManager.GetActiveScene().name);
+
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(gameObject.scene.buildIndex - 1));
+        SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 }
