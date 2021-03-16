@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 16, y: 20.9}
+  m_SizeDelta: {x: 1478.0254, y: 702.1275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96118580
 MonoBehaviour:
@@ -179,10 +179,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -190,7 +190,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: just dont lose lmao
+  m_Text: "During the Visual Novel scenes, left-clicking on the \u201CContinue\u201D
+    button will advance the dialogue. In the Battle scenes, the player can hover
+    over a card and hold down the left-click on the mouse to move the cards around.
+    \n\nTo play a card on the player\u2019s turn, the player can drag one card from
+    the bottom of the screen into the rectangle located in the top-centre area of
+    the screen, called the \u201CCARD ZONE\u201D. In the sections where the player
+    can make a choice, the options will be displayed as buttons, and the player can
+    left-click on them once to select the option they wish to choose.\r\n\r\nRules:\r\nThe
+    player can only play a card when it's their turn\r\nThe player can only play
+    one card per turn\r\nAt the end of the game, the player cannot select an ending
+    with a character whose heart they have not won\r\nAdd rule for talking section\r\n\r\nWinning
+    Conditions:\r\nDefeat opponents using the cards to deplete the their health to
+    0\r\nDefeat all opponents to reach the game\u2019s main ending\r\nTo Win a Character\u2019s
+    Heart: play a \u201CTalk\u201D card and select the correct dialogue option three
+    times\r\n"
 --- !u!222 &96118581
 CanvasRenderer:
   m_ObjectHideFlags: 0

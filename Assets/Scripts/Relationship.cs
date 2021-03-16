@@ -29,21 +29,27 @@ public class Relationship : MonoBehaviour
         return status[current];
     }
 
-    public void setStatus(int choice)
+    public void setStatus(String charName)
     {
-        if (choice == 1 && current < 2)
-        {
-            current++;
-        }
-
         Debug.Log("setting status");
-        Debug.Log(current);
-        Debug.Log(status[current].ToString());
-        dialogueText.text = status[current].ToString();
-
-        // set relationship status in data type thing that stays what is comments
-        Relationships.relationships[opponent.charName] = getStatus();
+        dialogueText.text = Relationships.relationships[charName].ToString();
     }
+
+    /*     public void setStatus(int choice)
+        {
+            if (choice == 1 && current < 2)
+            {
+                current++;
+            }
+
+            Debug.Log("setting status");
+            Debug.Log(current);
+            Debug.Log(status[current].ToString());
+            dialogueText.text = status[current].ToString();
+
+            // set relationship status in data type thing that stays what is comments
+            Relationships.relationships[opponent.charName] = getStatus();
+        } */
 
     // Update is called once per frame
     void Update()

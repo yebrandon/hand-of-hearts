@@ -16,19 +16,20 @@ public class ConstantsChoice2 : MonoBehaviour
 
     public void ChoiceOption1()
     {
-        TextBox.GetComponent<Text>().text = "aaa!";
+        TextBox.GetComponent<Text>().text = "oh dear, the traditional math curriculum they teach in schools is soo not magical...";
         ChoiceMade = 1;
     }
 
     public void ChoiceOption2()
     {
-        TextBox.GetComponent<Text>().text = "Thagasdfgate...";
+        TextBox.GetComponent<Text>().text = "ah, another wandering duck! how glad i am to have found another!";
         ChoiceMade = 2;
+        Relationships.relationships["Constants"]++;
     }
 
     public void ChoiceOption3()
     {
-        TextBox.GetComponent<Text>().text = "Dam,asdf u right";
+        TextBox.GetComponent<Text>().text = "curly fries... far too complicated for my taste. i much prefer the organization of french fries!";
         ChoiceMade = 3;
     }
 

@@ -69,10 +69,10 @@ public class Battle : MonoBehaviour
 
         if (card == "Strike") // strike card is played
         {
-            isDead = opponentUnit.TakeDamage(90); // deals damage to the opponent and returns true if the opponent is dead
+            isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
             opponentHUD.SetShield(opponentUnit.shield);
-            dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " damage]"; // change the dialogue text
+            dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
@@ -107,7 +107,7 @@ public class Battle : MonoBehaviour
             yield return new WaitWhile(() => SceneManager.GetActiveScene() != gameObject.scene);
             turnText.text = opponentUnit.charName + "'s Turn";
             dialogueText.text = "";
-            
+            playerUnit.relationship.setStatus(opponentUnit.charName);
             /*             Debug.Log(TalkChoice.getChoice());
                         playerUnit.relationship.setStatus(TalkChoice.getChoice());
                         TalkChoice.setChoice(0); */
@@ -145,10 +145,10 @@ public class Battle : MonoBehaviour
 
         if (card == "Strike") // strike card is played
         {
-            isDead = playerUnit.TakeDamage(90); // deals damage to the player and returns true if the player is dead
+            isDead = playerUnit.TakeDamage(30); // deals damage to the player and returns true if the player is dead
             playerHUD.SetHP(playerUnit.HP); // update the player's HP
             playerHUD.SetShield(playerUnit.shield); // update the player's shield
-            dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 20 + " damage]"; // change the dialogue text
+            dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 30 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played

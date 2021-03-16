@@ -1168,7 +1168,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: curly
+  m_Text: Not great, but if you join our team, I'm sure we'll be able to defeat Rosa!
 --- !u!222 &1674099129
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   dialogue:
     name: Constants
     sentences:
-    - so what kinda fries do u fuck w
+    - placeholder
 --- !u!114 &1827281655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1393,7 +1393,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: so what kinda fries do u fuck w
+  m_Text: how are things with you?
 --- !u!222 &1827281656
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1549,7 +1549,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: french
+  m_Text: Pretty hard sometimes too... maybe we should share a cup of french fries
+    sometime and talk about it more!
 --- !u!222 &2042929821
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1594,7 +1595,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 321.69998, y: 5.600006}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_SizeDelta: {x: 600, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2050675667
 MonoBehaviour:
@@ -1627,7 +1628,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecd483261f0b947499e2e80bb568c103, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1714,7 +1715,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This art style is horrendous.
+  m_Text: Well, I ran into this guy just a while ago and knocked over his fries.
+    So not amazing.
 --- !u!222 &2094130703
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -16,11 +16,11 @@ public class Deck : MonoBehaviour
         // Initialize list of cards
         cards = new List<string>()
         {
-            // "Strike",
-      
-            // "Strike",
-            // "Guard",
-            "Recover", 
+            "Strike",
+            "Strike",
+            "Guard",
+            "Recover",
+            "Talk",
             "Talk"
         };
 
@@ -33,19 +33,17 @@ public class Deck : MonoBehaviour
 
     public void Draw()
     {
-        Debug.Log(cards[Random.Range(0, cards.Count)]);
         toDraw = cards[Random.Range(0, cards.Count)];
+        while (toDraw == "Talk" && spawnedTalks >= 3)
+        {
+            toDraw = cards[Random.Range(0, cards.Count)];
+        }
         if (toDraw == "Talk")
         {
             spawnedTalks++;
-
-            while (Battle.talksPlayed >= 3 && spawnedTalks >= 3)
-            {
-                toDraw = cards[Random.Range(0, cards.Count)];
-            }
         }
         Debug.Log("spawned" + spawnedTalks);
-        
+
         GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + toDraw));
         card.transform.SetParent(hand.transform);
         card.GetComponent<Draggable>().home = hand.transform;

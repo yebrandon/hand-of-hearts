@@ -847,9 +847,14 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - ur walkin to ur local mcdonalds and ur hongry
-    - pullin up to the front door ayy lmao
-    - oh shit watch out theres a guy
+    - "After consulting with Blossom, you realize that now you might have the power
+      to fight back against Rosa\u2019s tyrannical rule, and save the village from
+      its disastrous fate."
+    - But you realize that even though you may be more powerful than you previously
+      were, you will need more help if you want to take down the ruler.
+    - You travel to the nearest large town and take a break in a fast-food district.
+      After you take a well deserved break, you decide to look around to see if you
+      can find any powerful magic-users that are willing to join you on your journey.
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

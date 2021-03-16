@@ -234,8 +234,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 321.7, y: 5.600006}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 508.22, y: 22.809}
+  m_SizeDelta: {x: 640.04517, y: 1039.0857}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510908245
 MonoBehaviour:
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecd483261f0b947499e2e80bb568c103, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -640,8 +640,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -697, y: -263.44}
-  m_SizeDelta: {x: 214.33511, y: 70.751175}
+  m_AnchoredPosition: {x: -683.6, y: -263.44}
+  m_SizeDelta: {x: 241.11435, y: 70.751175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1589763370
 MonoBehaviour:
@@ -933,11 +933,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Constants
     sentences:
-    - 'yo you knocked over my fries man come on '
-    - there should probably be a choice or some dialogue from you here but lets just
-      fight lmao
+    - WAAHHASODIFUHPGHK!!
+    - h-hhey, watch where you're going next time!...
+    - ... you knocked over my precious cup of french fries...
+    - do you know how rude that is... even a gentleman like myself is going to get
+      mad if you hooligans disrupt my daily potato time!
+    - who am I? ermm, well.. umm... my name is Constants.. I'm a, uhh.. mathemagician
+      of sorts..
+    - wh-what? join you on your journey? you're asking me to do that after you knocked
+      over my precious french fries?
+    - why would I team up with you anyways?
+    - well, I do agree that Rosa's new declarations have not been, uhm, kind to me
+      as a freelance mathemagician...
+    - ..those french fries don't come cheap you know... ughh..
+    - what's that? if i win a duel against you you'll buy me some more fries, but
+      if you win i have to join you on your quest?
+    - y-you know, i might not look too much like it, but I'm quite the duelist!
+    - you're on!
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,7 +60,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                FindObjectOfType<SwitchScene>().NextSceneAdd();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Additive);
             }
         }
 
@@ -71,6 +71,6 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        FindObjectOfType<SwitchScene>().NextScene();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

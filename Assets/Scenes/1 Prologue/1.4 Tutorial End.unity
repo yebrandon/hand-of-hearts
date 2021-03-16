@@ -933,11 +933,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: BFF
+    name: Blossom
     sentences:
-    - alright lets go explore the world
-    - maybe first we can go to some unnamed fast food establishment to get food idk
-    - im hongry
+    - Do you get it now?
+    - Well if you don't then too bad, I'm not showing you again!
+    - 'Let''s go and save the world!! '
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0
