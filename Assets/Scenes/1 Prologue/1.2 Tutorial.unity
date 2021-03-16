@@ -933,11 +933,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: BFF
     sentences:
-    - 'This is filler text for:'
-    - 1 Prologue
-    - 1.2 Tutorial
+    - wow that was pretty convienient that ur mom just had a random deck of cards
+      lying around for us to brutally murder our superiors with
+    - and since im your best friend im gonna support you all the way!!11!!
+    - 'you probably dont know how to play this game bc you suck so here''s how:'
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

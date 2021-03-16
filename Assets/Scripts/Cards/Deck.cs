@@ -14,9 +14,10 @@ public class Deck : MonoBehaviour
         cards = new List<string>()
         {
             "Strike",
+      /*
             "Strike",
             "Guard",
-            "Recover",
+            "Recover", */
             "Talk"
         };
 

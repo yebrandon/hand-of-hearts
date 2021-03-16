@@ -933,11 +933,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: BFF
     sentences:
-    - 'This is filler text for:'
-    - 2 Constants
-    - 2.3 PostBattle
+    - alright lets go explore the world
+    - maybe first we can go to some unnamed fast food establishment to get food idk
+    - im hongry
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

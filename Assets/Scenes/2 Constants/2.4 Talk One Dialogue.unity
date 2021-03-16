@@ -933,14 +933,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Constants
     sentences:
-    - Our story begins in the magical Kingdom of Amare. The kingdom has been under
-      the rule of, ruler name for many years.
-    - "In the past, ruler name was a brilliant leader that always put the needs of
-      the people first. It wasn\u2019t until the tragic death of their love that
-      everything started to change."
-    - ...
+    - yeah im so mad you knocked over my french fries
+    - btw i like french fries more than curly fries
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0
