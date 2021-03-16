@@ -6,6 +6,9 @@ public class Deck : MonoBehaviour
 {
     private List<string> cards;
     public DropZone hand;
+    public string toDraw;
+    public int spawnedTalks = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -13,11 +16,11 @@ public class Deck : MonoBehaviour
         // Initialize list of cards
         cards = new List<string>()
         {
-            "Strike",
-      /*
-            "Strike",
-            "Guard",
-            "Recover", */
+            // "Strike",
+      
+            // "Strike",
+            // "Guard",
+            "Recover", 
             "Talk"
         };
 
@@ -30,7 +33,20 @@ public class Deck : MonoBehaviour
 
     public void Draw()
     {
-        GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + cards[Random.Range(0, cards.Count)]));
+        Debug.Log(cards[Random.Range(0, cards.Count)]);
+        toDraw = cards[Random.Range(0, cards.Count)];
+        if (toDraw == "Talk")
+        {
+            spawnedTalks++;
+
+            while (Battle.talksPlayed >= 3 && spawnedTalks >= 3)
+            {
+                toDraw = cards[Random.Range(0, cards.Count)];
+            }
+        }
+        Debug.Log("spawned" + spawnedTalks);
+        
+        GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + toDraw));
         card.transform.SetParent(hand.transform);
         card.GetComponent<Draggable>().home = hand.transform;
         card.transform.localScale = new Vector3(1, 1, 1);

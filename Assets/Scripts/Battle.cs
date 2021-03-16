@@ -107,6 +107,7 @@ public class Battle : MonoBehaviour
             yield return new WaitWhile(() => SceneManager.GetActiveScene() != gameObject.scene);
             turnText.text = opponentUnit.charName + "'s Turn";
             dialogueText.text = "";
+            
             /*             Debug.Log(TalkChoice.getChoice());
                         playerUnit.relationship.setStatus(TalkChoice.getChoice());
                         TalkChoice.setChoice(0); */
