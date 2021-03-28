@@ -9,6 +9,8 @@ public class Duelist : MonoBehaviour
     public int maxHP;
     public int shield;
     public int maxShield;
+    public int mana;
+    public int maxMana;
     public bool hasWon;
 
     public int damage;
@@ -59,7 +61,7 @@ public class Duelist : MonoBehaviour
     // function that heals the user's hp
     public void Recover(int amnt)
     {
-        Debug.Log (HP + " hp");
+        Debug.Log(HP + " hp");
         if ((HP + amnt) >= maxHP)
         { // if the heal will be equal or exceed the max
             HP = maxHP; // set HP to the max

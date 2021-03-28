@@ -45,7 +45,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (tag == "PlayArea")
         {
             // Play card
-            StartCoroutine(battle.PlayerAttack(cardDisplay.card.name, 10));
+            StartCoroutine(battle.PlayerAttack(cardDisplay.card, 10));
             Destroy(draggable.gameObject);
             Destroy(draggable.placeholder);
         }

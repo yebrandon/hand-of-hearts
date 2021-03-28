@@ -24,11 +24,14 @@ public class Battle : MonoBehaviour
     public Text dialogueText;
     public Text turnText;
 
+    public int turnNum;
+
     public static int talksPlayed;
 
     // Start is called before the first frame update
     void Start()
     {
+        turnNum = 0;
         talksPlayed = 0;
         state = BattleState.START; // set to the start state when the first frame is updated
         // set up the battle and start the coroutine
@@ -61,13 +64,17 @@ public class Battle : MonoBehaviour
     }
 
     // deals with the player's turn, executes when a card is placed into the dropzone
-    public IEnumerator PlayerAttack(string card, int amnt)
+    public IEnumerator PlayerAttack(Card card, int amnt)
     {
         Debug.Log("player relationship:" + playerUnit.relationship.getStatus());
         // playerUnit.shield = 0;
         bool isDead = false; // true if the opponent is dead, false otherwise
 
-        if (card == "Strike") // strike card is played
+        // Pay mana cost
+        playerUnit.mana -= card.cost;
+        playerHUD.SetMana(playerUnit.mana);
+
+        if (card.name == "Strike") // strike card is played
         {
             isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
@@ -75,20 +82,20 @@ public class Battle : MonoBehaviour
             dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]"; // change the dialogue text
         }
 
-        else if (card == "Guard") // guard card is played
+        else if (card.name == "Guard") // guard card is played
         {
             playerUnit.Guard(15); // heals the player's shield
             playerHUD.SetShield(playerUnit.shield); // updates the player's shield
             dialogueText.text = "You gained [+" + 15 + " shield]"; // change the dialogue text
         }
 
-        else if (card == "Recover") // recover card is played
+        else if (card.name == "Recover") // recover card is played
         {
             playerUnit.Recover(15); // heals the player's hp
             playerHUD.SetHP(playerUnit.HP); // updates the player's hp
             dialogueText.text = "You gained [+" + 15 + " life]"; // change the dialogue text
         }
-        else if (card == "Talk")
+        else if (card.name == "Talk")
         {
             talksPlayed++;
 
@@ -105,18 +112,23 @@ public class Battle : MonoBehaviour
         else if (SceneManager.GetActiveScene() != gameObject.scene) // Pause if talk card was played, resume if talk scene is exited
         {
             yield return new WaitWhile(() => SceneManager.GetActiveScene() != gameObject.scene);
-            turnText.text = opponentUnit.charName + "'s Turn";
             dialogueText.text = "";
             playerUnit.relationship.setStatus(opponentUnit.charName);
             /*             Debug.Log(TalkChoice.getChoice());
                         playerUnit.relationship.setStatus(TalkChoice.getChoice());
                         TalkChoice.setChoice(0); */
-            StartCoroutine(OpponentAttack());
+            //StartCoroutine(OpponentAttack());
+            EndTurn();
         }
         else
         {
-            StartCoroutine(OpponentAttack()); // start opponent attack coroutine
+            //StartCoroutine(OpponentAttack()); // start opponent attack coroutine
         }
+    }
+
+    public void EndTurn()
+    {
+        StartCoroutine(OpponentAttack());
     }
 
 
@@ -130,8 +142,11 @@ public class Battle : MonoBehaviour
 
     public IEnumerator OpponentAttack()
     {
-        state = BattleState.OPPONENTTURN; // change the battle state
+        // TODO: add opponent mana cost and logic
 
+        state = BattleState.OPPONENTTURN; // change the battle state
+        GenerateMana(opponentUnit);
+        opponentHUD.SetMana(opponentUnit.mana);
         turnText.text = opponentUnit.charName + "'s Turn";
         dialogueText.text = "";
         //dialogueText.text = opponentUnit.charName + "'s turn: "; // changes the dialogue text
@@ -178,8 +193,34 @@ public class Battle : MonoBehaviour
         }
     }
 
+    void GenerateMana(Duelist duelist)
+    {
+        if (turnNum > 6)
+        {
+            duelist.mana += 4;
+        }
+        else if (turnNum > 3)
+        {
+            duelist.mana += 3;
+        }
+        else
+        {
+            duelist.mana += 2;
+        }
+    }
+
+    public void ManaForCard()
+    {
+        playerUnit.mana -= 2;
+        playerHUD.SetMana(playerUnit.mana);
+        playerUnit.deck.Draw();
+    }
+
     void PlayerTurn()
     {
+        turnNum++;
+        GenerateMana(playerUnit);
+        playerHUD.SetMana(playerUnit.mana);
         state = BattleState.PLAYERTURN;
         opponentUnit.EndTurn();
         turnText.text = "Your Turn";
