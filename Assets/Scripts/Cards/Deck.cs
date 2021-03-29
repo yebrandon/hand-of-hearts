@@ -36,12 +36,27 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public bool checkThird(string toDraw)
+    {
+        int repeat = 0;
+        foreach (Transform child in hand.transform)
+        {
+            if ((toDraw+"(Clone)").Equals(child.name)){
+                repeat++;
+            }
+            if (repeat == 2){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void Draw()
     {
         if (hand.transform.childCount < MAX_HAND_SIZE)
         {
             toDraw = cards[Random.Range(0, cards.Count)];
-            while (toDraw == "Talk" && spawnedTalks >= 3)
+            while ((toDraw == "Talk" && spawnedTalks >= 3) || checkThird(toDraw))
             {
                 toDraw = cards[Random.Range(0, cards.Count)];
             }
