@@ -25,6 +25,9 @@ public class Battle : MonoBehaviour
     public Text turnText;
 
     public static int talksPlayed;
+    public bool cross = false;
+    public bool burn = false;
+    public int burnCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -61,13 +64,20 @@ public class Battle : MonoBehaviour
     }
 
     // deals with the player's turn, executes when a card is placed into the dropzone
-    public IEnumerator PlayerAttack(string card, int amnt)
+    public IEnumerator PlayerAttack(Card cardPlayed, int amnt)
     {
         Debug.Log("player relationship:" + playerUnit.relationship.getStatus());
         // playerUnit.shield = 0;
         bool isDead = false; // true if the opponent is dead, false otherwise
+        string cardName = cardPlayed.name;
+        // CardType type = cardPlayed.type;
+        // Debug.Log(type);
 
-        if (card == "Strike") // strike card is played
+        // if (type == CardType.OFFENSIVE){
+        //     Debug.Log("offensive card played");
+        // }
+
+        if (cardName == "Strike") // strike card is played
         {
             isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
@@ -75,20 +85,47 @@ public class Battle : MonoBehaviour
             dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]"; // change the dialogue text
         }
 
-        else if (card == "Guard") // guard card is played
+        else if (cardName == "Guard") // guard card is played
         {
             playerUnit.Guard(15); // heals the player's shield
             playerHUD.SetShield(playerUnit.shield); // updates the player's shield
             dialogueText.text = "You gained [+" + 15 + " shield]"; // change the dialogue text
         }
 
-        else if (card == "Recover") // recover card is played
+        else if (cardName == "Recover") // recover card is played
         {
             playerUnit.Recover(15); // heals the player's hp
             playerHUD.SetHP(playerUnit.HP); // updates the player's hp
             dialogueText.text = "You gained [+" + 15 + " life]"; // change the dialogue text
         }
-        else if (card == "Talk")
+
+        else if (cardName == "Cross") // cross card is played
+        {
+            cross = true;
+            dialogueText.text = "You will only take half of the next attack's damage"; // change the dialogue text
+        }
+        else if (cardName == "Burning Desire") // burn card is played
+        {
+            burnCount = 0;
+            burn = true;
+            dialogueText.text = "The opponent will take 60 damage total over the next three turns"; // change the dialogue text
+        }
+        else if (cardName == "Living On The Edge") // burn card is played
+        {
+            if (playerUnit.HP < 30)
+            {
+                isDead = opponentUnit.TakeDamage(60);
+                dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " damage]"; // change the dialogue text
+            }
+            else
+            {
+                isDead = opponentUnit.TakeDamage(20);
+                dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " damage]"; // change the dialogue text
+            }
+            opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
+            opponentHUD.SetShield(opponentUnit.shield);
+        }
+        else if (cardName == "Talk")
         {
             talksPlayed++;
 
@@ -120,13 +157,13 @@ public class Battle : MonoBehaviour
     }
 
 
-    IEnumerator PlayerTalk()
-    {
-        //dialogueText.text = "we do be talking"; // changes the dialogue text
-        yield return new WaitForSeconds(2f); // waits two seconds
+    // IEnumerator PlayerTalk()
+    // {
+    //     //dialogueText.text = "we do be talking"; // changes the dialogue text
+    //     yield return new WaitForSeconds(2f); // waits two seconds
 
-        StartCoroutine(OpponentAttack()); // starts the opponent attack coroutine
-    }
+    //     StartCoroutine(OpponentAttack()); // starts the opponent attack coroutine
+    // }
 
     public IEnumerator OpponentAttack()
     {
@@ -134,7 +171,17 @@ public class Battle : MonoBehaviour
 
         turnText.text = opponentUnit.charName + "'s Turn";
         dialogueText.text = "";
-        //dialogueText.text = opponentUnit.charName + "'s turn: "; // changes the dialogue text
+        
+        if (burnCount < 3 && burn)
+        {
+            yield return new WaitForSeconds(2f); // waits for two seconds
+            dialogueText.text = opponentUnit.charName + " took damage from their Burn [- 20 health]"; // changes the dialogue text
+            opponentUnit.TakeDamage(20);
+            opponentHUD.SetHP(opponentUnit.HP);
+            opponentHUD.SetShield(opponentUnit.shield);
+            burnCount++;
+        }
+
 
         yield return new WaitForSeconds(2f); // waits for two seconds
         opponentUnit.Play(); // calls function where opponent chooses a random card 
@@ -145,10 +192,19 @@ public class Battle : MonoBehaviour
 
         if (card == "Strike") // strike card is played
         {
-            isDead = playerUnit.TakeDamage(30); // deals damage to the player and returns true if the player is dead
+            if (cross)
+            {
+                isDead = playerUnit.TakeDamage(15);
+                cross = false;
+                dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 15 + " damage]"; // change the dialogue text
+            } 
+            else
+            {
+                isDead = playerUnit.TakeDamage(30); // deals damage to the player and returns true if the player is dead
+                dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 30 + " damage]"; // change the dialogue text
+            }
             playerHUD.SetHP(playerUnit.HP); // update the player's HP
             playerHUD.SetShield(playerUnit.shield); // update the player's shield
-            dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 30 + " damage]"; // change the dialogue text
         }
 
         else if (card == "Guard") // guard card is played
@@ -185,6 +241,20 @@ public class Battle : MonoBehaviour
         turnText.text = "Your Turn";
         dialogueText.text = "";
         playerUnit.deck.Draw();
+    }
+
+    public IEnumerator SkipTurn()
+    {
+        dialogueText.text = "You skipped your turn.";
+        yield return new WaitForSeconds(2f); // waits two seconds
+        StartCoroutine(OpponentAttack());
+    }
+
+    public void OnSkipTurnButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+        StartCoroutine(SkipTurn());
     }
 
     void EndBattle()
