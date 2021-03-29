@@ -51,10 +51,10 @@ EditorBuildSettings:
     path: Assets/Scenes/2 Constants/2.10 PostBattle.unity
     guid: 280f460130f350c4995ebfa608e15796
   - enabled: 1
-    path: Assets/Scenes/3 Candy/3.1 Meeting.unity
+    path: Assets/Scenes/3 Candy/3.1 Travelling.unity
     guid: 245e4be956a6dbc4f84866a2dc35de36
   - enabled: 1
-    path: Assets/Scenes/3 Candy/3.3 PostBattle.unity
+    path: Assets/Scenes/3 Candy/3.8 PostBattle.unity
     guid: 7daa6f3e5b50ade488b7822014aae2ee
   - enabled: 1
     path: Assets/Scenes/4 Jibb/4.1 Meeting.unity
