@@ -42,16 +42,13 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         CardDisplay cardDisplay = eventData.pointerDrag.GetComponent<CardDisplay>();
         Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
 
-        if (tag == "PlayArea")
+        // Check if player has enough mana to play card
+        if (tag == "PlayArea" && cardDisplay.card.cost <= battle.playerUnit.mana)
         {
             // Play card
             StartCoroutine(battle.PlayerAttack(cardDisplay.card, 10));
             Destroy(draggable.gameObject);
             Destroy(draggable.placeholder);
-        }
-        else if (draggable != null)
-        {
-            draggable.home = transform; // Return card to hand
         }
     }
 
