@@ -52,6 +52,7 @@ public class Deck : MonoBehaviour
             Debug.Log("spawned" + spawnedTalks);
 
             GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + toDraw));
+            Debug.Log(toDraw);
             card.transform.SetParent(hand.transform);
             card.GetComponent<Draggable>().home = hand.transform;
             card.transform.localScale = new Vector3(1, 1, 1);

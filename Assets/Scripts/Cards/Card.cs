@@ -13,6 +13,5 @@ public class Card : ScriptableObject
     public int cost;
     public Sprite artwork;
     public CardType type; 
-    public int cost;
     public int effect;
 }

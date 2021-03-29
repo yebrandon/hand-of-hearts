@@ -18,7 +18,7 @@ MonoBehaviour:
 
     Cost:
     2 Mana'
-  artwork: {fileID: 21300000, guid: b838baab53dfc114fb1fa672eb294db3, type: 3}
-  type: 0
   cost: 2
+  artwork: {fileID: 21300000, guid: b838baab53dfc114fb1fa672eb294db3, type: 3}
+  type: 1
   effect: 30

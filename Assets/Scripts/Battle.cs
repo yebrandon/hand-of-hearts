@@ -80,7 +80,7 @@ public class Battle : MonoBehaviour
         playerUnit.mana -= cardPlayed.cost;
         playerHUD.SetMana(playerUnit.mana);
 
-        if (card.name == "Strike") // strike card is played
+        if (cardName == "Strike") // strike card is played
         {
             isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP); // update the opponent's HP
