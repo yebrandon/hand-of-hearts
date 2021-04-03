@@ -6,4 +6,5 @@ using UnityEngine.SceneManagement;
 public static class SceneTracker
 {
     public static string lastBattleSceneName = "";
+    public static string lastBattleCharName = "";
 }

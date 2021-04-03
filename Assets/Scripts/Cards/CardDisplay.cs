@@ -22,13 +22,20 @@ public class CardDisplay : MonoBehaviour
     void Update()
     {
         // Prevent player from playing cards if it is not their turn
-        if (FindObjectOfType<Battle>().state != BattleState.PLAYERTURN)
+        if (FindObjectOfType<Battle>())
         {
-            GetComponent<Draggable>().enabled = false;
+            if (FindObjectOfType<Battle>().state != BattleState.PLAYERTURN)
+            {
+                GetComponent<Draggable>().enabled = false;
+            }
+            else
+            {
+                GetComponent<Draggable>().enabled = true;
+            }
         }
         else
         {
-            GetComponent<Draggable>().enabled = true;
+            GetComponent<Draggable>().enabled = false;
         }
     }
 }

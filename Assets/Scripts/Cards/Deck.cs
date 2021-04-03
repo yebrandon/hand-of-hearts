@@ -9,7 +9,7 @@ public class Deck : MonoBehaviour
     public string toDraw;
     public int spawnedTalks = 0;
 
-    public const int MAX_HAND_SIZE = 6;
+    public int MAX_HAND_SIZE = 6;
 
     void Start()
     {

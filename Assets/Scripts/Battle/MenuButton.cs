@@ -17,7 +17,7 @@ public class MenuButton : MonoBehaviour
             {
                 // Create card based on relationship status 
                 // SkillCard1 maps to acquaintences, SkillCard2 maps to friends, etc.
-                GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + battle.opponentUnit.charName + "/SkillCard" + ((int)entry.Value).ToString()));
+                GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + battle.opponentUnit.charName + "/SkillCard" + ((int)entry.Value - 1).ToString()));
 
                 // Attach card to menu
                 card.transform.SetParent(menu.transform);

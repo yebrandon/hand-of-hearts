@@ -11,15 +11,16 @@ public class Relationship : MonoBehaviour
     public Text dialogueText;
     public int current = 0;
     public Dictionary<int, RelationshipStatus> status = new Dictionary<int, RelationshipStatus>{
-        {0, RelationshipStatus.STRANGERS},
-        {1, RelationshipStatus.ACQUAINTANCES},
-        {2, RelationshipStatus.FRIENDS},
-        {3, RelationshipStatus.HEARTWON}
+        {0, RelationshipStatus.NOTMET},
+        {1, RelationshipStatus.STRANGERS},
+        {2, RelationshipStatus.ACQUAINTANCES},
+        {3, RelationshipStatus.FRIENDS},
+        {4, RelationshipStatus.HEARTWON}
     };
 
     void Start()
     {
-        current = 0;
+        current = 1;
         dialogueText.text = status[current].ToString();
     }
 
@@ -30,6 +31,7 @@ public class Relationship : MonoBehaviour
 
     public void setStatus(String charName)
     {
+        Debug.Log(Relationships.relationships[charName].ToString());
         dialogueText.text = Relationships.relationships[charName].ToString();
     }
 }

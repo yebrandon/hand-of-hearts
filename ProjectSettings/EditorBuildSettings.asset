@@ -51,7 +51,7 @@ EditorBuildSettings:
     path: Assets/Scenes/2 Constants/2.9 Talk Three Choice.unity
     guid: 95dafffc1f4421b4f86a8702ad92f1b3
   - enabled: 1
-    path: Assets/Scenes/2 Constants/2.10 PostBattle.unity
+    path: Assets/Scenes/2 Constants/2.10 GetCard.unity
     guid: 280f460130f350c4995ebfa608e15796
   - enabled: 1
     path: Assets/Scenes/3 Candy/3.1 Travelling.unity
@@ -92,4 +92,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: c18b3808c2280a0438908e57e133f41d
+  - enabled: 1
+    path: Assets/Scenes/2 Constants/2.11 PostBattle.unity
+    guid: afdfbed011cb89042941e4bf243d7310
   m_configObjects: {}

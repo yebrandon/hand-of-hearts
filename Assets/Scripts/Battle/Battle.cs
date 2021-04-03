@@ -52,6 +52,7 @@ public class Battle : MonoBehaviour
 
         // Change relationship status from NOTMET to strangers 
         Relationships.relationships[opponentUnit.charName]++;
+        Debug.Log(Relationships.relationships[opponentUnit.charName]);
         playerUnit.relationship.setStatus(opponentUnit.charName);
 
         turnText.text = "Your Turn";
@@ -59,6 +60,7 @@ public class Battle : MonoBehaviour
 
         playerHUD.SetHUD(playerUnit);
         opponentHUD.SetHUD(opponentUnit);
+        playerUnit.relationship.setStatus(opponentUnit.charName);
 
         yield return new WaitForSeconds(2f);
 
@@ -79,7 +81,7 @@ public class Battle : MonoBehaviour
 
         if (cardName == "Strike")
         {
-            isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
+            isDead = opponentUnit.TakeDamage(1000); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
             dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]";
@@ -263,7 +265,7 @@ public class Battle : MonoBehaviour
 
     public void ManaForCard()
     {
-        if (state == BattleState.PLAYERTURN)
+        if (state == BattleState.PLAYERTURN && playerUnit.deck.hand.transform.childCount < playerUnit.deck.MAX_HAND_SIZE)
         {
             playerUnit.mana -= 2;
             playerHUD.SetMana(playerUnit.mana);
@@ -308,13 +310,22 @@ public class Battle : MonoBehaviour
 
     void EndBattle()
     {
+        SceneTracker.lastBattleSceneName = SceneManager.GetActiveScene().name;
+        SceneTracker.lastBattleCharName = opponentUnit.charName;
         if (state == BattleState.WON)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7);
+            // Earn a card if relationship is FRIENDS or above, skip card reward otherwise
+            if ((int)Relationships.relationships[opponentUnit.charName] > 1)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7);
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 8);
+            }
         }
         else if (state == BattleState.LOST)
         {
-            SceneTracker.lastBattleSceneName = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene("GameOver");
         }
     }
