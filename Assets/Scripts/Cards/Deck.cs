@@ -8,13 +8,12 @@ public class Deck : MonoBehaviour
     public DropZone hand;
     public string toDraw;
     public int spawnedTalks = 0;
+
     public const int MAX_HAND_SIZE = 6;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        // Initialize list of cards
+        // Initialize list of cards in deck
         cards = new List<string>()
         {
             "Strike",
@@ -41,10 +40,12 @@ public class Deck : MonoBehaviour
         int repeat = 0;
         foreach (Transform child in hand.transform)
         {
-            if ((toDraw+"(Clone)").Equals(child.name)){
+            if ((toDraw + "(Clone)").Equals(child.name))
+            {
                 repeat++;
             }
-            if (repeat == 2){
+            if (repeat == 2)
+            {
                 return true;
             }
         }
@@ -56,6 +57,8 @@ public class Deck : MonoBehaviour
         if (hand.transform.childCount < MAX_HAND_SIZE)
         {
             toDraw = cards[Random.Range(0, cards.Count)];
+
+            // Choose another card if the current card is a fourth total talk card or a third of a card currently in the player's hand
             while ((toDraw == "Talk" && spawnedTalks >= 3) || checkThird(toDraw))
             {
                 toDraw = cards[Random.Range(0, cards.Count)];
@@ -64,10 +67,10 @@ public class Deck : MonoBehaviour
             {
                 spawnedTalks++;
             }
-            Debug.Log("spawned" + spawnedTalks);
 
-            GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + toDraw));
-            Debug.Log(toDraw);
+            GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/PlayerCards/" + toDraw));
+
+            // Attach card to hand
             card.transform.SetParent(hand.transform);
             card.GetComponent<Draggable>().home = hand.transform;
             card.transform.localScale = new Vector3(1, 1, 1);

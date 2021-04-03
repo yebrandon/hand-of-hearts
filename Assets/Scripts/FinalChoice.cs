@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class FinalChoice : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
+        // Loop through relationships and enable character choices in the scene if their heart has been won
         foreach (KeyValuePair<string, RelationshipStatus> entry in Relationships.relationships)
         {
             if (entry.Value == RelationshipStatus.HEARTWON)
@@ -17,7 +17,7 @@ public class FinalChoice : MonoBehaviour
         }
     }
 
-    // Loads the ending corresponding to the user's choice. Remember to pass in the correct number in the inspector for the button that calls this function
+    // Load the ending corresponding to the user's choice. Remember to pass in the correct number in the inspector for the button that calls this function
     public void Choose(int num)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + num);

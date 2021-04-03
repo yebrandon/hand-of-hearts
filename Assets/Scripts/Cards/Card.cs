@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CardType { OFFENSIVE, DEFENSIVE, TALK };
-
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class Card : ScriptableObject
 {
@@ -12,6 +11,6 @@ public class Card : ScriptableObject
     public string description;
     public int cost;
     public Sprite artwork;
-    public CardType type; 
+    public CardType type;
     public int effect;
 }

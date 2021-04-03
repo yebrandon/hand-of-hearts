@@ -640,8 +640,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -697, y: -263.44}
-  m_SizeDelta: {x: 214.33511, y: 70.751175}
+  m_AnchoredPosition: {x: -686.2, y: -263.44}
+  m_SizeDelta: {x: 236.01349, y: 70.751175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1589763370
 MonoBehaviour:
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Constants
     sentences:
     - ah, it appears i have lost!
     - y-you seem to be a very strong duelist... i guess as per our agreement, i must
