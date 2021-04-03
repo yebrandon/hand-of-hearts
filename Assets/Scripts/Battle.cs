@@ -26,6 +26,8 @@ public class Battle : MonoBehaviour
     public Text turnText;
     public Text wonLost;
 
+    public MenuButton menuButton;
+
     public int turnNum;
 
     public static int talksPlayed;
@@ -51,6 +53,10 @@ public class Battle : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab); // instantiating the player's gameobject
         //playerGO.transform.SetParent(playerBattleStation);
         playerUnit = playerGO.GetComponent<Player>(); // gets the player's component
+
+        // Change relationship status from NOTMET to strangers 
+        Relationships.relationships[opponentUnit.charName]++;
+        playerUnit.relationship.setStatus(opponentUnit.charName);
 
         turnText.text = "Your Turn";
         dialogueText.text = "The battle begins!"; // sets the dialogue text
@@ -162,9 +168,13 @@ public class Battle : MonoBehaviour
         }
     }
 
+    // Possibly move to seperate script?
     public void EndTurn()
     {
-        StartCoroutine(OpponentAttack());
+        if (state == BattleState.PLAYERTURN)
+        {
+            StartCoroutine(OpponentAttack());
+        }
     }
 
 
@@ -180,12 +190,17 @@ public class Battle : MonoBehaviour
     {
         // TODO: add opponent mana cost and logic
         state = BattleState.OPPONENTTURN; // change the battle state
+
+        // close the skill card menu if open
+        if (menuButton.menu.gameObject.activeInHierarchy)
+        {
+            menuButton.menu.gameObject.SetActive(false);
+        }
+
         GenerateMana(opponentUnit);
         opponentHUD.SetMana(opponentUnit.mana);
         turnText.text = opponentUnit.charName + "'s Turn";
         dialogueText.text = "";
-        bool isDead = false; // true if the player is dead, false otherwise
-        
         if (burnCount < 3 && burn)
         {
             yield return new WaitForSeconds(2f); // waits for two seconds
@@ -214,7 +229,7 @@ public class Battle : MonoBehaviour
                 isDead = playerUnit.TakeDamage(15);
                 cross = false;
                 dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 15 + " damage]"; // change the dialogue text
-            } 
+            }
             else
             {
                 isDead = playerUnit.TakeDamage(30); // deals damage to the player and returns true if the player is dead
@@ -269,13 +284,17 @@ public class Battle : MonoBehaviour
 
     public void ManaForCard()
     {
-        playerUnit.mana -= 2;
-        playerHUD.SetMana(playerUnit.mana);
-        playerUnit.deck.Draw();
+        if (state == BattleState.PLAYERTURN)
+        {
+            playerUnit.mana -= 2;
+            playerHUD.SetMana(playerUnit.mana);
+            playerUnit.deck.Draw();
+        }
     }
 
     void PlayerTurn()
     {
+        menuButton.updateCards();
         turnNum++;
         GenerateMana(playerUnit);
         playerHUD.SetMana(playerUnit.mana);

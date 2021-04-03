@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
-public enum RelationshipStatus { STRANGERS, ACQUAINTANCES, FRIENDS, HEARTWON }
+public enum RelationshipStatus { NOTMET, STRANGERS, ACQUAINTANCES, FRIENDS, HEARTWON }
 public class Relationship : MonoBehaviour
 {
     public Opponent opponent;
