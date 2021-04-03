@@ -14,4 +14,9 @@ public class Card : ScriptableObject
     public Sprite artwork;
     public CardType type; 
     public int effect;
+
+    public string getCardName()
+    {
+        return name;
+    }
 }

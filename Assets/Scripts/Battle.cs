@@ -11,6 +11,7 @@ public class Battle : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject opponentPrefab;
+    public GameOverUI gameOverUI;
 
     public Transform playerBattleStation;
     public Transform opponentBattleStation;
@@ -23,6 +24,7 @@ public class Battle : MonoBehaviour
 
     public Text dialogueText;
     public Text turnText;
+    public Text wonLost;
 
     public int turnNum;
 
@@ -38,6 +40,7 @@ public class Battle : MonoBehaviour
         talksPlayed = 0;
         state = BattleState.START; // set to the start state when the first frame is updated
         // set up the battle and start the coroutine
+        gameOverUI.gameOverScreen.SetActive(false);
         SetUpBattle();
         StartCoroutine(SetUpBattle());
     }
@@ -176,12 +179,12 @@ public class Battle : MonoBehaviour
     public IEnumerator OpponentAttack()
     {
         // TODO: add opponent mana cost and logic
-
         state = BattleState.OPPONENTTURN; // change the battle state
         GenerateMana(opponentUnit);
         opponentHUD.SetMana(opponentUnit.mana);
         turnText.text = opponentUnit.charName + "'s Turn";
         dialogueText.text = "";
+        bool isDead = false; // true if the player is dead, false otherwise
         
         if (burnCount < 3 && burn)
         {
@@ -191,15 +194,18 @@ public class Battle : MonoBehaviour
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
             burnCount++;
+            if (isDead) // if the player is dead
+            {
+                state = BattleState.LOST; // change the battle state
+                EndBattle(); // run endbattle function
+            }
         }
-
 
         yield return new WaitForSeconds(2f); // waits for two seconds
         opponentUnit.Play(); // calls function where opponent chooses a random card 
         string card = opponentUnit.cardToPlay;
         Debug.Log(opponentUnit.cardToPlay + " played by opponent");
 
-        bool isDead = false; // true if the player is dead, false otherwise
 
         if (card == "Strike") // strike card is played
         {
@@ -296,14 +302,16 @@ public class Battle : MonoBehaviour
 
     void EndBattle()
     {
+        gameOverUI.gameOverScreen.SetActive(true);
+        
         if (state == BattleState.WON) // if the player has won
         {
-            dialogueText.text = "You defeated " + opponentUnit.charName + "!"; // change the dialogue text
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7);
+            gameOverUI.LoadCard(playerUnit.relationship, opponentUnit.charName, playerUnit.deck);
+            wonLost.text = "You defeated " + opponentUnit.charName + "!"; // change the dialogue text
         }
         else if (state == BattleState.LOST) // if the player has lost
         {
-            dialogueText.text = "You lost against " + opponentUnit.charName + "!"; // change the dialogue text
+            wonLost.text = "You lost against " + opponentUnit.charName + "!"; // change the dialogue text
             SceneManager.LoadScene("GameOver");
         }
     }

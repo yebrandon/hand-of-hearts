@@ -29,6 +29,11 @@ public class Relationship : MonoBehaviour
         return status[current];
     }
 
+    public int getStatusInt()
+    {
+        return current;
+    }
+
     public void setStatus(String charName)
     {
         Debug.Log("setting status");

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    private List<string> cards;
+    public List<string> cards;
     public DropZone hand;
     public string toDraw;
     public int spawnedTalks = 0;
@@ -19,14 +19,14 @@ public class Deck : MonoBehaviour
         {
             "Strike",
             "Strike",
-            "Guard",
-            "Recover",
-            "Talk",
-            "Talk",
-            "Cross",
-            "Burn",
+            // "Guard",
+            // "Recover",
+            // "Talk",
+            // "Talk",
+            // "Cross",
+            // "Burn",
+            // "Edge",
             "Edge",
-            "Edge"
         };
 
         // Draw 3 cards at the start of the game (+1 for start of turn)
@@ -34,6 +34,11 @@ public class Deck : MonoBehaviour
         {
             Draw();
         }
+    }
+
+    public void AddCard(string cardName)
+    {
+        cards.Add(cardName);
     }
 
     public void Draw()
