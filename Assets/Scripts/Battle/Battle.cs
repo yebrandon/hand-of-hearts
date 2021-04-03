@@ -314,6 +314,7 @@ public class Battle : MonoBehaviour
         }
         else if (state == BattleState.LOST)
         {
+            SceneTracker.lastBattleSceneName = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene("GameOver");
         }
     }

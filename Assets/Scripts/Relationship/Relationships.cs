@@ -9,4 +9,15 @@ public static class Relationships
         {"Jibb", RelationshipStatus.NOTMET},
         {"Rosa", RelationshipStatus.NOTMET}
     };
+
+    public static void ResetRelationships()
+    {
+        relationships = new Dictionary<string, RelationshipStatus>(){
+        {"Blossom", RelationshipStatus.NOTMET},
+        {"Constants", RelationshipStatus.NOTMET},
+        {"Candy", RelationshipStatus.NOTMET},
+        {"Jibb", RelationshipStatus.NOTMET},
+        {"Rosa", RelationshipStatus.NOTMET}
+    };
+    }
 }

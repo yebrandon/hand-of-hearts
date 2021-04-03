@@ -14,4 +14,15 @@ public class SwitchScene : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Additive);
     }
+
+    public void RestartBattle()
+    {
+        SceneManager.LoadScene(SceneTracker.lastBattleSceneName);
+    }
+
+    public void ReturnToTitle()
+    {
+        Relationships.ResetRelationships();
+        SceneManager.LoadScene("Start");
+    }
 }
