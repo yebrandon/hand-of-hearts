@@ -188,6 +188,13 @@ public class Battle : MonoBehaviour
         // TODO: add opponent mana cost and logic
 
         state = BattleState.OPPONENTTURN; // change the battle state
+
+        // close the skill card menu if open
+        if (menuButton.menu.gameObject.activeInHierarchy)
+        {
+            menuButton.menu.gameObject.SetActive(false);
+        }
+
         GenerateMana(opponentUnit);
         opponentHUD.SetMana(opponentUnit.mana);
         turnText.text = opponentUnit.charName + "'s Turn";
@@ -273,9 +280,12 @@ public class Battle : MonoBehaviour
 
     public void ManaForCard()
     {
-        playerUnit.mana -= 2;
-        playerHUD.SetMana(playerUnit.mana);
-        playerUnit.deck.Draw();
+        if (state == BattleState.PLAYERTURN)
+        {
+            playerUnit.mana -= 2;
+            playerHUD.SetMana(playerUnit.mana);
+            playerUnit.deck.Draw();
+        }
     }
 
     void PlayerTurn()

@@ -29,6 +29,9 @@ public class MenuButton : MonoBehaviour
 
     public void toggleMenu()
     {
-        menu.gameObject.SetActive(!menu.gameObject.activeInHierarchy);
+        if (battle.state == BattleState.PLAYERTURN)
+        {
+            menu.gameObject.SetActive(!menu.gameObject.activeInHierarchy);
+        }
     }
 }
