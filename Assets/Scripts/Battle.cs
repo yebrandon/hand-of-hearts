@@ -24,6 +24,8 @@ public class Battle : MonoBehaviour
     public Text dialogueText;
     public Text turnText;
 
+    public MenuButton menuButton;
+
     public int turnNum;
 
     public static int talksPlayed;
@@ -48,6 +50,10 @@ public class Battle : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab); // instantiating the player's gameobject
         //playerGO.transform.SetParent(playerBattleStation);
         playerUnit = playerGO.GetComponent<Player>(); // gets the player's component
+
+        // Change relationship status from NOTMET to strangers 
+        Relationships.relationships[opponentUnit.charName]++;
+        playerUnit.relationship.setStatus(opponentUnit.charName);
 
         turnText.text = "Your Turn";
         dialogueText.text = "The battle begins!"; // sets the dialogue text
@@ -159,9 +165,13 @@ public class Battle : MonoBehaviour
         }
     }
 
+    // Possibly move to seperate script?
     public void EndTurn()
     {
-        StartCoroutine(OpponentAttack());
+        if (state == BattleState.PLAYERTURN)
+        {
+            StartCoroutine(OpponentAttack());
+        }
     }
 
 
@@ -182,7 +192,7 @@ public class Battle : MonoBehaviour
         opponentHUD.SetMana(opponentUnit.mana);
         turnText.text = opponentUnit.charName + "'s Turn";
         dialogueText.text = "";
-        
+
         if (burnCount < 3 && burn)
         {
             yield return new WaitForSeconds(2f); // waits for two seconds
@@ -208,7 +218,7 @@ public class Battle : MonoBehaviour
                 isDead = playerUnit.TakeDamage(15);
                 cross = false;
                 dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 15 + " damage]"; // change the dialogue text
-            } 
+            }
             else
             {
                 isDead = playerUnit.TakeDamage(30); // deals damage to the player and returns true if the player is dead
@@ -270,6 +280,7 @@ public class Battle : MonoBehaviour
 
     void PlayerTurn()
     {
+        menuButton.updateCards();
         turnNum++;
         GenerateMana(playerUnit);
         playerHUD.SetMana(playerUnit.mana);
