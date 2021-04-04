@@ -40,19 +40,19 @@ public class Relationship : MonoBehaviour
     {
         Debug.Log("setting status");
         Debug.Log(Relationships.relationships[charName]);
-        // if (!start)
-        // {
+        if (!start)
+        {
             current++;
             Debug.Log(current);
             setHearts();
-        // }
+        }
         dialogueText.text = Relationships.relationships[charName].ToString();
     }
 
     public void setHearts()
     {
         SpriteRenderer oldHeart = heartsGroup.GetComponentInChildren<SpriteRenderer>();
-        GameObject newHeart = (GameObject)Instantiate(Resources.Load("Prefabs/Hearts/heartFilled"));
+        GameObject newHeart = (GameObject)Instantiate(Resources.Load("Prefabs/Hearts/heartFilledSparkle"));
         newHeart.transform.SetParent(heartsGroup.transform);
         Debug.Log(oldHeart.transform.localPosition);
         newHeart.transform.localPosition = (oldHeart.transform.localPosition);

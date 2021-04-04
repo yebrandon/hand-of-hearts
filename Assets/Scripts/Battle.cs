@@ -174,6 +174,7 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
+            endTurnButton.GetComponent<Button>().interactable = false;
             StartCoroutine(OpponentAttack());
         }
     }
@@ -310,6 +311,7 @@ public class Battle : MonoBehaviour
         turnText.text = "Your Turn";
         dialogueText.text = "";
         playerUnit.deck.Draw();
+        endTurnButton.GetComponent<Button>().interactable = true;
     }
 
     public IEnumerator SkipTurn()
