@@ -64,6 +64,7 @@ public class Battle : MonoBehaviour
 
         playerHUD.SetHUD(playerUnit); // setup player HUD
         opponentHUD.SetHUD(opponentUnit); // setup opponent HUD
+        endTurnButton.GetComponent<Button>().interactable = false; // disable end turn button
 
         yield return new WaitForSeconds(2f); // waits for two seconds
 
@@ -71,7 +72,6 @@ public class Battle : MonoBehaviour
         Debug.Log("player shield" + playerUnit.shield);
         Debug.Log("opponent hp" + opponentUnit.HP);
         Debug.Log("opponent hp" + opponentUnit.shield);
-
         state = BattleState.PLAYERTURN; // change the battle state to be the player's turn
         PlayerTurn(); // run the player's turn function
     }
