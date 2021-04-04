@@ -11,6 +11,7 @@ public class Battle : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject opponentPrefab;
+    public GameObject endTurnButton;
     public GameOverUI gameOverUI;
 
     public Transform playerBattleStation;
@@ -56,7 +57,7 @@ public class Battle : MonoBehaviour
 
         // Change relationship status from NOTMET to strangers 
         Relationships.relationships[opponentUnit.charName]++;
-        playerUnit.relationship.setStatus(opponentUnit.charName);
+        playerUnit.relationship.setStatus(opponentUnit.charName, true);
 
         turnText.text = "Your Turn";
         dialogueText.text = "The battle begins!"; // sets the dialogue text
@@ -164,7 +165,7 @@ public class Battle : MonoBehaviour
         }
         else
         {
-            //StartCoroutine(OpponentAttack()); // start opponent attack coroutine
+            // StartCoroutine(OpponentAttack()); // start opponent attack coroutine
         }
     }
 
@@ -190,12 +191,14 @@ public class Battle : MonoBehaviour
     {
         // TODO: add opponent mana cost and logic
         state = BattleState.OPPONENTTURN; // change the battle state
+        bool opponentDead = false;
 
         // close the skill card menu if open
-        if (menuButton.menu.gameObject.activeInHierarchy)
-        {
-            menuButton.menu.gameObject.SetActive(false);
-        }
+        // TODO: enable this w/ merge
+        // if (menuButton.menu.gameObject.activeInHierarchy)
+        // {
+        //     menuButton.menu.gameObject.SetActive(false);
+        // }
 
         GenerateMana(opponentUnit);
         opponentHUD.SetMana(opponentUnit.mana);
@@ -205,13 +208,13 @@ public class Battle : MonoBehaviour
         {
             yield return new WaitForSeconds(2f); // waits for two seconds
             dialogueText.text = opponentUnit.charName + " took damage from their Burn [- 20 health]"; // changes the dialogue text
-            opponentUnit.TakeDamage(20);
+            opponentDead = opponentUnit.TakeDamage(20);
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
             burnCount++;
-            if (isDead) // if the player is dead
+            if (opponentDead) // if the opponent is dead
             {
-                state = BattleState.LOST; // change the battle state
+                state = BattleState.WON; // change the battle state
                 EndBattle(); // run endbattle function
             }
         }
@@ -221,6 +224,7 @@ public class Battle : MonoBehaviour
         string card = opponentUnit.cardToPlay;
         Debug.Log(opponentUnit.cardToPlay + " played by opponent");
 
+        bool isDead = false;
 
         if (card == "Strike") // strike card is played
         {
@@ -248,13 +252,15 @@ public class Battle : MonoBehaviour
 
         else if (card == "Recover") // recover card is played
         {
+            Debug.Log("entered");
             opponentUnit.Recover(15); // heals the opponent's hp
             opponentHUD.SetHP(opponentUnit.HP); // updates the opponents's hp
             dialogueText.text = opponentUnit.charName + " gained [+" + 15 + " life]"; // change the dialogue text
+            Debug.Log("healed");
         }
-
+        Debug.Log(state + " hello " + isDead);
         yield return new WaitForSeconds(2f); // waits for two seconds
-
+        Debug.Log(state + " and " + isDead);
         if (isDead) // if the player is dead
         {
             state = BattleState.LOST; // change the battle state
@@ -294,7 +300,8 @@ public class Battle : MonoBehaviour
 
     void PlayerTurn()
     {
-        menuButton.updateCards();
+        // TODO: enable this
+        // menuButton.updateCards();
         turnNum++;
         GenerateMana(playerUnit);
         playerHUD.SetMana(playerUnit.mana);
