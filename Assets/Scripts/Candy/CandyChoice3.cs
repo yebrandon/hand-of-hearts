@@ -18,6 +18,7 @@ public class CandyChoice3 : MonoBehaviour
         TextBox.GetComponent<Text>().text = "AGREED. Whisks are the WORST, especially to clean and they don't even WORK that well. Hrmm maybe I just have to invent my own replacement...";
         ChoiceMade = 1;
         Relationships.relationships["Candy"]++;
+        Relationship.change = true;
     }
 
     public void ChoiceOption2()

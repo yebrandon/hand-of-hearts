@@ -18,6 +18,7 @@ public class CandyChoice2 : MonoBehaviour
         TextBox.GetComponent<Text>().text = "MM YUM!! You can NEVER run out of the flavour because of the endless CHEW. Maybe I'll give you bite of my fresh toffee to try...";
         ChoiceMade = 1;
         Relationships.relationships["Candy"]++;
+        Relationship.change = true;
     }
 
     public void ChoiceOption2()

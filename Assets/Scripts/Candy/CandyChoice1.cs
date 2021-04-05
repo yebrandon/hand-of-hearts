@@ -30,6 +30,7 @@ public class CandyChoice1 : MonoBehaviour
         TextBox.GetComponent<Text>().text = "YOU RIGHT. I can never pass up a chance to give SWEETS and Valentine's was ALWAYS when my shop was BOOMING!";
         ChoiceMade = 3;
         Relationships.relationships["Candy"]++;
+        Relationship.change = true;
     }
 
     public static int getChoice()

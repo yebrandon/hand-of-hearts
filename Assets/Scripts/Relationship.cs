@@ -18,11 +18,13 @@ public class Relationship : MonoBehaviour
         {2, RelationshipStatus.FRIENDS},
         {3, RelationshipStatus.HEARTWON}
     };
+    public static bool change = false;
 
     // Start is called before the first frame update
     void Start()
     {
         current = 0;
+
         // dialogueText.text = status[current].ToString();
     }
 
@@ -44,7 +46,12 @@ public class Relationship : MonoBehaviour
         {
             current++;
             Debug.Log(current);
-            setHearts();
+            if (change)
+            {
+                setHearts();
+                change = false;
+            }
+            
         }
         // dialogueText.text = Relationships.relationships[charName].ToString();
     }
