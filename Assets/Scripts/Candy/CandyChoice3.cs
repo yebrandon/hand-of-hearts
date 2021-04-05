@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class CandyChoice1 : MonoBehaviour
+public class CandyChoice3 : MonoBehaviour
 {
     public GameObject TextBox;
     public GameObject Choice01;
@@ -15,21 +15,21 @@ public class CandyChoice1 : MonoBehaviour
 
     public void ChoiceOption1()
     {
-        TextBox.GetComponent<Text>().text = "oOh Christmas.... it's been so long since I PROPERLY celebrated, candy canes are too spicy for my liking though...";
+        TextBox.GetComponent<Text>().text = "AGREED. Whisks are the WORST, especially to clean and they don't even WORK that well. Hrmm maybe I just have to invent my own replacement...";
         ChoiceMade = 1;
+        Relationships.relationships["Candy"]++;
     }
 
     public void ChoiceOption2()
     {
-        TextBox.GetComponent<Text>().text = "mmm Easter is nice... the children always go about LOSING my candy though... no chance to ENJOY it.";
+        TextBox.GetComponent<Text>().text = "Hrm I could imagine... I don't REALLY grate cheese very often so I wouldn't really know.";
         ChoiceMade = 2;
     }
 
     public void ChoiceOption3()
     {
-        TextBox.GetComponent<Text>().text = "YOU RIGHT. I can never pass up a chance to give SWEETS and Valentine's was ALWAYS when my shop was BOOMING!";
+        TextBox.GetComponent<Text>().text = "Just keep em on the ring they come with!!! It's not THAT hard, organization is the MOST important part of the kitchen.";
         ChoiceMade = 3;
-        Relationships.relationships["Candy"]++;
     }
 
     public static int getChoice()
