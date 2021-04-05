@@ -8,7 +8,7 @@ public enum RelationshipStatus { NOTMET, STRANGERS, ACQUAINTANCES, FRIENDS, HEAR
 public class Relationship : MonoBehaviour
 {
     public Opponent opponent;
-    public Text dialogueText;
+    // public Text dialogueText;
     public int current = 0;
     public GameObject heartsGroup;
     // public GameObject [] newHeart = new GameObject[3];
@@ -23,7 +23,7 @@ public class Relationship : MonoBehaviour
     void Start()
     {
         current = 0;
-        dialogueText.text = status[current].ToString();
+        // dialogueText.text = status[current].ToString();
     }
 
     public RelationshipStatus getStatus()
@@ -46,7 +46,7 @@ public class Relationship : MonoBehaviour
             Debug.Log(current);
             setHearts();
         }
-        dialogueText.text = Relationships.relationships[charName].ToString();
+        // dialogueText.text = Relationships.relationships[charName].ToString();
     }
 
     public void setHearts()
