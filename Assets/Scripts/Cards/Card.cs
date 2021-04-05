@@ -13,7 +13,7 @@ public class Card : ScriptableObject
     public int cost;
     public Sprite artwork;
     public CardType type; 
-    public int effect;
+    // public int effect;
 
     public string getCardName()
     {

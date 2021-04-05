@@ -11,7 +11,10 @@ public class Battle : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject opponentPrefab;
+    
     public GameObject endTurnButton;
+    public GameObject drawCardButton;
+
     public GameOverUI gameOverUI;
 
     public Transform playerBattleStation;
@@ -64,7 +67,7 @@ public class Battle : MonoBehaviour
 
         playerHUD.SetHUD(playerUnit); // setup player HUD
         opponentHUD.SetHUD(opponentUnit); // setup opponent HUD
-        endTurnButton.GetComponent<Button>().interactable = false; // disable end turn button
+        disableButtons(); // disable end turn and draw card buttons
 
         yield return new WaitForSeconds(2f); // waits for two seconds
 
@@ -174,7 +177,7 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
-            endTurnButton.GetComponent<Button>().interactable = false;
+            disableButtons();
             StartCoroutine(OpponentAttack());
         }
     }
@@ -311,7 +314,7 @@ public class Battle : MonoBehaviour
         turnText.text = "Your Turn";
         dialogueText.text = "";
         playerUnit.deck.Draw();
-        endTurnButton.GetComponent<Button>().interactable = true;
+        enableButtons();
     }
 
     public IEnumerator SkipTurn()
@@ -319,6 +322,19 @@ public class Battle : MonoBehaviour
         dialogueText.text = "You skipped your turn.";
         yield return new WaitForSeconds(2f); // waits two seconds
         StartCoroutine(OpponentAttack());
+    }
+
+    // TODO: add skill card menu button to functions
+    public void enableButtons()
+    {
+        endTurnButton.GetComponent<Button>().interactable = true;
+        drawCardButton.GetComponent<Button>().interactable = true;
+    }
+
+    public void disableButtons()
+    {
+        endTurnButton.GetComponent<Button>().interactable = false;
+        drawCardButton.GetComponent<Button>().interactable = false;
     }
 
     public void OnSkipTurnButton()
@@ -331,6 +347,7 @@ public class Battle : MonoBehaviour
     void EndBattle()
     {
         gameOverUI.gameOverScreen.SetActive(true);
+        disableButtons();
         
         if (state == BattleState.WON) // if the player has won
         {

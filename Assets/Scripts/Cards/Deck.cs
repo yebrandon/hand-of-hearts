@@ -19,13 +19,13 @@ public class Deck : MonoBehaviour
         {
             "Strike",
             "Strike",
-            // "Guard",
-            // "Recover",
+            "Guard",
+            "Recover",
             "Talk",
             "Talk",
-            // "Cross",
-            // "Burn",
-            // "Edge",
+            "Cross",
+            "Burn",
+            "Edge",
             "Edge",
         };
 
