@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Recover
   m_EditorClassIdentifier: 
   name: Recover
-  description: 'Heal 15 life.
-
-    Cost: 1 Mana'
+  description: Heal 15 life.
+  cost: 1
   artwork: {fileID: 21300000, guid: 65dd2eb14fb558f418c7dd7f21426132, type: 3}
   type: 1
-  cost: 1
   effect: 15

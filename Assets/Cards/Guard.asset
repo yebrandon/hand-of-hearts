@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: Guard
   m_EditorClassIdentifier: 
   name: Guard
-  description: 'Gain 15  shield.
-
-
-    Cost: 1 Mana'
+  description: Gain 15  shield.
+  cost: 1
   artwork: {fileID: 21300000, guid: 80aa7d948bcbbb748be9d9a8880f91de, type: 3}
   type: 1
-  cost: 1
   effect: 15

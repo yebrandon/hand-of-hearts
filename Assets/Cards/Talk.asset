@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Talk
   m_EditorClassIdentifier: 
   name: Talk
-  description: 'Engage in a conversation with your opponent! Cost: 0 Mana'
+  description: Engage in a conversation with your opponent!
+  cost: 0
   artwork: {fileID: 21300000, guid: 2c30cee792af5434db8bb14453a4dd09, type: 3}
   type: 2
-  cost: 0
   effect: 0

@@ -43,11 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21dfe6e9f1ced9d4b9afe81e0b1658ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charName: you
+  charName: You
   HP: 100
   maxHP: 100
   shield: 25
   maxShield: 25
+  mana: 0
+  maxMana: 0
   hasWon: 0
   damage: 0
   deck: {fileID: 0}
+  relationship: {fileID: 0}
