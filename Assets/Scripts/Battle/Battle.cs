@@ -41,6 +41,7 @@ public class Battle : MonoBehaviour
 
     void Start()
     {
+        SceneTracker.lastBattleSceneName = SceneManager.GetActiveScene().name;
         turnNum = 0;
         talksPlayed = 0;
 
@@ -235,7 +236,9 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Toothache")
             {
-                Debug.Log('a');
+                isDead = playerUnit.TakeDamage(500);
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
             }
             opponentUnit.lastPlayedCardName = cardToPlay.name;
 
