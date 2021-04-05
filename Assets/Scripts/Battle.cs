@@ -218,8 +218,10 @@ public class Battle : MonoBehaviour
             burnCount++;
             if (opponentDead) // if the opponent is dead
             {
+                yield return new WaitForSeconds(2f); // waits for two seconds
                 state = BattleState.WON; // change the battle state
                 EndBattle(); // run endbattle function
+                yield break;
             }
         }
 

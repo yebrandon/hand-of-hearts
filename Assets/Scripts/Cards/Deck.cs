@@ -24,7 +24,7 @@ public class Deck : MonoBehaviour
             "Talk",
             "Talk",
             // "Cross",
-            // "Burn",
+            "Burn",
             // "Edge",
             // "Edge",
         };
