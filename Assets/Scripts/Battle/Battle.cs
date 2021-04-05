@@ -86,21 +86,18 @@ public class Battle : MonoBehaviour
             opponentHUD.SetShield(opponentUnit.shield);
             dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]";
         }
-
         else if (cardName == "Guard")
         {
             playerUnit.Guard(15);
             playerHUD.SetShield(playerUnit.shield);
             dialogueText.text = "You gained [+" + 15 + " shield]";
         }
-
         else if (cardName == "Recover")
         {
             playerUnit.Recover(15);
             playerHUD.SetHP(playerUnit.HP);
             dialogueText.text = "You gained [+" + 15 + " life]";
         }
-
         else if (cardName == "Cross")
         {
             cross = true;
@@ -152,7 +149,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-
     // Possibly move to seperate script?
     public void EndTurn()
     {
@@ -162,63 +158,85 @@ public class Battle : MonoBehaviour
         }
     }
 
-    // Opponent's play
 
+    // Opponent chooses what to do on their turn
     public IEnumerator OpponentPlay()
     {
-
-        bool isDead = false;
-
-        // Opponent chooses a random card to play
-        Card cardToPlay = opponentUnit.ChooseCard();
-        if (cardToPlay == null)
+        // Opponent chooses an action to take
+        string action = opponentUnit.ChooseAction();
+        if (action == "EndTurn")
         {
             PlayerTurn();
             yield break;
         }
-
-        // Pay mana cost
-        opponentUnit.mana -= cardToPlay.cost;
-        opponentHUD.SetMana(opponentUnit.mana);
-
-        dialogueText.text = opponentUnit.charName + " played " + cardToPlay.name + "!";
-        yield return new WaitForSeconds(2f);
-        Debug.Log(cardToPlay.name);
-        // Bunch of card effects
-
-        if (cardToPlay.name == "Blue Morpho Butterfly")
+        else if (action == "Draw")
         {
-            Debug.Log(cardToPlay.name);
-            opponentUnit.mana += 3;
+            opponentUnit.mana -= 2;
             opponentHUD.SetMana(opponentUnit.mana);
-            dialogueText.text = "Constants gained 3 mana!";
-        }
-        else if (cardToPlay.name == "Hofstadter's Butterfly")
-        {
-            opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
-            opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
-            dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + "to his hand!";
-        }
-        else if (cardToPlay.name == "Chaos")
-        {
-            int dmg = 20 * opponentUnit.numButterfliesPlayed;
-            isDead = playerUnit.TakeDamage(dmg);
-            playerHUD.SetHP(playerUnit.HP);
-            playerHUD.SetShield(playerUnit.shield);
-            dialogueText.text = "Constant's Chaos dealt " + dmg + " to you!";
-        }
-        opponentUnit.lastPlayedCardName = cardToPlay.name;
-
-        if (isDead)
-        {
-            state = BattleState.LOST;
-            EndBattle();
-        }
-        else
-        {
-            opponentUnit.clearCardZone();
+            opponentUnit.Draw();
+            dialogueText.text = opponentUnit.charName + " spent 2 mana to draw a card!";
             yield return new WaitForSeconds(2f);
             StartCoroutine(OpponentPlay());
+        }
+        else if (action == "Card")
+        {
+            bool isDead = false;
+            Card cardToPlay = opponentUnit.cardDisplay.card;
+
+            // Pay mana cost
+            opponentUnit.mana -= cardToPlay.cost;
+            opponentHUD.SetMana(opponentUnit.mana);
+
+            dialogueText.text = opponentUnit.charName + " played " + cardToPlay.name + "!";
+            yield return new WaitForSeconds(2f);
+
+            // Card effects
+            if (cardToPlay.name == "Blue Morpho Butterfly")
+            {
+                opponentUnit.mana += 3;
+                if (opponentUnit.mana > 10)
+                {
+                    opponentUnit.mana = 10;
+                }
+                opponentHUD.SetMana(opponentUnit.mana);
+                dialogueText.text = "Constants gained 3 mana!";
+            }
+            else if (cardToPlay.name == "Hofstadter's Butterfly")
+            {
+                if (opponentUnit.MAX_HAND_SIZE - opponentUnit.hand.Count == 1)
+                {
+                    opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
+                    dialogueText.text = "Constants added one copy of " + opponentUnit.lastPlayedCardName + " to his hand!";
+                }
+                else
+                {
+                    opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
+                    opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
+                    dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + "to his hand!";
+                }
+
+            }
+            else if (cardToPlay.name == "Chaos")
+            {
+                int dmg = 20 * opponentUnit.numButterfliesPlayed;
+                isDead = playerUnit.TakeDamage(dmg);
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
+                dialogueText.text = "Constant's Chaos dealt " + dmg + " to you!";
+            }
+            opponentUnit.lastPlayedCardName = cardToPlay.name;
+
+            if (isDead)
+            {
+                state = BattleState.LOST;
+                EndBattle();
+            }
+            else
+            {
+                opponentUnit.clearCardZone();
+                yield return new WaitForSeconds(2f);
+                StartCoroutine(OpponentPlay());
+            }
         }
     }
 
@@ -252,8 +270,6 @@ public class Battle : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-
-        Debug.Log('a');
         StartCoroutine(OpponentPlay());
     }
 
@@ -288,17 +304,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    // terrible engineering
-    public void ManaForCardOpponent()
-    {
-        opponentUnit.mana -= 2;
-        opponentHUD.SetMana(opponentUnit.mana);
-        opponentUnit.Draw();
-    }
-
-
-
-
     void PlayerTurn()
     {
         menuButton.updateCards();
@@ -315,23 +320,6 @@ public class Battle : MonoBehaviour
 
         playerUnit.deck.Draw();
     }
-
-
-    // TODO: Remove if skip turn button is removed?
-    public IEnumerator SkipTurn()
-    {
-        dialogueText.text = "You skipped your turn.";
-        yield return new WaitForSeconds(2f); // waits two seconds
-        StartCoroutine(OpponentTurn());
-    }
-
-    public void OnSkipTurnButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
-        StartCoroutine(SkipTurn());
-    }
-
 
     void EndBattle()
     {

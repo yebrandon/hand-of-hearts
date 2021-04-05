@@ -11,6 +11,7 @@ public class Opponent : Duelist
     public string lastPlayedCardName = "";
     public int numButterfliesPlayed = 0;
     public Battle battle;
+    public CardDisplay cardDisplay;
 
     public int MAX_HAND_SIZE = 6;
 
@@ -31,7 +32,7 @@ public class Opponent : Duelist
         }
     }
 
-    public Card ChooseCard()
+    public string ChooseAction()
     {
         if (charName == "Constants")
         {
@@ -44,7 +45,7 @@ public class Opponent : Duelist
                 }
                 else
                 {
-                    battle.ManaForCardOpponent();
+                    return "Draw";
                 }
             }
             else if (mana >= 2 && lastPlayedCardName == "Blue Morpho Butterfly" && hand.Contains("Hofstadter's Butterfly"))
@@ -61,20 +62,20 @@ public class Opponent : Duelist
             }
             else
             {
-                return null;
+                return "EndTurn";
             }
         }
 
         GameObject cardGO = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlayName));
 
-        CardDisplay cardDisplay = cardGO.GetComponent<CardDisplay>();
+        cardDisplay = cardGO.GetComponent<CardDisplay>();
 
         // Attach card to cardzone
         cardGO.transform.SetParent(cardZone.transform);
         cardGO.GetComponent<Draggable>().home = cardZone.transform;
         cardGO.transform.localScale = new Vector3(1, 1, 1);
 
-        return cardDisplay.card;
+        return "Card";
     }
 
     public void clearCardZone()
