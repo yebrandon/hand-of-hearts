@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b9379e27093cd469ac394adb1b703f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 0431eed44fd525b47b291e1c461f659f, type: 2}
+  card: {fileID: 11400000, guid: 3ed42819ea7d0804bb58bfff25e3af27, type: 2}
   nameText: {fileID: 6790111672976922492}
   descriptionText: {fileID: 6790111673051868373}
   costText: {fileID: 6192579080130014353}

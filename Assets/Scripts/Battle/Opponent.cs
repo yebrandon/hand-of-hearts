@@ -5,24 +5,86 @@ using UnityEngine;
 public class Opponent : Duelist
 {
     public List<string> cards = new List<string>() { };
+    public List<string> hand = new List<string>() { };
     public DropZone cardZone;
-    public string cardToPlay;
+    public string cardToPlayName = "";
+    public string lastPlayedCardName = "";
+    public int numButterfliesPlayed = 0;
+    public Battle battle;
 
-    public void Play()
+    public int MAX_HAND_SIZE = 6;
+
+    void Start()
     {
-        // Choose a random card
-        cardToPlay = cards[Random.Range(0, cards.Count)];
-        GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlay));
+        for (int i = 0; i < 3; i++)
+        {
+            Draw();
+        }
+    }
+
+    public void Draw()
+    {
+        if (hand.Count < MAX_HAND_SIZE)
+        {
+            string toDraw = cards[Random.Range(0, cards.Count)];
+            hand.Add(toDraw);
+        }
+    }
+
+    public Card ChooseCard()
+    {
+        if (charName == "Constants")
+        {
+            if (mana >= 10)
+            {
+                if (hand.Contains("Chaos"))
+                {
+                    cardToPlayName = "Chaos";
+                    hand.Remove("Chaos");
+                }
+                else
+                {
+                    battle.ManaForCardOpponent();
+                }
+            }
+            else if (mana >= 2 && lastPlayedCardName == "Blue Morpho Butterfly" && hand.Contains("Hofstadter's Butterfly"))
+            {
+                cardToPlayName = "Hofstadter's Butterfly";
+                hand.Remove("Hofstadter's Butterfly");
+                numButterfliesPlayed++;
+            }
+            else if (mana >= 2 && hand.Contains("Blue Morpho Butterfly"))
+            {
+                cardToPlayName = "Blue Morpho Butterfly";
+                hand.Remove("Blue Morpho Butterfly");
+                numButterfliesPlayed++;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        GameObject cardGO = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlayName));
+
+        CardDisplay cardDisplay = cardGO.GetComponent<CardDisplay>();
 
         // Attach card to cardzone
-        card.transform.SetParent(cardZone.transform);
-        card.GetComponent<Draggable>().home = cardZone.transform;
-        card.transform.localScale = new Vector3(1, 1, 1);
+        cardGO.transform.SetParent(cardZone.transform);
+        cardGO.GetComponent<Draggable>().home = cardZone.transform;
+        cardGO.transform.localScale = new Vector3(1, 1, 1);
+
+        return cardDisplay.card;
+    }
+
+    public void clearCardZone()
+    {
+        Destroy(cardZone.transform.GetChild(0).gameObject);
     }
 
     public void EndTurn()
     {
-        // Destroy invisible card placeholder
+        // Destroy card
         if (cardZone.transform.childCount == 1)
         {
             Destroy(cardZone.transform.GetChild(0).gameObject);

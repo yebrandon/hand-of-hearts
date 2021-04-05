@@ -81,7 +81,7 @@ public class Battle : MonoBehaviour
 
         if (cardName == "Strike")
         {
-            isDead = opponentUnit.TakeDamage(1000); // deals damage to the opponent and returns true if the opponent is dead
+            isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
             dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]";
@@ -158,16 +158,73 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
-            StartCoroutine(OpponentAttack());
+            StartCoroutine(OpponentTurn());
         }
     }
 
+    // Opponent's play
+
+    public IEnumerator OpponentPlay()
+    {
+
+        bool isDead = false;
+
+        // Opponent chooses a random card to play
+        Card cardToPlay = opponentUnit.ChooseCard();
+        if (cardToPlay == null)
+        {
+            PlayerTurn();
+            yield break;
+        }
+
+        // Pay mana cost
+        opponentUnit.mana -= cardToPlay.cost;
+        opponentHUD.SetMana(opponentUnit.mana);
+
+        dialogueText.text = opponentUnit.charName + " played " + cardToPlay.name + "!";
+        yield return new WaitForSeconds(2f);
+        Debug.Log(cardToPlay.name);
+        // Bunch of card effects
+
+        if (cardToPlay.name == "Blue Morpho Butterfly")
+        {
+            Debug.Log(cardToPlay.name);
+            opponentUnit.mana += 3;
+            opponentHUD.SetMana(opponentUnit.mana);
+            dialogueText.text = "Constants gained 3 mana!";
+        }
+        else if (cardToPlay.name == "Hofstadter's Butterfly")
+        {
+            opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
+            opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
+            dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + "to his hand!";
+        }
+        else if (cardToPlay.name == "Chaos")
+        {
+            int dmg = 20 * opponentUnit.numButterfliesPlayed;
+            isDead = playerUnit.TakeDamage(dmg);
+            playerHUD.SetHP(playerUnit.HP);
+            playerHUD.SetShield(playerUnit.shield);
+            dialogueText.text = "Constant's Chaos dealt " + dmg + " to you!";
+        }
+        opponentUnit.lastPlayedCardName = cardToPlay.name;
+
+        if (isDead)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else
+        {
+            opponentUnit.clearCardZone();
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(OpponentPlay());
+        }
+    }
 
     // Opponent's Turn
-    public IEnumerator OpponentAttack()
+    public IEnumerator OpponentTurn()
     {
-        // TODO: add opponent mana cost and logic
-
         state = BattleState.OPPONENTTURN;
 
         // Close the skill card menu if open
@@ -182,6 +239,8 @@ public class Battle : MonoBehaviour
         turnText.text = opponentUnit.charName + "'s Turn";
         dialogueText.text = "";
 
+        opponentUnit.Draw();
+
         if (burnCount < 3 && burn)
         {
             yield return new WaitForSeconds(2f);
@@ -194,57 +253,9 @@ public class Battle : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        // Opponent chooses a random card to play
-        opponentUnit.Play();
-        string card = opponentUnit.cardToPlay;
-
-        bool isDead = false;
-
-        if (card == "Strike")
-        {
-            // TODO: Move cross logic to work on all offensive cards rather than only Strike?
-            if (cross)
-            {
-                isDead = playerUnit.TakeDamage(15);
-                cross = false;
-                dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 15 + " damage]";
-            }
-            else
-            {
-                isDead = playerUnit.TakeDamage(30); // deals damage to the player and returns true if the player is dead
-                dialogueText.text = opponentUnit.charName + "'s attack hit you for [-" + 30 + " damage]";
-            }
-            playerHUD.SetHP(playerUnit.HP);
-            playerHUD.SetShield(playerUnit.shield);
-        }
-
-        else if (card == "Guard")
-        {
-            opponentUnit.Guard(15);
-            opponentHUD.SetShield(opponentUnit.shield);
-            dialogueText.text = opponentUnit.charName + " gained [+" + 15 + " shield]";
-        }
-
-        else if (card == "Recover")
-        {
-            opponentUnit.Recover(15);
-            opponentHUD.SetHP(opponentUnit.HP);
-            dialogueText.text = opponentUnit.charName + " gained [+" + 15 + " life]";
-        }
-
-        yield return new WaitForSeconds(2f);
-
-        if (isDead)
-        {
-            state = BattleState.LOST;
-            EndBattle();
-        }
-        else
-        {
-            PlayerTurn();
-        }
+        Debug.Log('a');
+        StartCoroutine(OpponentPlay());
     }
-
 
     void GenerateMana(Duelist duelist)
     {
@@ -260,6 +271,10 @@ public class Battle : MonoBehaviour
         {
             duelist.mana += 2;
         }
+        if (duelist.mana > 10)
+        {
+            duelist.mana = 10;
+        }
     }
 
 
@@ -272,6 +287,16 @@ public class Battle : MonoBehaviour
             playerUnit.deck.Draw();
         }
     }
+
+    // terrible engineering
+    public void ManaForCardOpponent()
+    {
+        opponentUnit.mana -= 2;
+        opponentHUD.SetMana(opponentUnit.mana);
+        opponentUnit.Draw();
+    }
+
+
 
 
     void PlayerTurn()
@@ -297,7 +322,7 @@ public class Battle : MonoBehaviour
     {
         dialogueText.text = "You skipped your turn.";
         yield return new WaitForSeconds(2f); // waits two seconds
-        StartCoroutine(OpponentAttack());
+        StartCoroutine(OpponentTurn());
     }
 
     public void OnSkipTurnButton()

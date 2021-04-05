@@ -1882,6 +1882,7 @@ MonoBehaviour:
   hand: {fileID: 1340717712}
   toDraw: 
   spawnedTalks: 0
+  MAX_HAND_SIZE: 6
 --- !u!114 &713895554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4845,9 +4846,49 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
         type: 3}
+      propertyPath: battle
+      value: 
+      objectReference: {fileID: 380886180}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
       propertyPath: cardZone
       value: 
       objectReference: {fileID: 2104796935}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
+      propertyPath: cards.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
+      propertyPath: cards.Array.data[0]
+      value: Blue Morpho Butterfly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
+      propertyPath: cards.Array.data[1]
+      value: Hofstadter's Butterfly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
+      propertyPath: cards.Array.data[2]
+      value: Chaos
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
+      propertyPath: cards.Array.data[3]
+      value: Blue Morpho Butterfly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
+      propertyPath: cards.Array.data[4]
+      value: Hofstadter's Butterfly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203568926974556493, guid: fa99e1a1b5ce4874581570dc2b1a66fc,
+        type: 3}
+      propertyPath: cards.Array.data[5]
+      value: Blue Morpho Butterfly
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa99e1a1b5ce4874581570dc2b1a66fc, type: 3}
 --- !u!1 &2007286961
