@@ -11,7 +11,7 @@ public class Opponent : Duelist
     public void Play()
     {
         cardToPlay = cards[Random.Range(0, cards.Count)];
-        GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/JibbCards/" + cardToPlay));
+        GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlay));
         card.transform.SetParent(cardZone.transform);
         card.GetComponent<Draggable>().home = cardZone.transform;
         card.transform.localScale = new Vector3(1, 1, 1);

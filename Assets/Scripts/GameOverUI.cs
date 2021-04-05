@@ -25,10 +25,11 @@ public class GameOverUI : MonoBehaviour {
         relationshipText.text = relationshipStatus.getStatus() + " with " + opponentName;
         
         // set new card
-        wonCardFile = opponentName + "Cards/Card" + (int)(relationshipStatus.getStatusInt() + 1);
-
+        
+        wonCardFile = opponentName + "/SkillCard" + (int)(relationshipStatus.getStatusInt() + 1);
+        Debug.Log(wonCardFile);
         // load card prefab
-        GameObject cardPrefab = (GameObject)Instantiate(Resources.Load("Prefabs/" + wonCardFile));
+        GameObject cardPrefab = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + wonCardFile));
         cardPrefab.transform.SetParent(cardArea.transform);
         cardPrefab.transform.localPosition = new Vector3(1, 1, 1);
         cardPrefab.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
