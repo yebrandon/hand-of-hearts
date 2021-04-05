@@ -12,6 +12,11 @@ public class Battle : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject opponentPrefab;
 
+    public GameObject endTurnButton;
+    public GameObject drawCardButton;
+
+    public GameOverUI gameOverUI;
+
     public Transform playerBattleStation;
     public Transform opponentBattleStation;
 
@@ -23,6 +28,7 @@ public class Battle : MonoBehaviour
 
     public Text dialogueText;
     public Text turnText;
+    public Text wonLost;
 
     public MenuButton menuButton;
 
@@ -39,6 +45,7 @@ public class Battle : MonoBehaviour
         talksPlayed = 0;
 
         state = BattleState.START;
+        gameOverUI.gameOverScreen.SetActive(false);
         SetUpBattle();
         StartCoroutine(SetUpBattle());
     }
@@ -60,6 +67,7 @@ public class Battle : MonoBehaviour
 
         playerHUD.SetHUD(playerUnit);
         opponentHUD.SetHUD(opponentUnit);
+        disableButtons(); // disable end turn and draw card buttons
         playerUnit.relationship.setStatus(opponentUnit.charName);
 
         yield return new WaitForSeconds(2f);
@@ -154,6 +162,7 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
+            disableButtons();
             StartCoroutine(OpponentTurn());
         }
     }
@@ -224,6 +233,10 @@ public class Battle : MonoBehaviour
                 playerHUD.SetShield(playerUnit.shield);
                 dialogueText.text = "Constant's Chaos dealt " + dmg + " to you!";
             }
+            else if (cardToPlay.name == "Toothache")
+            {
+                Debug.Log('a');
+            }
             opponentUnit.lastPlayedCardName = cardToPlay.name;
 
             if (isDead)
@@ -244,7 +257,7 @@ public class Battle : MonoBehaviour
     public IEnumerator OpponentTurn()
     {
         state = BattleState.OPPONENTTURN;
-
+        bool opponentDead = false;
         // Close the skill card menu if open
         if (menuButton.menu.gameObject.activeInHierarchy)
         {
@@ -261,12 +274,19 @@ public class Battle : MonoBehaviour
 
         if (burnCount < 3 && burn)
         {
-            yield return new WaitForSeconds(2f);
-            dialogueText.text = opponentUnit.charName + " took damage from their Burn [- 20 health]";
-            opponentUnit.TakeDamage(20);
+            yield return new WaitForSeconds(2f); // waits for two seconds
+            dialogueText.text = opponentUnit.charName + " took damage from their Burn [- 20 health]"; // changes the dialogue text
+            opponentDead = opponentUnit.TakeDamage(20);
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
             burnCount++;
+            if (opponentDead) // if the opponent is dead
+            {
+                yield return new WaitForSeconds(2f); // waits for two seconds
+                state = BattleState.WON; // change the battle state
+                EndBattle(); // run endbattle function
+                yield break;
+            }
         }
 
         yield return new WaitForSeconds(2f);
@@ -296,7 +316,7 @@ public class Battle : MonoBehaviour
 
     public void ManaForCard()
     {
-        if (state == BattleState.PLAYERTURN && playerUnit.deck.hand.transform.childCount < playerUnit.deck.MAX_HAND_SIZE)
+        if (state == BattleState.PLAYERTURN && playerUnit.deck.hand.transform.childCount < playerUnit.deck.MAX_HAND_SIZE && playerUnit.mana >= 2)
         {
             playerUnit.mana -= 2;
             playerHUD.SetMana(playerUnit.mana);
@@ -319,26 +339,37 @@ public class Battle : MonoBehaviour
         dialogueText.text = "";
 
         playerUnit.deck.Draw();
+        enableButtons();
     }
+
+    public void enableButtons()
+    {
+        endTurnButton.GetComponent<Button>().interactable = true;
+        drawCardButton.GetComponent<Button>().interactable = true;
+        menuButton.GetComponent<Button>().interactable = true;
+    }
+
+    public void disableButtons()
+    {
+        endTurnButton.GetComponent<Button>().interactable = false;
+        drawCardButton.GetComponent<Button>().interactable = false;
+        menuButton.GetComponent<Button>().interactable = false;
+    }
+
 
     void EndBattle()
     {
-        SceneTracker.lastBattleSceneName = SceneManager.GetActiveScene().name;
-        SceneTracker.lastBattleCharName = opponentUnit.charName;
-        if (state == BattleState.WON)
+        gameOverUI.gameOverScreen.SetActive(true);
+        disableButtons();
+
+        if (state == BattleState.WON) // if the player has won
         {
-            // Earn a card if relationship is FRIENDS or above, skip card reward otherwise
-            if ((int)Relationships.relationships[opponentUnit.charName] > 1)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7);
-            }
-            else
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 8);
-            }
+            gameOverUI.LoadCard(playerUnit.relationship, opponentUnit.charName, playerUnit.deck);
+            wonLost.text = "You defeated " + opponentUnit.charName + "!"; // change the dialogue text
         }
-        else if (state == BattleState.LOST)
+        else if (state == BattleState.LOST) // if the player has lost
         {
+            wonLost.text = "You lost against " + opponentUnit.charName + "!"; // change the dialogue text
             SceneManager.LoadScene("GameOver");
         }
     }

@@ -65,6 +65,18 @@ public class Opponent : Duelist
                 return "EndTurn";
             }
         }
+        else if (charName == "Candy")
+        {
+            if (mana >= 2)
+            {
+                cardToPlayName = "Toothache";
+            }
+            else
+            {
+                return "EndTurn";
+            }
+
+        }
 
         GameObject cardGO = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlayName));
 
