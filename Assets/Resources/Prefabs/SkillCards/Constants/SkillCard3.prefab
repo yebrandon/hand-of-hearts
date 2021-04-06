@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 9220838125689828709}
   - component: {fileID: 5202410955949748326}
   m_Layer: 5
-  m_Name: Recover
+  m_Name: SkillCard3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b9379e27093cd469ac394adb1b703f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 2b0913bc5d4f7cb4181445ddb71c7b7b, type: 2}
+  card: {fileID: 11400000, guid: 87cbf2483e2fa4b48bc8ad4379b8daca, type: 2}
   nameText: {fileID: 4836469327477805618}
   descriptionText: {fileID: 4836469327808670107}
   costText: {fileID: 3381274199485348335}

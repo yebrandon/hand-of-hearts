@@ -133,6 +133,16 @@ public class Battle : MonoBehaviour
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
         }
+        else if (cardName == "Blue Morpho Butterfly")
+        {
+            playerUnit.mana += cardPlayed.effect;
+            if (playerUnit.mana > 10)
+            {
+                playerUnit.mana = 10;
+            }
+            playerHUD.SetMana(playerUnit.mana);
+            dialogueText.text = "You gained " + (cardPlayed.effect - 2).ToString() + " mana!";
+        }
         else if (cardName == "Talk")
         {
             talksPlayed++;
@@ -181,10 +191,10 @@ public class Battle : MonoBehaviour
         }
         else if (action == "Draw")
         {
-            opponentUnit.mana -= 2;
+            opponentUnit.mana -= 3;
             opponentHUD.SetMana(opponentUnit.mana);
             opponentUnit.Draw();
-            dialogueText.text = opponentUnit.charName + " spent 2 mana to draw a card!";
+            dialogueText.text = opponentUnit.charName + " spent 3 mana to draw a card!";
             yield return new WaitForSeconds(2f);
             StartCoroutine(OpponentPlay());
         }
@@ -203,13 +213,13 @@ public class Battle : MonoBehaviour
             // Card effects
             if (cardToPlay.name == "Blue Morpho Butterfly")
             {
-                opponentUnit.mana += 3;
+                opponentUnit.mana += 5;
                 if (opponentUnit.mana > 10)
                 {
                     opponentUnit.mana = 10;
                 }
                 opponentHUD.SetMana(opponentUnit.mana);
-                dialogueText.text = "Constants gained 3 mana!";
+                dialogueText.text = "Constants gained 5 mana!";
             }
             else if (cardToPlay.name == "Hofstadter's Butterfly")
             {
@@ -222,17 +232,18 @@ public class Battle : MonoBehaviour
                 {
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
-                    dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + "to his hand!";
+                    dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + " to his hand!";
                 }
 
             }
             else if (cardToPlay.name == "Chaos")
             {
-                int dmg = 20 * opponentUnit.numButterfliesPlayed;
+                int dmg = 10 * opponentUnit.numButterfliesPlayed;
                 isDead = playerUnit.TakeDamage(dmg);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
-                dialogueText.text = "Constant's Chaos dealt " + dmg + " to you!";
+                dialogueText.text = "Constant's Chaos dealt " + dmg + " damage to you!";
+                opponentUnit.hand.RemoveAll(cardName => cardName.Contains("Chaos"));
             }
             else if (cardToPlay.name == "Toothache")
             {
@@ -319,9 +330,9 @@ public class Battle : MonoBehaviour
 
     public void ManaForCard()
     {
-        if (state == BattleState.PLAYERTURN && playerUnit.deck.hand.transform.childCount < playerUnit.deck.MAX_HAND_SIZE && playerUnit.mana >= 2)
+        if (state == BattleState.PLAYERTURN && playerUnit.deck.hand.transform.childCount < playerUnit.deck.MAX_HAND_SIZE && playerUnit.mana >= 3)
         {
-            playerUnit.mana -= 2;
+            playerUnit.mana -= 3;
             playerHUD.SetMana(playerUnit.mana);
             playerUnit.deck.Draw();
         }

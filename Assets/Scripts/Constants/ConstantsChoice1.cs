@@ -19,6 +19,7 @@ public class ConstantsChoice1 : MonoBehaviour
         TextBox.GetComponent<Text>().text = "o-oh! um maybe... i do really like french fries...";
         ChoiceMade = 1;
         Relationships.relationships["Constants"]++;
+        Relationship.change = true;
     }
 
     public void ChoiceOption2()

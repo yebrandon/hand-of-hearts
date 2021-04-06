@@ -12,12 +12,11 @@ public class MenuButton : MonoBehaviour
     {
         foreach (KeyValuePair<string, RelationshipStatus> entry in Relationships.relationships)
         {
-            // If entry is not for our current opponent and is a higher status than strangers
-            if (entry.Key != battle.opponentUnit.charName && (int)entry.Value > 1)
+            // If entry is not for our current opponent or Blossom and is a higher status than strangers
+            if (entry.Key != battle.opponentUnit.charName && entry.Key != "Blossom" && (int)entry.Value > 1)
             {
                 // Create card based on relationship status 
-                // SkillCard1 maps to acquaintences, SkillCard2 maps to friends, etc.
-                GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + battle.opponentUnit.charName + "/SkillCard" + ((int)entry.Value - 1).ToString()));
+                GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + entry.Key + "/SkillCard" + ((int)entry.Value).ToString()));
 
                 // Attach card to menu
                 card.transform.SetParent(menu.transform);

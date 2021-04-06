@@ -38,7 +38,7 @@ public class Opponent : Duelist
         {
             if (mana >= 10)
             {
-                if (hand.Contains("Chaos"))
+                if (hand.Contains("Chaos") && numButterfliesPlayed > 0)
                 {
                     cardToPlayName = "Chaos";
                     hand.Remove("Chaos");
@@ -54,7 +54,7 @@ public class Opponent : Duelist
                 hand.Remove("Hofstadter's Butterfly");
                 numButterfliesPlayed++;
             }
-            else if (mana >= 2 && hand.Contains("Blue Morpho Butterfly"))
+            else if (mana >= 3 && hand.Contains("Blue Morpho Butterfly"))
             {
                 cardToPlayName = "Blue Morpho Butterfly";
                 hand.Remove("Blue Morpho Butterfly");

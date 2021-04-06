@@ -25,6 +25,7 @@ public class ConstantsChoice2 : MonoBehaviour
         TextBox.GetComponent<Text>().text = "ah, another wandering duck! how glad i am to have found another!";
         ChoiceMade = 2;
         Relationships.relationships["Constants"]++;
+        Relationship.change = true;
     }
 
     public void ChoiceOption3()
