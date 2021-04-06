@@ -234,7 +234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 321.7, y: 5.600006}
+  m_AnchoredPosition: {x: 433, y: -37}
   m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510908245
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7c2bcd3be2704341b9ea3ddb821177a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -933,11 +933,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Blossom
     sentences:
-    - 'This is filler text for:'
-    - 11 Ruler Ending
-    - 11.1 Ending
+    - Ah, I guess you wanted to come back to the village too.
+    - "I like really shouldn\u2019t admit this, but I guess you could like say that
+      I\u2019m pretty relieved that I\u2019m not coming back alone."
+    - Since it seemed like you were enjoying our little journey,
+    - and our other teammates seemed to take a liking to you...
+    - "I thought you might\u2019ve like wanted to go with them..."
+    - But I see you still wanted to stay with me in the end
+    - and that makes me really happy!
+    - "\u2026"
+    - "Honestly, there\u2019s like no one else I\u2019d rather be with but you."
+    - "So, let\u2019s go home!"
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

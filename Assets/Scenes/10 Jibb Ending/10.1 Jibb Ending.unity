@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0243c5f3c79e6045acdab212424c104, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -933,11 +933,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Jibb
     sentences:
-    - 'This is filler text for:'
-    - 10 Jibb Ending
-    - 10.1 Ending
+    - Oh?
+    - You waaaanted to join me?
+    - "It\u2019s a bit surprising you chose me, surely soooomeone else would\u2019ve
+      been a better option..."
+    - "Buuuut, I guess I can\u2019t stop you\u2026"
+    - ...
+    - "Hoooonestly, I\u2019m really glad you wanted to come with me!"
+    - "I don\u2019t have anything to go back to,"
+    - "but I\u2019m excited to be starting over with someone like you"
+    - "With my bounty, it\u2019ll be difficult to stay under the radar"
+    - "Buuuut, if I\u2019m with you, I think everything\u2019s gonna be okay."
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0
