@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Burn
   m_EditorClassIdentifier: 
   name: Burning Desire
-  description: "Opponent will take 60 damage over their next three turns. \n\nCost:
-    4 Mana"
+  description: 'Opponent will take 60 damage over their next three turns. '
   cost: 4
   artwork: {fileID: 21300000, guid: a4fc1708d1f950b4482b0df9c7cc6f33, type: 3}
   type: 0
