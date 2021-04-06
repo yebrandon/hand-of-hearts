@@ -58,8 +58,8 @@ public class Battle : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab);
         playerUnit = playerGO.GetComponent<Player>();
 
-        // Change relationship status from NOTMET to strangers 
-        Relationships.relationships[opponentUnit.charName]++;
+        // Set relationship status to STRANGERS
+        Relationships.relationships[opponentUnit.charName] = RelationshipStatus.STRANGERS;
         Debug.Log(Relationships.relationships[opponentUnit.charName]);
         playerUnit.relationship.setStatus(opponentUnit.charName);
 
@@ -244,15 +244,15 @@ public class Battle : MonoBehaviour
                 int dmg = 10 * opponentUnit.numButterfliesPlayed;
                 if (cross)
                 {
-                    isDead = playerUnit.TakeDamage(dmg/2);
-                    dialogueText.text = "Constant's Chaos dealt " + (int)(dmg/2) + " damage to you!";
+                    isDead = playerUnit.TakeDamage(dmg / 2);
+                    dialogueText.text = "Constant's Chaos dealt " + (int)(dmg / 2) + " damage to you!";
                 }
-                else 
+                else
                 {
                     isDead = playerUnit.TakeDamage(dmg);
                     dialogueText.text = "Constant's Chaos dealt " + dmg + " damage to you!";
                 }
-                
+
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 opponentUnit.hand.RemoveAll(cardName => cardName.Contains("Chaos"));
