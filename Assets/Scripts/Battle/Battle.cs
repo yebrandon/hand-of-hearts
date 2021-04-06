@@ -267,13 +267,12 @@ public class Battle : MonoBehaviour
             {
                 CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
                 
-                Debug.Log(playerCards);
-                foreach( var x in playerCards) {
-                    Debug.Log(x.ToString());
-                };
+                // Debug.Log(playerCards);
+                // foreach( var x in playerCards) {
+                //     Debug.Log(x.ToString());
+                // };
 
                 int cardIndex = Random.Range(0, playerCards.Length - 1);
-                Debug.Log(cardIndex + playerCards[cardIndex].card.name);
                 Vector3 pos = playerCards[cardIndex].transform.localPosition;
                 Destroy(playerCards[cardIndex].gameObject);
 
@@ -283,8 +282,6 @@ public class Battle : MonoBehaviour
                 candiedCard.transform.localScale = new Vector3(1f, 1f, 1f);
                 dialogueText.text = "You've been candied! Your " + playerCards[cardIndex].card.name + " card has been replaced with a Candied card!";
                 yield return new WaitForSeconds(2f);
-
-
             }
             else if (cardToPlay.name == "Toothache")
             {
@@ -297,6 +294,8 @@ public class Battle : MonoBehaviour
             if (isDead)
             {
                 state = BattleState.LOST;
+                dialogueText.text = "Your health has been depleted to 0!";
+                yield return new WaitForSeconds(2f);
                 EndBattle();
             }
             else

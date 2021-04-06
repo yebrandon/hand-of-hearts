@@ -70,7 +70,7 @@ public class Opponent : Duelist
             if (mana >= 2)
             {
                 cardToPlayName = "Toothache";
-                cardToPlayName = "Candied";
+                // cardToPlayName = "Candied";
             }
             else
             {
