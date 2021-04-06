@@ -42,6 +42,7 @@ public class Battle : MonoBehaviour
     void Start()
     {
         SceneTracker.lastBattleSceneName = SceneManager.GetActiveScene().name;
+        SceneTracker.lastBattleCharName = opponentUnit.charName;
         turnNum = 0;
         talksPlayed = 0;
 
@@ -398,17 +399,15 @@ public class Battle : MonoBehaviour
 
     void EndBattle()
     {
-        gameOverUI.gameOverScreen.SetActive(true);
-        disableButtons();
-
         if (state == BattleState.WON) // if the player has won
         {
+            gameOverUI.gameOverScreen.SetActive(true);
+            disableButtons();
             gameOverUI.LoadCard(playerUnit.relationship, opponentUnit.charName, playerUnit.deck);
             wonLost.text = "You defeated " + opponentUnit.charName + "!"; // change the dialogue text
         }
         else if (state == BattleState.LOST) // if the player has lost
         {
-            wonLost.text = "You lost against " + opponentUnit.charName + "!"; // change the dialogue text
             SceneManager.LoadScene("GameOver");
         }
     }
