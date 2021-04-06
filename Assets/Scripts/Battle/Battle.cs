@@ -14,6 +14,7 @@ public class Battle : MonoBehaviour
 
     public GameObject endTurnButton;
     public GameObject drawCardButton;
+    public GameObject handCardArea;
 
     public GameOverUI gameOverUI;
 
@@ -144,6 +145,10 @@ public class Battle : MonoBehaviour
             playerHUD.SetMana(playerUnit.mana);
             dialogueText.text = "You gained " + (cardPlayed.effect - 2).ToString() + " mana!";
         }
+        else if (cardName == "Candied")
+        {
+            dialogueText.text = "Your card did nothing.";
+        }
         else if (cardName == "Talk")
         {
             talksPlayed++;
@@ -257,6 +262,29 @@ public class Battle : MonoBehaviour
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 opponentUnit.hand.RemoveAll(cardName => cardName.Contains("Chaos"));
+            }
+            else if (cardToPlay.name == "Candied")
+            {
+                CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
+                
+                Debug.Log(playerCards);
+                foreach( var x in playerCards) {
+                    Debug.Log(x.ToString());
+                };
+
+                int cardIndex = Random.Range(0, playerCards.Length - 1);
+                Debug.Log(cardIndex + playerCards[cardIndex].card.name);
+                Vector3 pos = playerCards[cardIndex].transform.localPosition;
+                Destroy(playerCards[cardIndex].gameObject);
+
+                GameObject candiedCard = (GameObject)Instantiate(Resources.Load("Prefabs/PlayerCards/CandiedPlayer"));
+                candiedCard.transform.SetParent(handCardArea.transform);
+                candiedCard.transform.localPosition = pos;
+                candiedCard.transform.localScale = new Vector3(1f, 1f, 1f);
+                dialogueText.text = "You've been candied! Your " + playerCards[cardIndex].card.name + " card has been replaced with a Candied card!";
+                yield return new WaitForSeconds(2f);
+
+
             }
             else if (cardToPlay.name == "Toothache")
             {
