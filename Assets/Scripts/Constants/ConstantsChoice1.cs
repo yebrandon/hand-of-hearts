@@ -13,7 +13,6 @@ public class ConstantsChoice1 : MonoBehaviour
     public static int ChoiceMade;
     public GameObject continueBtn;
 
-
     public void ChoiceOption1()
     {
         TextBox.GetComponent<Text>().text = "o-oh! um maybe... i do really like french fries...";
@@ -47,6 +46,7 @@ public class ConstantsChoice1 : MonoBehaviour
     void Start()
     {
         continueBtn.SetActive(false);
+        ChoiceMade = 0;
     }
 
     void Update()

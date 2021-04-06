@@ -13,7 +13,7 @@ public static class Relationships
     public static void ResetRelationships()
     {
         relationships = new Dictionary<string, RelationshipStatus>(){
-        {"Blossom", RelationshipStatus.NOTMET},
+        {"Blossom", RelationshipStatus.HEARTWON},
         {"Constants", RelationshipStatus.NOTMET},
         {"Candy", RelationshipStatus.NOTMET},
         {"Jibb", RelationshipStatus.NOTMET},

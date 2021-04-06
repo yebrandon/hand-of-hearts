@@ -13,7 +13,6 @@ public class ConstantsChoice2 : MonoBehaviour
     public static int ChoiceMade;
     public GameObject continueBtn;
 
-
     public void ChoiceOption1()
     {
         TextBox.GetComponent<Text>().text = "oh dear, the traditional math curriculum they teach in schools is soo not magical...";
@@ -47,6 +46,7 @@ public class ConstantsChoice2 : MonoBehaviour
     void Start()
     {
         continueBtn.SetActive(false);
+        ChoiceMade = 0;
     }
 
     void Update()

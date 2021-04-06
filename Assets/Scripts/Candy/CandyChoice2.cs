@@ -46,6 +46,7 @@ public class CandyChoice2 : MonoBehaviour
     void Start()
     {
         continueBtn.SetActive(false);
+        ChoiceMade = 0;
     }
 
     void Update()
