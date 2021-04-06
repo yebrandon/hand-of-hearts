@@ -234,7 +234,10 @@ public class Battle : MonoBehaviour
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + " to his hand!";
                 }
-
+                opponentUnit.clearCardZone();
+                yield return new WaitForSeconds(2f);
+                PlayerTurn();
+                yield break;
             }
             else if (cardToPlay.name == "Chaos")
             {
