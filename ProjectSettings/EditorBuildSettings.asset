@@ -28,9 +28,12 @@ EditorBuildSettings:
     guid: 7ddacc2c074051a4685ff694944c4f7c
   - enabled: 1
     path: Assets/Scenes/2 Constants/2.3 Battle.unity
+    guid: 42a85625c9b38d94fbe4e512d0a3852c
+  - enabled: 0
+    path: Assets/Scenes/2.3 BattleOld.unity
     guid: 437f3de30ab0e694d93f67ba53a3615b
-  - enabled: 1
-    path: Assets/Scenes/2 Constants/2.3.1 ConstantsBattleCopy.unity
+  - enabled: 0
+    path: Assets/Scenes/2.3.1 ConstantsBattleCopyOld.unity
     guid: 18b68b30e958c2c4e81abf8b0cfe4daa
   - enabled: 1
     path: Assets/Scenes/2 Constants/2.4 Talk One Dialogue.unity
@@ -54,7 +57,7 @@ EditorBuildSettings:
     path: Assets/Scenes/2 Constants/2.10 GetCard.unity
     guid: 280f460130f350c4995ebfa608e15796
   - enabled: 1
-    path: Assets/Scenes/2 Constants/2.11 PostBattle.unity
+    path: Assets/Scenes/2 Constants/2.10 PostBattle.unity
     guid: afdfbed011cb89042941e4bf243d7310
   - enabled: 1
     path: Assets/Scenes/3 Candy/3.1 Travelling.unity

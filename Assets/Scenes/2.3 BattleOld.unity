@@ -379,7 +379,7 @@ RectTransform:
   m_Children:
   - {fileID: 1411455211}
   m_Father: {fileID: 1100456767}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1232,13 +1232,10 @@ MonoBehaviour:
   opponentHUD: {fileID: 535191627}
   dialogueText: {fileID: 4371457}
   turnText: {fileID: 402988435}
-<<<<<<< HEAD
   turnNum: 0
-=======
   cross: 0
   burn: 0
   burnCount: 0
->>>>>>> chaos
 --- !u!1 &402988433
 GameObject:
   m_ObjectHideFlags: 0
@@ -3125,12 +3122,9 @@ RectTransform:
   - {fileID: 1906177179}
   - {fileID: 1313860641}
   - {fileID: 1717901434}
-<<<<<<< HEAD
-  - {fileID: 13120012}
-  - {fileID: 70438549}
-=======
   - {fileID: 788596002}
->>>>>>> chaos
+  - {fileID: 70438549}
+  - {fileID: 13120012}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

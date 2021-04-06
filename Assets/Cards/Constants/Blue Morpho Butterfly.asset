@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Blue Morpho Butterfly
   m_EditorClassIdentifier: 
   name: Blue Morpho Butterfly
-  description: Gain 3 mana.
-  cost: 2
-  artwork: {fileID: 21300000, guid: 4cbecb6ea4afe9341a2f4903dbcafd58, type: 3}
+  description: Gain 5 mana.
+  cost: 3
+  artwork: {fileID: 21300000, guid: a0f2d87fd4dadf241937b38229d69a01, type: 3}
   type: 0
   effect: 3
