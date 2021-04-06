@@ -162,7 +162,6 @@ public class Battle : MonoBehaviour
         {
             yield return new WaitWhile(() => SceneManager.GetActiveScene() != gameObject.scene);
 
-            dialogueText.text = "";
             playerUnit.relationship.setStatus(opponentUnit.charName);
             EndTurn();
         }
@@ -178,7 +177,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-
     // Opponent chooses what to do on their turn
     public IEnumerator OpponentPlay()
     {
@@ -186,6 +184,8 @@ public class Battle : MonoBehaviour
         string action = opponentUnit.ChooseAction();
         if (action == "EndTurn")
         {
+            dialogueText.text = opponentUnit.charName + " ended their turn.";
+            yield return new WaitForSeconds(2f);
             PlayerTurn();
             yield break;
         }
@@ -242,10 +242,19 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Chaos")
             {
                 int dmg = 10 * opponentUnit.numButterfliesPlayed;
-                isDead = playerUnit.TakeDamage(dmg);
+                if (cross)
+                {
+                    isDead = playerUnit.TakeDamage(dmg/2);
+                    dialogueText.text = "Constant's Chaos dealt " + (int)(dmg/2) + " damage to you!";
+                }
+                else 
+                {
+                    isDead = playerUnit.TakeDamage(dmg);
+                    dialogueText.text = "Constant's Chaos dealt " + dmg + " damage to you!";
+                }
+                
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
-                dialogueText.text = "Constant's Chaos dealt " + dmg + " damage to you!";
                 opponentUnit.hand.RemoveAll(cardName => cardName.Contains("Chaos"));
             }
             else if (cardToPlay.name == "Toothache")
@@ -255,7 +264,7 @@ public class Battle : MonoBehaviour
                 playerHUD.SetShield(playerUnit.shield);
             }
             opponentUnit.lastPlayedCardName = cardToPlay.name;
-
+            cross = false;
             if (isDead)
             {
                 state = BattleState.LOST;
@@ -359,18 +368,31 @@ public class Battle : MonoBehaviour
         enableButtons();
     }
 
+
     public void enableButtons()
     {
         endTurnButton.GetComponent<Button>().interactable = true;
-        drawCardButton.GetComponent<Button>().interactable = true;
+        drawCardToggle();
         menuButton.GetComponent<Button>().interactable = true;
     }
 
     public void disableButtons()
     {
         endTurnButton.GetComponent<Button>().interactable = false;
-        drawCardButton.GetComponent<Button>().interactable = false;
+        drawCardToggle();
         menuButton.GetComponent<Button>().interactable = false;
+    }
+
+    public void drawCardToggle()
+    {
+        if (playerUnit.mana >= 3)
+        {
+            drawCardButton.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            drawCardButton.GetComponent<Button>().interactable = false;
+        }
     }
 
 
