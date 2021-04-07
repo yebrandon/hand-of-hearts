@@ -1629,7 +1629,10 @@ MonoBehaviour:
   turnNum: 0
   cross: 0
   burn: 0
+  sticky: 0
+  sugar: 0
   burnCount: 0
+  sugarCount: 0
 --- !u!1 &398925815
 GameObject:
   m_ObjectHideFlags: 0
@@ -6220,17 +6223,17 @@ PrefabInstance:
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: HP
-      value: 20
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: maxHP
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: shield
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
@@ -6240,12 +6243,17 @@ PrefabInstance:
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: maxShield
-      value: 10
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
+        type: 3}
+      propertyPath: MAX_HAND_SIZE
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: cards.Array.size
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
@@ -6260,17 +6268,22 @@ PrefabInstance:
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: cards.Array.data[2]
-      value: Recover
+      value: Replacemint
       objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: cards.Array.data[3]
-      value: Candied
+      value: Sticky
       objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
       propertyPath: cards.Array.data[4]
-      value: Toothache
+      value: Sugar
+      objectReference: {fileID: 0}
+    - target: {fileID: -5218852891243554396, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
+        type: 3}
+      propertyPath: cards.Array.data[5]
+      value: pog
       objectReference: {fileID: 0}
     - target: {fileID: 1785928917695065487, guid: 7bccda5cf5439224682f47c3a5e8c5bf,
         type: 3}
