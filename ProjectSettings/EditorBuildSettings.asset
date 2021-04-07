@@ -240,17 +240,32 @@ EditorBuildSettings:
     path: Assets/Scenes/7 Blossom Ending/7.1 Blossom Ending.unity
     guid: d78a8a4c1c980ac498836f822069ff60
   - enabled: 1
+    path: Assets/Scenes/7 Blossom Ending/7.2 Blossom Credits.unity
+    guid: 82f0e01a027bb584695f5bf92f4aeebd
+  - enabled: 1
     path: Assets/Scenes/8 Constants Ending/8.1 Ending.unity
     guid: 9d21c73f902c9e24b97fd853609c6724
+  - enabled: 1
+    path: Assets/Scenes/8 Constants Ending/8.2 Constants Credits.unity
+    guid: d815658002dd49d449f138a54accf254
   - enabled: 1
     path: Assets/Scenes/9 Candy Ending/9.1 Ending.unity
     guid: 95027d726271a0b44bc71106f147941c
   - enabled: 1
+    path: Assets/Scenes/9 Candy Ending/9.2 Candy Credits.unity
+    guid: 8c7f1f9de5454e649a05b3a8a3fee5ed
+  - enabled: 1
     path: Assets/Scenes/10 Jibb Ending/10.1 Jibb Ending.unity
     guid: c70e13c528f1d314d9f097971bebc964
   - enabled: 1
+    path: Assets/Scenes/10 Jibb Ending/10.2 Jibb Credits.unity
+    guid: 54245f1e29bb97f468c552fb6c118c60
+  - enabled: 1
     path: Assets/Scenes/11 Rosa Ending/11.1 Rosa Ending.unity
     guid: 52670338d0ac94e499eb1aab3cb37bf0
+  - enabled: 1
+    path: Assets/Scenes/11 Rosa Ending/11.2 Rosa Credits.unity
+    guid: cd79353ca55ec7c458248339ece231d0
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: c18b3808c2280a0438908e57e133f41d
