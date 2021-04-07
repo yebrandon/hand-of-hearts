@@ -15,6 +15,6 @@ MonoBehaviour:
   name: Quick Swipe
   description: Deal 30 damage.
   cost: 2
-  artwork: {fileID: 0}
+  artwork: {fileID: 21300000, guid: 4d18eec916d3f3d4996636a32653240a, type: 3}
   type: 0
   effect: 0

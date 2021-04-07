@@ -10,10 +10,13 @@ public class MenuButton : MonoBehaviour
     // Restock cards in the menu
     public void updateCards()
     {
+
         foreach (KeyValuePair<string, RelationshipStatus> entry in Relationships.relationships)
         {
+            Debug.Log(entry.Key);
+            Debug.Log(entry.Value);
             // If entry is not for our current opponent or Blossom and is a higher status than notmet
-            if (entry.Key != battle.opponentUnit.charName && entry.Key != "Blossom" && (int)entry.Value > 0)
+            if (entry.Key != battle.opponentUnit.charName && entry.Key != "Blossom" && entry.Value > 0)
             {
                 // Create card based on relationship status 
                 GameObject card = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + entry.Key + "/SkillCard" + ((int)entry.Value).ToString()));

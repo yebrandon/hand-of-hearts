@@ -15,6 +15,6 @@ MonoBehaviour:
   name: Garden of None
   description: Lose all your shield, and deal damage equal to the amount lost.
   cost: 3
-  artwork: {fileID: 21300000, guid: c79a16884dc26694badd4e5410daa561, type: 3}
+  artwork: {fileID: 21300000, guid: f31c96f6af150a649beb24aa5643008c, type: 3}
   type: 0
   effect: 0

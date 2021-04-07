@@ -68,10 +68,11 @@ public class Opponent : Duelist
         else if (charName == "Candy")
         {
             Debug.Log("opponent turn");
-            foreach( var x in hand) {
-                Debug.Log( x.ToString());
+            foreach (var x in hand)
+            {
+                Debug.Log(x.ToString());
             };
-            
+
             if (mana >= 2)
             {
                 if (hand.Contains("Sugar") && HP < 60 && lastPlayedCardName != "Sugar")
@@ -115,7 +116,8 @@ public class Opponent : Duelist
                         }
                     }
                 }
-                else {
+                else
+                {
                     return "EndTurn";
                 }
             }
@@ -126,23 +128,49 @@ public class Opponent : Duelist
         }
         else if (charName == "Jibb")
         {
-            if (mana == 2)
+            if (battle.sneak && hand.Contains("Quick Swipe") && mana >= 2)
             {
-                // cardToPlayName = "Boid";
-                cardToPlayName = "Cloak";
-                // cardToPlayName = "Sneak Attack";
-                // cardToPlayName = "Quick Swipe";
-                // cardToPlayName = "Body Substitutes";
-                // cardToPlayName = "Stolen Potion";
+                cardToPlayName = "Quick Swipe";
+                hand.Remove("Quick Swipe");
             }
-
-            else 
+            else if (mana >= 9)
+            {
+                return "Draw";
+            }
+            else if (mana >= 8 && hand.Contains("Sneak Attack"))
+            {
+                cardToPlayName = "Sneak Attack";
+                hand.Remove("Sneak Attack");
+            }
+            else if (mana >= 6 && hand.Contains("Boid"))
+            {
+                cardToPlayName = "Boid";
+                hand.Remove("Boid");
+            }
+            else if (mana >= 5 && hand.Contains("Cloak"))
+            {
+                cardToPlayName = "Cloak";
+                hand.Remove("Cloak");
+            }
+            else if (mana >= 2 && hand.Contains("Quick Swipe"))
+            {
+                cardToPlayName = "Quick Swipe";
+                hand.Remove("Quick Swipe");
+            }
+            else if (mana >= 1 && hand.Contains("Body Substitutes") && shield <= 40)
+            {
+                cardToPlayName = "Body Substitutes";
+                hand.Remove("Body Substitutes");
+            }
+            else if (mana >= 1 && hand.Contains("Stolen Potion") && HP <= 90)
+            {
+                cardToPlayName = "Stolen Potion";
+                hand.Remove("Stolen Potion");
+            }
+            else
             {
                 return "EndTurn";
             }
-            
-            
-            
         }
         else if (charName == "Rosa")
         {

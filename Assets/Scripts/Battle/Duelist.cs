@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Duelist : MonoBehaviour
 {
@@ -13,10 +14,15 @@ public class Duelist : MonoBehaviour
     public int maxMana;
     public bool hasWon;
     public int damage;
+    public double playerBoid = 0;
 
     // Deals damage and returns a boolean representing if the duelist has been defeated or not
     public bool TakeDamage(int dmg)
     {
+        if (gameObject.GetComponent<Player>() != null && playerBoid > 0)
+        {
+            dmg = Convert.ToInt32(dmg * (playerBoid / 100.0));
+        }
         if (shield > 0)
         { // if the shield has not been depleted previously
             shield -= dmg; // subtract damage from the shield

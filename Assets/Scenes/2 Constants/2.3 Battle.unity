@@ -922,8 +922,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.4, y: -38.5}
-  m_SizeDelta: {x: 37.381268, y: 44.17754}
+  m_AnchoredPosition: {x: -7.19, y: -40.71}
+  m_SizeDelta: {x: 39.8109, y: 48.595135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &99955003
 MonoBehaviour:
@@ -1648,8 +1648,14 @@ MonoBehaviour:
   burn: 0
   sticky: 0
   sugar: 0
+  veil: 0
+  boid: 0
+  cloak: 0
+  sneak: 0
   burnCount: 0
   sugarCount: 0
+  veilCount: 0
+  veilDamage: 0
 --- !u!1 &398925815
 GameObject:
   m_ObjectHideFlags: 0
