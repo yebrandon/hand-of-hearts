@@ -237,6 +237,9 @@ EditorBuildSettings:
     path: Assets/Scenes/6 Choosing/6.1 Pre Choices.unity
     guid: cee1118aa1581b94aad6ad582091ecf2
   - enabled: 1
+    path: Assets/Scenes/6 Choosing/6.2 Choices.unity
+    guid: 98691a66fef57d44f99e73e2f5dc8c43
+  - enabled: 1
     path: Assets/Scenes/7 Blossom Ending/7.1 Blossom Ending.unity
     guid: d78a8a4c1c980ac498836f822069ff60
   - enabled: 1

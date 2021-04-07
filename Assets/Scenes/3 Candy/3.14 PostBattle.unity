@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c6f9f49f82d43434981e7c0ebc66d9f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -933,11 +933,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Candy
     sentences:
-    - 'This is filler text for:'
-    - 3 Candy
-    - 3.3 PostBattle
+    - AHH! You've DEFEATED ME.
+    - You put up a TOUGH fight, I'd be GLAD to join a team with this much SPIRIT.
+    - Now that I THINK ABOUT IT, y'all must have HAD to eat Borger Queen since there's
+      no food within miles of here.
+    - Come inside and rest. I got TONS of candy to SHARE.
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

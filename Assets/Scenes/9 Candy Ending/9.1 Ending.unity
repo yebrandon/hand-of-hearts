@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c6f9f49f82d43434981e7c0ebc66d9f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -933,11 +933,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Candy
     sentences:
-    - 'This is filler text for:'
-    - 9 Candy Ending
-    - 9.1 Ending
+    - HUH?
+    - WAIT...
+    - ....
+    - .... out of ALL the candy I've ever eaten...
+    - I'd have to admit that none of them are as SWEET as you.
+    - 'It was an HONOUR to join you on this journey. '
+    - I've been meaning to find SOMEONE to share all my candy with.
+    - 'I never thought I could meet someone who would make my life even SWEETER. '
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0

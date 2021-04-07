@@ -847,9 +847,11 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
+    - The group rests in Candy's house for the night and sets off early the next
+      morning.
     - After a few more hours of travelling, the party of magicians finally approach
       the gate of the Amare capital
-    - A guard approaches them
+    - A guard spots them from afar and approaches them.
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0
