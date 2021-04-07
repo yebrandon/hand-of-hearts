@@ -75,7 +75,54 @@ public class Opponent : Duelist
             {
                 return "EndTurn";
             }
-
+        }
+        else if (charName == "Rosa")
+        {
+            if (mana >= 9)
+            {
+                return "Draw";
+            }
+            else if (mana >= 3 && shield >= 50 && hand.Contains("Garden of None"))
+            {
+                if (hand.Contains("Garden of None"))
+                {
+                    cardToPlayName = "Garden of None";
+                    hand.Remove("Garden of None");
+                }
+            }
+            else if (mana >= 7 && hand.Contains("Fate's Wreath") && shield <= 50)
+            {
+                cardToPlayName = "Fate's Wreath";
+                hand.Remove("Fate's Wreath");
+            }
+            else if (mana >= 4) // and not thorns?
+            {
+                if (hand.Contains("Veil of Thorns"))
+                {
+                    cardToPlayName = "Veil of Thorns";
+                    hand.Remove("Veil of Thorns");
+                }
+            }
+            else if (mana >= 3 && shield >= 20)
+            {
+                if (hand.Contains("Garden of None"))
+                {
+                    cardToPlayName = "Garden of None";
+                    hand.Remove("Garden of None");
+                }
+            }
+            else if (mana >= 2 && HP >= 20 && shield <= 90)
+            {
+                if (hand.Contains("Lament"))
+                {
+                    cardToPlayName = "Lament";
+                    hand.Remove("Lament");
+                }
+            }
+            else
+            {
+                return "EndTurn";
+            }
         }
 
         GameObject cardGO = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlayName));
