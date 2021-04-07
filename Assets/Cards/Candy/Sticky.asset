@@ -16,5 +16,5 @@ MonoBehaviour:
   description: Player cannot play their next turn.
   cost: 7
   artwork: {fileID: 0}
-  type: 0
+  type: 2
   effect: 0

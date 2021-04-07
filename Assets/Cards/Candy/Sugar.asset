@@ -16,5 +16,5 @@ MonoBehaviour:
   description: Heal 20 health over the next 2 turns.
   cost: 2
   artwork: {fileID: 0}
-  type: 0
+  type: 1
   effect: 0
