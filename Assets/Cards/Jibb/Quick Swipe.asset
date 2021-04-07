@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Quick Swipe
   m_EditorClassIdentifier: 
   name: Quick Swipe
-  description: 
-  cost: 0
+  description: Deal 30 damage.
+  cost: 2
   artwork: {fileID: 0}
   type: 0
   effect: 0

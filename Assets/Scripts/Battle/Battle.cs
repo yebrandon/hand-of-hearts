@@ -41,6 +41,9 @@ public class Battle : MonoBehaviour
     public bool sticky = false;
     public bool sugar = false;
     public bool veil = false;
+    public bool boid = false;
+    public bool cloak = false;
+    public bool sneak = false;
     
     public int burnCount = 0;
     public int sugarCount = 0;
@@ -130,17 +133,17 @@ public class Battle : MonoBehaviour
                 if (playerDead) // if the opponent is dead
                 {
                     yield return new WaitForSeconds(2f); // waits for two seconds
-                    state = BattleState.WON; // change the battle state
+                    state = BattleState.LOST; // change the battle state
                     EndBattle(); // run endbattle function
                     yield break;
                 }
             }
             else
             {
-                isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
+                isDead = dealDamageBoid("Strike", 20);
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentHUD.SetShield(opponentUnit.shield);
-                dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " life]";
+                // dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " life]";
                 yield return new WaitForSeconds(2f); // waits for two seconds
             }
         }
@@ -196,17 +199,17 @@ public class Battle : MonoBehaviour
                     }
                     playerHUD.SetHP(playerUnit.HP);
                     playerHUD.SetShield(playerUnit.shield);
-                    if (playerDead) // if the opponent is dead
+                    if (playerDead) 
                     {
                         yield return new WaitForSeconds(2f); // waits for two seconds
-                        state = BattleState.WON; // change the battle state
+                        state = BattleState.LOST; // change the battle state
                         EndBattle(); // run endbattle function
                         yield break;
                     }
                 }
                 else
                 {
-                    isDead = opponentUnit.TakeDamage(60);
+                    isDead = dealDamageBoid("Living On The Edge", 20);
                     dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " life]"; 
                 }
             }
@@ -236,14 +239,14 @@ public class Battle : MonoBehaviour
                     if (playerDead) // if the opponent is dead
                     {
                         yield return new WaitForSeconds(2f); // waits for two seconds
-                        state = BattleState.WON; // change the battle state
+                        state = BattleState.LOST; // change the battle state
                         EndBattle(); // run endbattle function
                         yield break;
                     }
                 }
                 else
                 {
-                    isDead = opponentUnit.TakeDamage(20);
+                    isDead = dealDamageBoid("Living On The Edge", 20);
                     dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " life]";
                     yield return new WaitForSeconds(2f); // waits for two seconds
                 }
@@ -309,6 +312,20 @@ public class Battle : MonoBehaviour
         else if (SceneManager.GetActiveScene() != gameObject.scene) // Pause if talk card was played, resume if talk scene is exited
         {
             yield return new WaitWhile(() => SceneManager.GetActiveScene() != gameObject.scene);
+
+            if (cloak)
+            {
+                CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
+                foreach(var x in playerCards) {
+                    
+                    if (x.card.type == CardType.OFFENSIVE)
+                    {
+                        Debug.Log( x.ToString());
+                        x.GetComponentInParent<Draggable>().enabled = true; //TODO: 
+                    }
+                };
+                cloak = false;
+            }
 
             playerUnit.relationship.setStatus(opponentUnit.charName);
             EndTurn();
@@ -438,6 +455,7 @@ public class Battle : MonoBehaviour
                     dmg = 30;
                 }
                 isDead = dealDamage("Toothache", dmg);
+                yield return new WaitForSeconds(2f);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
             }
@@ -457,10 +475,10 @@ public class Battle : MonoBehaviour
             {
                 int dmg = playerCards.Length*5;
                 dialogueText.text = "You took 5 damage for each card in your hand!";
-                yield return new WaitForSeconds(2f);
                 isDead = dealDamage("Sucker Punch", dmg);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Exchangemint")
             {
@@ -472,6 +490,46 @@ public class Battle : MonoBehaviour
                 playerHUD.SetHP(playerUnit.HP);
                 opponentHUD.SetHP(opponentUnit.HP);
                 yield return new WaitForSeconds(2f);
+            }
+            else if (cardToPlay.name == "Boid")
+            {
+                boid = true;
+                dialogueText.text = "90% of the damage from the next attack against Jibb will be absorbed.";
+                yield return new WaitForSeconds(2f);
+            }
+            else if (cardToPlay.name == "Cloak")
+            {
+                cloak = true;
+                dialogueText.text = "You are unable to attack Jibb for the next turn.";
+                yield return new WaitForSeconds(2f);
+            }
+            else if (cardToPlay.name == "Sneak Attack")
+            {
+                sneak = true;
+                dialogueText.text = "Jibb's next attack will do double the damage.";
+                yield return new WaitForSeconds(2f);
+            }
+            else if (cardToPlay.name == "Quick Swipe")
+            {
+                isDead = dealDamage("Quick Swipe", 20);
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
+                yield return new WaitForSeconds(2f);
+            }
+            else if (cardToPlay.name == "Body Substitutes")
+            {
+                yield return new WaitForSeconds(2f);
+                opponentUnit.Guard(15);
+                opponentHUD.SetShield(playerUnit.shield);
+                dialogueText.text = "Jibb gained [+" + 15 + " shield]";
+                yield return new WaitForSeconds(2f); // waits for two seconds
+            }
+            else if (cardToPlay.name == "Stolen Potion")
+            {
+                opponentUnit.Recover(15);
+                opponentHUD.SetHP(playerUnit.HP);
+                dialogueText.text = "Jibb gained [+" + 15 + " life]";
+                yield return new WaitForSeconds(2f); // waits for two seconds
             }
             else if (cardToPlay.name == "Veil of Thorns")
             {
@@ -572,10 +630,14 @@ public class Battle : MonoBehaviour
                 if (playerDead) // if the opponent is dead
                 {
                     yield return new WaitForSeconds(2f); // waits for two seconds
-                    state = BattleState.WON; // change the battle state
+                    state = BattleState.LOST; // change the battle state
                     EndBattle(); // run endbattle function
                     yield break;
                 }
+            }
+            else if (boid)
+            {
+                dealDamageBoid("Burn", 20);
             }
             else
             {
@@ -657,26 +719,65 @@ public class Battle : MonoBehaviour
 
         playerUnit.deck.Draw();
         enableButtons();
+
+        if (cloak)
+        {
+            Debug.Log("ello");
+            CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
+            foreach( var x in playerCards) {
+                
+                if (x.card.type == CardType.OFFENSIVE)
+                {
+                    Debug.Log( x.ToString());
+                    x.GetComponent<Draggable>().enabled = false;
+                }
+            };
+        }
     }
 
     public bool dealDamage(string attackName, int dmg)
     {
         if (cross)
         {
-            bool isDead = playerUnit.TakeDamage(dmg / 2);
+            bool isDead = playerUnit.TakeDamage((int)(dmg / 2));
             dialogueText.text = "Because of your Cross card," + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg / 2) + " life]";
+            playerHUD.SetShield(playerUnit.shield);
+            playerHUD.SetHP(playerUnit.HP);
             cross = false;
             return isDead;
         }
         else
         {
-            bool isDead = playerUnit.TakeDamage(dmg / 2);
+            bool isDead = playerUnit.TakeDamage(dmg);
             dialogueText.text = opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg) + " life]";
+            playerHUD.SetShield(playerUnit.shield);
+            playerHUD.SetHP(playerUnit.HP);
             return isDead;
         }
         
     }
 
+    public bool dealDamageBoid(string attackName, int dmg)
+    {
+        if (boid)
+        {
+            bool isDead = opponentUnit.TakeDamage((int)(dmg * 0.1));
+            dialogueText.text = "Because of Jibb's Boid card, your " + attackName + " hit Jibb for [- " + (int)(dmg * 0.1) + " life]";
+            opponentHUD.SetShield(opponentUnit.shield);
+            opponentHUD.SetHP(opponentUnit.HP);
+            boid = false;
+            return isDead;
+        }
+        else
+        {
+            bool isDead = opponentUnit.TakeDamage(dmg);
+            dialogueText.text = "Your " + attackName + " hit" + opponentUnit.charName + "for [- " + (int)(dmg) + " life]";
+            opponentHUD.SetShield(opponentUnit.shield);
+            opponentHUD.SetHP(opponentUnit.HP);
+            return isDead;
+        }
+        
+    }
     public void enableButtons()
     {
         endTurnButton.GetComponent<Button>().interactable = true;

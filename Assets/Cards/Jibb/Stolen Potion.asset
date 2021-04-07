@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Stolen Potion
   m_EditorClassIdentifier: 
   name: Stolen Potion
-  description: 
-  cost: 0
+  description: Heal 15 life.
+  cost: 1
   artwork: {fileID: 0}
-  type: 0
+  type: 1
   effect: 0

@@ -126,7 +126,23 @@ public class Opponent : Duelist
         }
         else if (charName == "Jibb")
         {
+            if (mana == 2)
+            {
+                // cardToPlayName = "Boid";
+                cardToPlayName = "Cloak";
+                // cardToPlayName = "Sneak Attack";
+                // cardToPlayName = "Quick Swipe";
+                // cardToPlayName = "Body Substitutes";
+                // cardToPlayName = "Stolen Potion";
+            }
 
+            else 
+            {
+                return "EndTurn";
+            }
+            
+            
+            
         }
         else if (charName == "Rosa")
         {

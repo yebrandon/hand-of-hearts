@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Cloak
   description: Your opponent cannot play any cards that deal damage next turn.
-  cost: 0
+  cost: 5
   artwork: {fileID: 0}
-  type: 0
+  type: 1
   effect: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Body Substitutes
   m_EditorClassIdentifier: 
   name: Body Substitutes
-  description: 
-  cost: 0
+  description: Gain 15 shield.
+  cost: 1
   artwork: {fileID: 0}
-  type: 0
+  type: 1
   effect: 0

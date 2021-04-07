@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Boid
   description: Block 90% of incoming damage from your opponent's next instance of
     damage.
-  cost: 0
+  cost: 6
   artwork: {fileID: 0}
-  type: 0
+  type: 1
   effect: 0
