@@ -10,6 +10,7 @@ public class CardDisplay : MonoBehaviour
     public Text descriptionText;
     public Text costText;
     public Image artworkImage;
+    public bool blockedByCloak;
 
     void Start()
     {
@@ -21,10 +22,10 @@ public class CardDisplay : MonoBehaviour
 
     void Update()
     {
-        // Prevent player from playing cards if it is not their turn
+        // Prevent player from playing cards if it is not their turn, or if Jibb has played cloak to block the card
         if (FindObjectOfType<Battle>())
         {
-            if (FindObjectOfType<Battle>().state != BattleState.PLAYERTURN)
+            if (FindObjectOfType<Battle>().state != BattleState.PLAYERTURN || blockedByCloak)
             {
                 GetComponent<Draggable>().enabled = false;
             }

@@ -16,5 +16,5 @@ MonoBehaviour:
   description: Switch health values with the player.
   cost: 10
   artwork: {fileID: 0}
-  type: 0
+  type: 2
   effect: 0

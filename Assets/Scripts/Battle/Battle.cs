@@ -44,7 +44,7 @@ public class Battle : MonoBehaviour
     public bool boid = false;
     public bool cloak = false;
     public bool sneak = false;
-    
+
     public int burnCount = 0;
     public int sugarCount = 0;
     public int veilCount = 0;
@@ -98,7 +98,7 @@ public class Battle : MonoBehaviour
             sticky = false;
             EndTurn();
         }
-        
+
         bool isDead = false;
         bool playerDead = false;
         string cardName = cardPlayed.name;
@@ -199,7 +199,7 @@ public class Battle : MonoBehaviour
                     }
                     playerHUD.SetHP(playerUnit.HP);
                     playerHUD.SetShield(playerUnit.shield);
-                    if (playerDead) 
+                    if (playerDead)
                     {
                         yield return new WaitForSeconds(2f); // waits for two seconds
                         state = BattleState.LOST; // change the battle state
@@ -210,7 +210,7 @@ public class Battle : MonoBehaviour
                 else
                 {
                     isDead = dealDamageBoid("Living On The Edge", 20);
-                    dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " life]"; 
+                    dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " life]";
                 }
             }
             else
@@ -272,7 +272,7 @@ public class Battle : MonoBehaviour
         }
         else if (cardName == "Exchangemint")
         {
-            dialogueText.text = "You switched health values with " + opponentUnit.charName +"!";
+            dialogueText.text = "You switched health values with " + opponentUnit.charName + "!";
             yield return new WaitForSeconds(0.5f);
             int playerHP = playerUnit.HP;
             playerUnit.HP = opponentUnit.HP;
@@ -280,10 +280,10 @@ public class Battle : MonoBehaviour
             playerHUD.SetHP(playerUnit.HP);
             opponentHUD.SetHP(opponentUnit.HP);
             yield return new WaitForSeconds(2f);
-            
+
             if (cardPlayed.effect == 4)
             {
-                dialogueText.text = "You also switched shield values with " + opponentUnit.charName +"!";
+                dialogueText.text = "You also switched shield values with " + opponentUnit.charName + "!";
                 yield return new WaitForSeconds(0.5f);
                 int playerShield = playerUnit.shield;
                 playerUnit.shield = opponentUnit.shield;
@@ -293,6 +293,13 @@ public class Battle : MonoBehaviour
                 yield return new WaitForSeconds(2f);
             }
         }
+        else if (cardName == "Boid")
+        {
+            playerUnit.playerBoid = cardPlayed.effect / 100.0;
+            dialogueText.text = "You will block " + cardPlayed.effect + "% of the damage from your opponent's next attack!";
+            yield return new WaitForSeconds(2f);
+
+        }
         else if (cardName == "Talk")
         {
             talksPlayed++;
@@ -300,7 +307,7 @@ public class Battle : MonoBehaviour
             // Load the appropriate talk card scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 + (talksPlayed - 1) * 2, LoadSceneMode.Additive);
         }
-       
+
         dialogueText.text = "";
         yield return new WaitForSeconds(2f);
 
@@ -312,20 +319,6 @@ public class Battle : MonoBehaviour
         else if (SceneManager.GetActiveScene() != gameObject.scene) // Pause if talk card was played, resume if talk scene is exited
         {
             yield return new WaitWhile(() => SceneManager.GetActiveScene() != gameObject.scene);
-
-            if (cloak)
-            {
-                CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
-                foreach(var x in playerCards) {
-                    
-                    if (x.card.type == CardType.OFFENSIVE)
-                    {
-                        Debug.Log( x.ToString());
-                        x.GetComponentInParent<Draggable>().enabled = true; //TODO: 
-                    }
-                };
-                cloak = false;
-            }
 
             playerUnit.relationship.setStatus(opponentUnit.charName);
             EndTurn();
@@ -341,6 +334,19 @@ public class Battle : MonoBehaviour
             {
                 veilCount++;
             }
+            if (cloak)
+            {
+                CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
+                foreach (var x in playerCards)
+                {
+                    if (x.blockedByCloak)
+                    {
+                        Debug.Log(x.ToString());
+                        x.blockedByCloak = false;
+                    }
+                };
+                cloak = false;
+            }
             disableButtons();
             StartCoroutine(OpponentTurn());
         }
@@ -349,7 +355,7 @@ public class Battle : MonoBehaviour
     // Opponent chooses what to do on their turn
     public IEnumerator OpponentPlay()
     {
-        CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
+        CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
         // Opponent chooses an action to take
         string action = opponentUnit.ChooseAction();
         if (action == "EndTurn")
@@ -380,7 +386,13 @@ public class Battle : MonoBehaviour
             dialogueText.text = opponentUnit.charName + " played " + cardToPlay.name + "!";
             yield return new WaitForSeconds(2f);
 
-            // Card effects
+            /*  ********
+                ********
+                CARD EFFECTS
+                ********
+                ********
+            */
+            // Constants
             if (cardToPlay.name == "Blue Morpho Butterfly")
             {
                 opponentUnit.mana += 5;
@@ -405,10 +417,9 @@ public class Battle : MonoBehaviour
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + " to his hand!";
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    yield return new WaitForSeconds(2f);
                 }
                 opponentUnit.clearCardZone();
-                // yield return new WaitForSeconds(2f);
                 PlayerTurn();
                 yield break;
             }
@@ -421,6 +432,7 @@ public class Battle : MonoBehaviour
                 playerHUD.SetShield(playerUnit.shield);
                 opponentUnit.hand.RemoveAll(cardName => cardName.Contains("Chaos"));
             }
+            // Candy 
             else if (cardToPlay.name == "Candied")
             {
                 int cardIndex = Random.Range(0, playerCards.Length - 1);
@@ -473,7 +485,7 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Sucker Punch")
             {
-                int dmg = playerCards.Length*5;
+                int dmg = playerCards.Length * 5;
                 dialogueText.text = "You took 5 damage for each card in your hand!";
                 isDead = dealDamage("Sucker Punch", dmg);
                 playerHUD.SetHP(playerUnit.HP);
@@ -491,6 +503,7 @@ public class Battle : MonoBehaviour
                 opponentHUD.SetHP(opponentUnit.HP);
                 yield return new WaitForSeconds(2f);
             }
+            // Jibb
             else if (cardToPlay.name == "Boid")
             {
                 boid = true;
@@ -518,19 +531,19 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Body Substitutes")
             {
-                yield return new WaitForSeconds(2f);
                 opponentUnit.Guard(15);
-                opponentHUD.SetShield(playerUnit.shield);
+                opponentHUD.SetShield(opponentUnit.shield);
                 dialogueText.text = "Jibb gained [+" + 15 + " shield]";
                 yield return new WaitForSeconds(2f); // waits for two seconds
             }
             else if (cardToPlay.name == "Stolen Potion")
             {
                 opponentUnit.Recover(15);
-                opponentHUD.SetHP(playerUnit.HP);
+                opponentHUD.SetHP(opponentUnit.HP);
                 dialogueText.text = "Jibb gained [+" + 15 + " life]";
                 yield return new WaitForSeconds(2f); // waits for two seconds
             }
+            // Rosa
             else if (cardToPlay.name == "Veil of Thorns")
             {
                 veil = true;
@@ -656,7 +669,7 @@ public class Battle : MonoBehaviour
                     yield break;
                 }
             }
-            
+
         }
         if (sugarCount < 2 && sugar)
         {
@@ -705,6 +718,7 @@ public class Battle : MonoBehaviour
 
     void PlayerTurn()
     {
+        playerUnit.playerBoid = 0;
         menuButton.updateCards();
         turnNum++;
 
@@ -723,13 +737,12 @@ public class Battle : MonoBehaviour
         if (cloak)
         {
             Debug.Log("ello");
-            CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
-            foreach( var x in playerCards) {
-                
+            CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
+            foreach (var x in playerCards)
+            {
                 if (x.card.type == CardType.OFFENSIVE)
                 {
-                    Debug.Log( x.ToString());
-                    x.GetComponent<Draggable>().enabled = false;
+                    x.blockedByCloak = true;
                 }
             };
         }
@@ -754,7 +767,7 @@ public class Battle : MonoBehaviour
             playerHUD.SetHP(playerUnit.HP);
             return isDead;
         }
-        
+
     }
 
     public bool dealDamageBoid(string attackName, int dmg)
@@ -771,12 +784,12 @@ public class Battle : MonoBehaviour
         else
         {
             bool isDead = opponentUnit.TakeDamage(dmg);
-            dialogueText.text = "Your " + attackName + " hit" + opponentUnit.charName + "for [- " + (int)(dmg) + " life]";
+            dialogueText.text = "Your " + attackName + " hit " + opponentUnit.charName + "for [- " + (int)(dmg) + " life]";
             opponentHUD.SetShield(opponentUnit.shield);
             opponentHUD.SetHP(opponentUnit.HP);
             return isDead;
         }
-        
+
     }
     public void enableButtons()
     {

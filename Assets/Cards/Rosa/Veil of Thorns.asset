@@ -16,6 +16,6 @@ MonoBehaviour:
   description: For their next two turns, your opponent will recieve half of the damage
     they deal to you.
   cost: 3
-  artwork: {fileID: 21300000, guid: c79a16884dc26694badd4e5410daa561, type: 3}
-  type: 1
+  artwork: {fileID: 21300000, guid: 0575e76a38954f04da3a21ceeadf8694, type: 3}
+  type: 2
   effect: 0
