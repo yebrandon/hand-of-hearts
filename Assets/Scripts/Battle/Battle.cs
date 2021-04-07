@@ -462,7 +462,7 @@ public class Battle : MonoBehaviour
                 {
                     dmg = 40;
                 }
-                else if (playerRelationship == RelationshipStatus.FRIENDS)
+                else if (playerRelationship == RelationshipStatus.HEARTWON)
                 {
                     dmg = 30;
                 }
@@ -784,7 +784,7 @@ public class Battle : MonoBehaviour
         else
         {
             bool isDead = opponentUnit.TakeDamage(dmg);
-            dialogueText.text = "Your " + attackName + " hit " + opponentUnit.charName + "for [- " + (int)(dmg) + " life]";
+            dialogueText.text = "Your " + attackName + " hit " + opponentUnit.charName + " for [- " + (int)(dmg) + " life]";
             opponentHUD.SetShield(opponentUnit.shield);
             opponentHUD.SetHP(opponentUnit.HP);
             return isDead;

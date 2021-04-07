@@ -48,6 +48,10 @@ MonoBehaviour:
   maxHP: 100
   shield: 25
   maxShield: 25
+  mana: 0
+  maxMana: 0
   hasWon: 0
   damage: 0
+  playerBoid: 0
   deck: {fileID: 0}
+  relationship: {fileID: 0}

@@ -83,36 +83,40 @@ public class Opponent : Duelist
                 else if (mana >= 3)
                 {
                     int draw = Random.Range(0, 5);
-                    if (draw == 0)
+                    if (draw == 0 && !hand.Contains("Exchangemint"))
                     {
                         return "Draw";
                     }
                     else
                     {
-                        if (mana >= 4 && hand.Contains("Sucker"))
+                        if (mana >= 10 && hand.Contains("Exchangemint"))
                         {
-                            cardToPlayName = "Sucker";
-                            hand.Remove("Sucker");
+                            cardToPlayName = "Exchangemint";
+                            hand.Remove("Exchangemint");
                         }
-                        else if (mana >= 5 && hand.Contains("Toothache"))
-                        {
-                            cardToPlayName = "Toothache";
-                            hand.Remove("Toothache");
-                        }
-                        else if (mana >= 6 && hand.Contains("Candied"))
-                        {
-                            cardToPlayName = "Candied";
-                            hand.Remove("Candied");
-                        }
-                        else if (mana >= 7 && hand.Contains("Sticky"))
+                        else if (mana >= 7 && hand.Contains("Sticky") && draw < 3)
                         {
                             cardToPlayName = "Sticky";
                             hand.Remove("Sticky");
                         }
-                        else if (mana >= 10 && hand.Contains("Exchangemint"))
+                        else if (mana >= 6 && hand.Contains("Candied") && draw < 2)
                         {
-                            cardToPlayName = "Exchangemint";
-                            hand.Remove("Exchangemint");
+                            cardToPlayName = "Candied";
+                            hand.Remove("Candied");
+                        }
+                        else if (mana >= 5 && hand.Contains("Toothache") && draw < 2)
+                        {
+                            cardToPlayName = "Toothache";
+                            hand.Remove("Toothache");
+                        }
+                        else if (mana >= 4 && hand.Contains("Sucker"))
+                        {
+                            cardToPlayName = "Sucker";
+                            hand.Remove("Sucker");
+                        }
+                        else
+                        {
+                            return "EndTurn";
                         }
                     }
                 }
