@@ -248,16 +248,7 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Chaos")
             {
                 int dmg = 10 * opponentUnit.numButterfliesPlayed;
-                if (cross)
-                {
-                    isDead = playerUnit.TakeDamage(dmg / 2);
-                    dialogueText.text = "Constant's Chaos dealt " + (int)(dmg / 2) + " damage to you!";
-                }
-                else
-                {
-                    isDead = playerUnit.TakeDamage(dmg);
-                    dialogueText.text = "Constant's Chaos dealt " + dmg + " damage to you!";
-                }
+                isDead = dealDamage("Chaos", dmg);
 
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
@@ -285,7 +276,25 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Toothache")
             {
-                isDead = playerUnit.TakeDamage(500);
+                RelationshipStatus playerRelationship = playerUnit.relationship.getStatus();
+                int dmg = 0;
+                if (playerRelationship == RelationshipStatus.STRANGERS)
+                {
+                    dmg = 60;
+                }
+                else if (playerRelationship == RelationshipStatus.ACQUAINTANCES)
+                {
+                    dmg = 50;
+                }
+                else if (playerRelationship == RelationshipStatus.FRIENDS)
+                {
+                    dmg = 40;
+                }
+                else if (playerRelationship == RelationshipStatus.FRIENDS)
+                {
+                    dmg = 30;
+                }
+                isDead = dealDamage("Toothache", dmg);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
             }
@@ -396,6 +405,22 @@ public class Battle : MonoBehaviour
         enableButtons();
     }
 
+    public bool dealDamage(string attackName, int dmg)
+    {
+        if (cross)
+            {
+                bool isDead = playerUnit.TakeDamage(dmg / 2);
+                dialogueText.text = opponentUnit.charName + "'s " + attackName +" dealt " + (int)(dmg / 2) + " damage to you because of your Cross card!";
+                cross = false;
+                return isDead;
+            }
+            else
+            {
+                bool isDead = playerUnit.TakeDamage(dmg / 2);
+                dialogueText.text = opponentUnit.charName + "'s " + attackName +" dealt " + (int)(dmg) + " damage to you!";
+                return isDead;
+            }
+    }
 
     public void enableButtons()
     {

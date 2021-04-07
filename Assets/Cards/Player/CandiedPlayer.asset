@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81eb0b00d2301bf46bc6666023297025, type: 3}
   m_Name: CandiedPlayer
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  cost: 0
+  name: Candied
+  description: You've been CANDIED! This card is USELESS.
+  cost: 4
   artwork: {fileID: 0}
-  type: 0
+  type: 1
   effect: 0
