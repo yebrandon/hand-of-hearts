@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Candy2
   m_EditorClassIdentifier: 
   name: yuh
-  description: from candy to you <3, lvl 2
-  cost: 10
+  description: Switch health values with the opponent.
+  cost: 9
   artwork: {fileID: 21300000, guid: d3858a241575b1940bf4172059b357a8, type: 3}
   type: 0
-  effect: 0
+  effect: 2

@@ -74,7 +74,7 @@ public class Opponent : Duelist
             
             if (mana >= 2)
             {
-                if (hand.Contains("Sugar") && HP < 60)
+                if (hand.Contains("Sugar") && HP < 60 && lastPlayedCardName != "Sugar")
                 {
                     cardToPlayName = "Sugar";
                     hand.Remove("Sugar");
@@ -88,10 +88,10 @@ public class Opponent : Duelist
                     }
                     else
                     {
-                        if (mana >= 4 && hand.Contains("pog"))
+                        if (mana >= 4 && hand.Contains("Sucker"))
                         {
-                            cardToPlayName = "pog";
-                            hand.Remove("pog");
+                            cardToPlayName = "Sucker";
+                            hand.Remove("Sucker");
                         }
                         else if (mana >= 5 && hand.Contains("Toothache"))
                         {

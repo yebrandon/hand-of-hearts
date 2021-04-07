@@ -16,10 +16,10 @@ public class Deck : MonoBehaviour
         // Initialize list of cards in deck
         cards = new List<string>()
         {
-            "Strike",
-            "Strike",
-            "Guard",
-            "Recover",
+            // "Strike",
+            // "Strike",
+            // "Guard",
+            // "Recover",
             "Talk",
             "Talk",
             "Cross",

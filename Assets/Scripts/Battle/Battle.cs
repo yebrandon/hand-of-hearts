@@ -267,6 +267,29 @@ public class Battle : MonoBehaviour
             dialogueText.text = "Your card did nothing.";
             yield return new WaitForSeconds(2f);
         }
+        else if (cardName == "Exchangemint")
+        {
+            dialogueText.text = "You switched health values with " + opponentUnit.charName +"!";
+            yield return new WaitForSeconds(0.5f);
+            int playerHP = playerUnit.HP;
+            playerUnit.HP = opponentUnit.HP;
+            opponentUnit.HP = playerHP;
+            playerHUD.SetHP(playerUnit.HP);
+            opponentHUD.SetHP(opponentUnit.HP);
+            yield return new WaitForSeconds(2f);
+            
+            if (cardPlayed.effect == 4)
+            {
+                dialogueText.text = "You also switched shield values with " + opponentUnit.charName +"!";
+                yield return new WaitForSeconds(0.5f);
+                int playerShield = playerUnit.shield;
+                playerUnit.shield = opponentUnit.shield;
+                opponentUnit.shield = playerShield;
+                playerHUD.SetShield(playerUnit.shield);
+                opponentHUD.SetShield(opponentUnit.shield);
+                yield return new WaitForSeconds(2f);
+            }
+        }
         else if (cardName == "Talk")
         {
             talksPlayed++;
@@ -430,12 +453,12 @@ public class Battle : MonoBehaviour
                 dialogueText.text = "Candy heals 20 life over the next two turns.";
                 yield return new WaitForSeconds(2f);
             }
-            else if (cardToPlay.name == "pog")
+            else if (cardToPlay.name == "Sucker Punch")
             {
                 int dmg = playerCards.Length*5;
                 dialogueText.text = "You took 5 damage for each card in your hand!";
                 yield return new WaitForSeconds(2f);
-                isDead = dealDamage("pog", dmg);
+                isDead = dealDamage("Sucker Punch", dmg);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
             }
