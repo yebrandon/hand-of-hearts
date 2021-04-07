@@ -234,8 +234,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 321.7, y: 5.600006}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 466, y: 5.600006}
+  m_SizeDelta: {x: 600, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510908245
 MonoBehaviour:
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac822ff457c20d84e91880e100ffd1de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d184aafbabb8204e96a0cf026b6d2d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 012be7d9930a42949aace5ec4f9373bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33eedb151fc55fa429fc742a8f6a4334, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -933,11 +933,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Name
+    name: Constants
     sentences:
-    - 'This is filler text for:'
-    - 8 Constants Ending
-    - 8.1 Ending
+    - ...oh, my are you sure about this?
+    - if you really do insist, all i can do is warn you about the extravagent and
+      mindblowing mathematical endeavours we shall begin to share together!
+    - huzzah! with a partnet of your caliber, there will truly be nothing standing
+      in our way!
+    - ...and of course, you still owe me a cup of french fries amongst the sunset...
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0
