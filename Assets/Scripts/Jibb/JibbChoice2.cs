@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class RosaChoice3 : MonoBehaviour
+public class JibbChoice2 : MonoBehaviour
 {
     public GameObject TextBox;
     public GameObject Choice01;
@@ -15,21 +15,21 @@ public class RosaChoice3 : MonoBehaviour
 
     public void ChoiceOption1()
     {
-        TextBox.GetComponent<Text>().text = "As much as it hurts to admit it… you might be right…";
+        TextBox.GetComponent<Text>().text = "Even so, I would never subject myself to thaaat. Risking my life for their sake after they took everything from me… Ha! not a chaaaance!";
         ChoiceMade = 1;
     }
 
     public void ChoiceOption2()
     {
-        TextBox.GetComponent<Text>().text = "You really believe that? It brings me a bit of hope knowing that someone believes in me…";
+        TextBox.GetComponent<Text>().text = "What’s with the dramaaaatics? It sounds like you just walked out of a theatre…Buuuut, I get what you’re saying. People like us gotta do whatever it takes to stay alive.";
         ChoiceMade = 2;
-        Relationships.relationships["Rosa"]++;
+        Relationships.relationships["Jibb"]++;
         Relationship.change = true;
     }
 
     public void ChoiceOption3()
     {
-        TextBox.GetComponent<Text>().text = "I suppose fixing everything now might be an impossible goal… but still…";
+        TextBox.GetComponent<Text>().text = "Absoluuuutely not. Giving anything of value to the capital after they took everything from me: the notion in itself disguuuusts me.";
         ChoiceMade = 3;
     }
 

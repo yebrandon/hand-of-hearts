@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class RosaChoice1 : MonoBehaviour
+public class JibbChoice1 : MonoBehaviour
 {
     public GameObject TextBox;
     public GameObject Choice01;
@@ -15,22 +15,22 @@ public class RosaChoice1 : MonoBehaviour
 
     public void ChoiceOption1()
     {
-        TextBox.GetComponent<Text>().text = "So you banded together with your fellow citizens to invoke change... That’s quite an admirable feat…";
+        TextBox.GetComponent<Text>().text = "Thaaaanks, but flattery isn’t gonna help you here.";
         ChoiceMade = 1;
-        Relationships.relationships["Rosa"]++;
-        Relationship.change = true;
     }
 
     public void ChoiceOption2()
     {
-        TextBox.GetComponent<Text>().text = "…You’re right, I was just curious…";
+        TextBox.GetComponent<Text>().text = "Booooo… Is the country bumpkin gonna cry about it? I was just messing around y’know…";
         ChoiceMade = 2;
     }
 
     public void ChoiceOption3()
     {
-        TextBox.GetComponent<Text>().text = "That’s far from the truth... I know the names of every village across the nation…";
+        TextBox.GetComponent<Text>().text = "HA! Yoooou got me there! I suppoooose when I first got here I was the same way.";
         ChoiceMade = 3;
+        Relationships.relationships["Jibb"]++;
+        Relationship.change = true;
     }
 
     public static int getChoice()

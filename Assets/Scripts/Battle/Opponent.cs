@@ -76,6 +76,10 @@ public class Opponent : Duelist
                 return "EndTurn";
             }
         }
+        else if (charName == "Jibb")
+        {
+
+        }
         else if (charName == "Rosa")
         {
             if (mana >= 9)
