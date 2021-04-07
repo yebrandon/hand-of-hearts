@@ -430,6 +430,7 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.WON) // if the player has won
         {
+
             gameOverUI.gameOverScreen.SetActive(true);
             disableButtons();
             gameOverUI.LoadCard(playerUnit.relationship, opponentUnit.charName, playerUnit.deck);
