@@ -40,9 +40,12 @@ public class Battle : MonoBehaviour
     public bool burn = false;
     public bool sticky = false;
     public bool sugar = false;
+    public bool veil = false;
     
     public int burnCount = 0;
     public int sugarCount = 0;
+    public int veilCount = 0;
+    public int veilDamage = 0;
 
     void Start()
     {
@@ -94,6 +97,7 @@ public class Battle : MonoBehaviour
         }
         
         bool isDead = false;
+        bool playerDead = false;
         string cardName = cardPlayed.name;
 
         // Pay mana cost
@@ -102,45 +106,147 @@ public class Battle : MonoBehaviour
 
         if (cardName == "Strike")
         {
-            isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
-            opponentHUD.SetHP(opponentUnit.HP);
-            opponentHUD.SetShield(opponentUnit.shield);
-            dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " damage]";
+            if (veilCount < 2 && veil)
+            {
+                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
+                yield return new WaitForSeconds(2f); // waits for two seconds
+                if (cross)
+                {
+                    dialogueText.text = "Because of your Cross card, you took less damage from your own Strike! [-10 life]"; // changes the dialogue text
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    dialogueText.text = ""; // changes the dialogue text
+                    playerDead = playerUnit.TakeDamage(10);
+                    cross = false;
+                }
+                else
+                {
+                    dialogueText.text = "You took damage from your own Strike! [-20 life]"; // changes the dialogue text
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    dialogueText.text = ""; // changes the dialogue text
+                    playerDead = playerUnit.TakeDamage(20);
+                }
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
+                if (playerDead) // if the opponent is dead
+                {
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    state = BattleState.WON; // change the battle state
+                    EndBattle(); // run endbattle function
+                    yield break;
+                }
+            }
+            else
+            {
+                isDead = opponentUnit.TakeDamage(30); // deals damage to the opponent and returns true if the opponent is dead
+                opponentHUD.SetHP(opponentUnit.HP);
+                opponentHUD.SetShield(opponentUnit.shield);
+                dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " life]";
+                yield return new WaitForSeconds(2f); // waits for two seconds
+            }
         }
         else if (cardName == "Guard")
         {
             playerUnit.Guard(15);
             playerHUD.SetShield(playerUnit.shield);
             dialogueText.text = "You gained [+" + 15 + " shield]";
+            yield return new WaitForSeconds(2f); // waits for two seconds
         }
         else if (cardName == "Recover")
         {
             playerUnit.Recover(15);
             playerHUD.SetHP(playerUnit.HP);
             dialogueText.text = "You gained [+" + 15 + " life]";
+            yield return new WaitForSeconds(2f); // waits for two seconds
         }
         else if (cardName == "Cross")
         {
             cross = true;
             dialogueText.text = "You will only take half of the next attack's damage";
+            yield return new WaitForSeconds(2f); // waits for two seconds
         }
         else if (cardName == "Burning Desire")
         {
             burnCount = 0;
             burn = true;
             dialogueText.text = "The opponent will take 60 damage total over the next three turns";
+            yield return new WaitForSeconds(2f); // waits for two seconds
         }
         else if (cardName == "Living On The Edge")
         {
             if (playerUnit.HP < 30)
             {
-                isDead = opponentUnit.TakeDamage(60);
-                dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " damage]";
+                if (veilCount < 2 && veil)
+                {
+                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    if (cross)
+                    {
+                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-30 life]"; // changes the dialogue text
+                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        dialogueText.text = ""; // changes the dialogue text
+                        playerDead = playerUnit.TakeDamage(30);
+                        cross = false;
+                    }
+                    else
+                    {
+                        dialogueText.text = "You took damage from your own Living on the Edge! [-60 life]"; // changes the dialogue text
+                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        dialogueText.text = ""; // changes the dialogue text
+                        playerDead = playerUnit.TakeDamage(60);
+                    }
+                    playerHUD.SetHP(playerUnit.HP);
+                    playerHUD.SetShield(playerUnit.shield);
+                    if (playerDead) // if the opponent is dead
+                    {
+                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        state = BattleState.WON; // change the battle state
+                        EndBattle(); // run endbattle function
+                        yield break;
+                    }
+                }
+                else
+                {
+                    isDead = opponentUnit.TakeDamage(60);
+                    dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " life]"; 
+                }
             }
             else
             {
-                isDead = opponentUnit.TakeDamage(20);
-                dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " damage]";
+                if (veilCount < 2 && veil)
+                {
+                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    if (cross)
+                    {
+                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-10 life]"; // changes the dialogue text
+                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        dialogueText.text = ""; // changes the dialogue text
+                        playerDead = playerUnit.TakeDamage(10);
+                        cross = false;
+                    }
+                    else
+                    {
+                        dialogueText.text = "You took damage from your own Living on the Edge! [-20 life]"; // changes the dialogue text
+                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        dialogueText.text = ""; // changes the dialogue text
+                        playerDead = playerUnit.TakeDamage(20);
+                    }
+                    playerHUD.SetHP(playerUnit.HP);
+                    playerHUD.SetShield(playerUnit.shield);
+                    if (playerDead) // if the opponent is dead
+                    {
+                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        state = BattleState.WON; // change the battle state
+                        EndBattle(); // run endbattle function
+                        yield break;
+                    }
+                }
+                else
+                {
+                    isDead = opponentUnit.TakeDamage(20);
+                    dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " life]";
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                }
             }
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
@@ -154,10 +260,12 @@ public class Battle : MonoBehaviour
             }
             playerHUD.SetMana(playerUnit.mana);
             dialogueText.text = "You gained " + (cardPlayed.effect - 2).ToString() + " mana!";
+            yield return new WaitForSeconds(2f); // waits for two seconds
         }
         else if (cardName == "Candied")
         {
             dialogueText.text = "Your card did nothing.";
+            yield return new WaitForSeconds(2f);
         }
         else if (cardName == "Talk")
         {
@@ -166,7 +274,8 @@ public class Battle : MonoBehaviour
             // Load the appropriate talk card scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 + (talksPlayed - 1) * 2, LoadSceneMode.Additive);
         }
-
+       
+        dialogueText.text = "";
         yield return new WaitForSeconds(2f);
 
         if (isDead)
@@ -188,6 +297,10 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
+            if (veilCount < 2 && veil)
+            {
+                veilCount++;
+            }
             disableButtons();
             StartCoroutine(OpponentTurn());
         }
@@ -237,6 +350,7 @@ public class Battle : MonoBehaviour
                 }
                 opponentHUD.SetMana(opponentUnit.mana);
                 dialogueText.text = "Constants gained 5 mana!";
+                yield return new WaitForSeconds(2f); // waits for two seconds
             }
             else if (cardToPlay.name == "Hofstadter's Butterfly")
             {
@@ -244,15 +358,17 @@ public class Battle : MonoBehaviour
                 {
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     dialogueText.text = "Constants added one copy of " + opponentUnit.lastPlayedCardName + " to his hand!";
+                    yield return new WaitForSeconds(2f); // waits for two seconds
                 }
                 else
                 {
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     dialogueText.text = "Constants added two copies of " + opponentUnit.lastPlayedCardName + " to his hand!";
+                    yield return new WaitForSeconds(2f); // waits for two seconds
                 }
                 opponentUnit.clearCardZone();
-                yield return new WaitForSeconds(2f);
+                // yield return new WaitForSeconds(2f);
                 PlayerTurn();
                 yield break;
             }
@@ -336,12 +452,15 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Veil of Thorns")
             {
+                veil = true;
                 dialogueText.text = "Rosa will reflect damage back to you for two of your turns!";
+                yield return new WaitForSeconds(2f); // waits for two seconds
                 Debug.Log("Veil of Thorns");
             }
             else if (cardToPlay.name == "Lament")
             {
                 dialogueText.text = "Rosa lost 10 HP and gained 20 shield!";
+                yield return new WaitForSeconds(2f); // waits for two seconds
                 opponentUnit.HP -= 10;
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentUnit.Guard(20);
@@ -350,6 +469,7 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Garden of None")
             {
                 dialogueText.text = "Rosa expended " + opponentUnit.shield + " shield to deal " + opponentUnit.shield + " damage!";
+                yield return new WaitForSeconds(2f); // waits for two seconds
                 isDead = playerUnit.TakeDamage(opponentUnit.shield);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
@@ -359,6 +479,7 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Fate's Wreath")
             {
                 dialogueText.text = "Rosa gained 100 shield and added a copy of Fate\'s Wreath to their hand!";
+                yield return new WaitForSeconds(2f); // waits for two seconds
                 opponentUnit.Guard(100);
                 opponentHUD.SetShield(opponentUnit.shield);
                 opponentUnit.hand.Add("Fate's Wreath");
@@ -403,30 +524,65 @@ public class Battle : MonoBehaviour
 
         if (burnCount < 3 && burn)
         {
-            yield return new WaitForSeconds(2f); // waits for two seconds
-            dialogueText.text = opponentUnit.charName + " took damage from their Burn [- 20 health]"; // changes the dialogue text
-            opponentDead = opponentUnit.TakeDamage(20);
-            opponentHUD.SetHP(opponentUnit.HP);
-            opponentHUD.SetShield(opponentUnit.shield);
-            burnCount++;
-            if (opponentDead) // if the opponent is dead
+            if (veilCount < 2 && veil)
+            {
+                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
+                yield return new WaitForSeconds(2f); // waits for two seconds
+                bool playerDead;
+                if (cross)
+                {
+                    dialogueText.text = "Because of your Cross card, you took less damage from your own Burn! [-10 life]"; // changes the dialogue text
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    dialogueText.text = ""; // changes the dialogue text
+                    playerDead = playerUnit.TakeDamage(10);
+                    cross = false;
+                }
+                else
+                {
+                    dialogueText.text = "You took damage from your own Burn! [-20 life]"; // changes the dialogue text
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    dialogueText.text = ""; // changes the dialogue text
+                    playerDead = playerUnit.TakeDamage(20);
+                }
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
+                if (playerDead) // if the opponent is dead
+                {
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    state = BattleState.WON; // change the battle state
+                    EndBattle(); // run endbattle function
+                    yield break;
+                }
+            }
+            else
             {
                 yield return new WaitForSeconds(2f); // waits for two seconds
-                state = BattleState.WON; // change the battle state
-                EndBattle(); // run endbattle function
-                yield break;
+                dialogueText.text = opponentUnit.charName + " took damage from their Burn [-20 life]"; // changes the dialogue text
+                yield return new WaitForSeconds(2f); // waits for two seconds
+                opponentDead = opponentUnit.TakeDamage(20);
+                opponentHUD.SetHP(opponentUnit.HP);
+                opponentHUD.SetShield(opponentUnit.shield);
+                burnCount++;
+                if (opponentDead) // if the opponent is dead
+                {
+                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    state = BattleState.WON; // change the battle state
+                    EndBattle(); // run endbattle function
+                    yield break;
+                }
             }
+            
         }
         if (sugarCount < 2 && sugar)
         {
             yield return new WaitForSeconds(2f); // waits for two seconds
             dialogueText.text = opponentUnit.charName + " healed from her Sugar Rush [+ 10 health]"; // changes the dialogue text
+            yield return new WaitForSeconds(2f); // waits for two seconds
             opponentUnit.Recover(10);
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
             sugarCount++;
         }
-
         yield return new WaitForSeconds(2f);
         StartCoroutine(OpponentPlay());
     }
@@ -483,18 +639,19 @@ public class Battle : MonoBehaviour
     public bool dealDamage(string attackName, int dmg)
     {
         if (cross)
-            {
-                bool isDead = playerUnit.TakeDamage(dmg / 2);
-                dialogueText.text = "Because of your Cross card," + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg / 2) + " damage]";
-                cross = false;
-                return isDead;
-            }
-            else
-            {
-                bool isDead = playerUnit.TakeDamage(dmg / 2);
-                dialogueText.text = opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg) + " damage]";
-                return isDead;
-            }
+        {
+            bool isDead = playerUnit.TakeDamage(dmg / 2);
+            dialogueText.text = "Because of your Cross card," + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg / 2) + " life]";
+            cross = false;
+            return isDead;
+        }
+        else
+        {
+            bool isDead = playerUnit.TakeDamage(dmg / 2);
+            dialogueText.text = opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg) + " life]";
+            return isDead;
+        }
+        
     }
 
     public void enableButtons()
