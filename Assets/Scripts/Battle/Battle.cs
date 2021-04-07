@@ -272,7 +272,7 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Lament")
             {
                 dialogueText.text = "Rosa lost 10 HP and gained 20 shield!";
-                opponentUnit.TakeDamage(10);
+                opponentUnit.HP -= 10;
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentUnit.Guard(20);
                 opponentHUD.SetShield(opponentUnit.shield);
@@ -292,10 +292,6 @@ public class Battle : MonoBehaviour
                 opponentUnit.Guard(100);
                 opponentHUD.SetShield(opponentUnit.shield);
                 opponentUnit.hand.Add("Fate's Wreath");
-                opponentUnit.clearCardZone();
-                yield return new WaitForSeconds(2f);
-                PlayerTurn();
-                yield break;
             }
             opponentUnit.lastPlayedCardName = cardToPlay.name;
             cross = false;

@@ -84,40 +84,28 @@ public class Opponent : Duelist
             }
             else if (mana >= 3 && shield >= 50 && hand.Contains("Garden of None"))
             {
-                if (hand.Contains("Garden of None"))
-                {
-                    cardToPlayName = "Garden of None";
-                    hand.Remove("Garden of None");
-                }
+                cardToPlayName = "Garden of None";
+                hand.Remove("Garden of None");
             }
             else if (mana >= 7 && hand.Contains("Fate's Wreath") && shield <= 50)
             {
                 cardToPlayName = "Fate's Wreath";
                 hand.Remove("Fate's Wreath");
             }
-            else if (mana >= 4) // and not thorns?
+            else if (mana >= 3 && hand.Contains("Veil of Thorns")) // and not thorns?
             {
-                if (hand.Contains("Veil of Thorns"))
-                {
-                    cardToPlayName = "Veil of Thorns";
-                    hand.Remove("Veil of Thorns");
-                }
+                cardToPlayName = "Veil of Thorns";
+                hand.Remove("Veil of Thorns");
             }
-            else if (mana >= 3 && shield >= 20)
+            else if (mana >= 3 && shield >= 20 && hand.Contains("Garden of None"))
             {
-                if (hand.Contains("Garden of None"))
-                {
-                    cardToPlayName = "Garden of None";
-                    hand.Remove("Garden of None");
-                }
+                cardToPlayName = "Garden of None";
+                hand.Remove("Garden of None");
             }
-            else if (mana >= 2 && HP >= 20 && shield <= 90)
+            else if (mana >= 1 && HP >= 20 && shield <= 90 && hand.Contains("Lament"))
             {
-                if (hand.Contains("Lament"))
-                {
-                    cardToPlayName = "Lament";
-                    hand.Remove("Lament");
-                }
+                cardToPlayName = "Lament";
+                hand.Remove("Lament");
             }
             else
             {
