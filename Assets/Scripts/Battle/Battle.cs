@@ -14,6 +14,7 @@ public class Battle : MonoBehaviour
 
     public GameObject endTurnButton;
     public GameObject drawCardButton;
+    public GameObject handCardArea;
 
     public GameOverUI gameOverUI;
 
@@ -37,7 +38,11 @@ public class Battle : MonoBehaviour
 
     public bool cross = false;
     public bool burn = false;
+    public bool sticky = false;
+    public bool sugar = false;
+    
     public int burnCount = 0;
+    public int sugarCount = 0;
 
     void Start()
     {
@@ -82,6 +87,12 @@ public class Battle : MonoBehaviour
     // Executes when a card is placed into the dropzone
     public IEnumerator PlayerAttack(Card cardPlayed)
     {
+        if (sticky)
+        {
+            sticky = false;
+            EndTurn();
+        }
+        
         bool isDead = false;
         string cardName = cardPlayed.name;
 
@@ -144,6 +155,10 @@ public class Battle : MonoBehaviour
             playerHUD.SetMana(playerUnit.mana);
             dialogueText.text = "You gained " + (cardPlayed.effect - 2).ToString() + " mana!";
         }
+        else if (cardName == "Candied")
+        {
+            dialogueText.text = "Your card did nothing.";
+        }
         else if (cardName == "Talk")
         {
             talksPlayed++;
@@ -181,6 +196,7 @@ public class Battle : MonoBehaviour
     // Opponent chooses what to do on their turn
     public IEnumerator OpponentPlay()
     {
+        CardDisplay [] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
         // Opponent chooses an action to take
         string action = opponentUnit.ChooseAction();
         if (action == "EndTurn")
@@ -243,26 +259,80 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Chaos")
             {
                 int dmg = 10 * opponentUnit.numButterfliesPlayed;
-                if (cross)
-                {
-                    isDead = playerUnit.TakeDamage(dmg / 2);
-                    dialogueText.text = "Constant's Chaos dealt " + (int)(dmg / 2) + " damage to you!";
-                }
-                else
-                {
-                    isDead = playerUnit.TakeDamage(dmg);
-                    dialogueText.text = "Constant's Chaos dealt " + dmg + " damage to you!";
-                }
+                isDead = dealDamage("Chaos", dmg);
 
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 opponentUnit.hand.RemoveAll(cardName => cardName.Contains("Chaos"));
             }
+            else if (cardToPlay.name == "Candied")
+            {
+                int cardIndex = Random.Range(0, playerCards.Length - 1);
+                Vector3 pos = playerCards[cardIndex].transform.localPosition;
+                Destroy(playerCards[cardIndex].gameObject);
+
+                GameObject candiedCard = (GameObject)Instantiate(Resources.Load("Prefabs/PlayerCards/CandiedPlayer"));
+                candiedCard.transform.SetParent(handCardArea.transform);
+                candiedCard.transform.localPosition = pos;
+                candiedCard.transform.localScale = new Vector3(1f, 1f, 1f);
+                dialogueText.text = "You've been Candied! Your " + playerCards[cardIndex].card.name + " card has been replaced with a Candied card!";
+                yield return new WaitForSeconds(2f);
+            }
             else if (cardToPlay.name == "Toothache")
             {
-                isDead = playerUnit.TakeDamage(500);
+                RelationshipStatus playerRelationship = playerUnit.relationship.getStatus();
+                int dmg = 0;
+                if (playerRelationship == RelationshipStatus.STRANGERS)
+                {
+                    dmg = 60;
+                }
+                else if (playerRelationship == RelationshipStatus.ACQUAINTANCES)
+                {
+                    dmg = 50;
+                }
+                else if (playerRelationship == RelationshipStatus.FRIENDS)
+                {
+                    dmg = 40;
+                }
+                else if (playerRelationship == RelationshipStatus.FRIENDS)
+                {
+                    dmg = 30;
+                }
+                isDead = dealDamage("Toothache", dmg);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
+            }
+            else if (cardToPlay.name == "Sticky Situation")
+            {
+                sticky = true;
+                dialogueText.text = "Candy's card skips your next turn.";
+                yield return new WaitForSeconds(2f);
+            }
+            else if (cardToPlay.name == "Sugar Rush")
+            {
+                sugar = true;
+                dialogueText.text = "Candy heals 20 life over the next two turns.";
+                yield return new WaitForSeconds(2f);
+            }
+            else if (cardToPlay.name == "pog")
+            {
+                int dmg = playerCards.Length*5;
+                dialogueText.text = "You took 5 damage for each card in your hand!";
+                yield return new WaitForSeconds(2f);
+                isDead = dealDamage("pog", dmg);
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
+            }
+            else if (cardToPlay.name == "Exchangemint")
+            {
+                dialogueText.text = "Candy switches health values with you!";
+                yield return new WaitForSeconds(0.5f);
+                int playerHP = playerUnit.HP;
+                playerUnit.HP = opponentUnit.HP;
+                opponentUnit.HP = playerHP;
+                playerHUD.SetHP(playerUnit.HP);
+                opponentHUD.SetHP(opponentUnit.HP);
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Veil of Thorns")
             {
@@ -293,11 +363,14 @@ public class Battle : MonoBehaviour
                 opponentHUD.SetShield(opponentUnit.shield);
                 opponentUnit.hand.Add("Fate's Wreath");
             }
+
             opponentUnit.lastPlayedCardName = cardToPlay.name;
             cross = false;
             if (isDead)
             {
                 state = BattleState.LOST;
+                dialogueText.text = "Your health has been depleted to 0!";
+                yield return new WaitForSeconds(2f);
                 EndBattle();
             }
             else
@@ -343,6 +416,15 @@ public class Battle : MonoBehaviour
                 EndBattle(); // run endbattle function
                 yield break;
             }
+        }
+        if (sugarCount < 2 && sugar)
+        {
+            yield return new WaitForSeconds(2f); // waits for two seconds
+            dialogueText.text = opponentUnit.charName + " healed from her Sugar Rush [+ 10 health]"; // changes the dialogue text
+            opponentUnit.Recover(10);
+            opponentHUD.SetHP(opponentUnit.HP);
+            opponentHUD.SetShield(opponentUnit.shield);
+            sugarCount++;
         }
 
         yield return new WaitForSeconds(2f);
@@ -398,6 +480,22 @@ public class Battle : MonoBehaviour
         enableButtons();
     }
 
+    public bool dealDamage(string attackName, int dmg)
+    {
+        if (cross)
+            {
+                bool isDead = playerUnit.TakeDamage(dmg / 2);
+                dialogueText.text = "Because of your Cross card," + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg / 2) + " damage]";
+                cross = false;
+                return isDead;
+            }
+            else
+            {
+                bool isDead = playerUnit.TakeDamage(dmg / 2);
+                dialogueText.text = opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg) + " damage]";
+                return isDead;
+            }
+    }
 
     public void enableButtons()
     {

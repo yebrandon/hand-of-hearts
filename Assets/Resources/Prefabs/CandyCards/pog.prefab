@@ -609,7 +609,7 @@ GameObject:
   - component: {fileID: 6826860172683286067}
   - component: {fileID: 8544263177595386586}
   m_Layer: 5
-  m_Name: Candied
+  m_Name: pog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b9379e27093cd469ac394adb1b703f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 6a897be06f90cf74e903490fda133ab1, type: 2}
+  card: {fileID: 11400000, guid: a3b3e8c11db8bc14eaeb7a60937aa954, type: 2}
   nameText: {fileID: 8872922536052711893}
   descriptionText: {fileID: 8872922536246139516}
   costText: {fileID: 1659955020436213329}

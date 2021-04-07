@@ -67,9 +67,57 @@ public class Opponent : Duelist
         }
         else if (charName == "Candy")
         {
+            Debug.Log("opponent turn");
+            foreach( var x in hand) {
+                Debug.Log( x.ToString());
+            };
+            
             if (mana >= 2)
             {
-                cardToPlayName = "Toothache";
+                if (hand.Contains("Sugar") && HP < 60)
+                {
+                    cardToPlayName = "Sugar";
+                    hand.Remove("Sugar");
+                }
+                else if (mana >= 3)
+                {
+                    int draw = Random.Range(0, 5);
+                    if (draw == 0)
+                    {
+                        return "Draw";
+                    }
+                    else
+                    {
+                        if (mana >= 4 && hand.Contains("pog"))
+                        {
+                            cardToPlayName = "pog";
+                            hand.Remove("pog");
+                        }
+                        else if (mana >= 5 && hand.Contains("Toothache"))
+                        {
+                            cardToPlayName = "Toothache";
+                            hand.Remove("Toothache");
+                        }
+                        else if (mana >= 6 && hand.Contains("Candied"))
+                        {
+                            cardToPlayName = "Candied";
+                            hand.Remove("Candied");
+                        }
+                        else if (mana >= 7 && hand.Contains("Sticky"))
+                        {
+                            cardToPlayName = "Sticky";
+                            hand.Remove("Sticky");
+                        }
+                        else if (mana >= 10 && hand.Contains("Exchangemint"))
+                        {
+                            cardToPlayName = "Exchangemint";
+                            hand.Remove("Exchangemint");
+                        }
+                    }
+                }
+                else {
+                    return "EndTurn";
+                }
             }
             else
             {
@@ -112,7 +160,8 @@ public class Opponent : Duelist
                 return "EndTurn";
             }
         }
-
+        Debug.Log(charName);
+        Debug.Log(cardToPlayName);
         GameObject cardGO = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlayName));
 
         cardDisplay = cardGO.GetComponent<CardDisplay>();

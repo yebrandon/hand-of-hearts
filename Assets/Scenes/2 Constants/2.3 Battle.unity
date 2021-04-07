@@ -1629,6 +1629,7 @@ MonoBehaviour:
   opponentPrefab: {fileID: 37861481}
   endTurnButton: {fileID: 13120011}
   drawCardButton: {fileID: 70438548}
+  handCardArea: {fileID: 657293923}
   gameOverUI: {fileID: 1475460410}
   playerBattleStation: {fileID: 2727870488083960849, guid: d0b47bc560fc71347a41810377f0642f,
     type: 3}
@@ -1645,7 +1646,10 @@ MonoBehaviour:
   turnNum: 0
   cross: 0
   burn: 0
+  sticky: 0
+  sugar: 0
   burnCount: 0
+  sugarCount: 0
 --- !u!1 &398925815
 GameObject:
   m_ObjectHideFlags: 0
