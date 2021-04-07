@@ -108,7 +108,28 @@ EditorBuildSettings:
     path: Assets/Scenes/5 Ruler/5.1 Meeting.unity
     guid: f0c1e80623804df4aaa191d675d3e700
   - enabled: 1
-    path: Assets/Scenes/5 Ruler/5.3 PostBattle.unity
+    path: Assets/Scenes/5 Ruler/5.3 Battle.unity
+    guid: ae12b88e587de774aacf6ec2f20a56ba
+  - enabled: 1
+    path: Assets/Scenes/5 Ruler/5.4 Talk One Dialogue.unity
+    guid: 8ad785800a138c14c91c8832087bd313
+  - enabled: 1
+    path: Assets/Scenes/5 Ruler/5.5 Talk One Choice.unity
+    guid: 85df022a7cd7a754689661b1d0c3229c
+  - enabled: 1
+    path: Assets/Scenes/5 Ruler/5.6 Talk Two Dialogue.unity
+    guid: 9adfa481083f844449b956e3c5f51c71
+  - enabled: 1
+    path: Assets/Scenes/5 Ruler/5.7 Talk Two Choice.unity
+    guid: 4f72aa0cdc20ecb4c8169ce2fcd962f0
+  - enabled: 1
+    path: Assets/Scenes/5 Ruler/5.8 Talk Three Dialogue.unity
+    guid: 1294a8699c9eb284a93f1346b7ea95a0
+  - enabled: 1
+    path: Assets/Scenes/5 Ruler/5.9 Talk Three Choice.unity
+    guid: 8684fae77d33f2843acc135ecbb069e1
+  - enabled: 1
+    path: Assets/Scenes/5 Ruler/5.10 PostBattle.unity
     guid: 0cb7549741c0e544ca0e61456140bc0b
   - enabled: 1
     path: Assets/Scenes/6 Choosing/6.1 Pre Choices.unity

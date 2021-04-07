@@ -25,6 +25,12 @@ public class GameOverUI : MonoBehaviour
         // set relationship status
         relationshipText.text = relationshipStatus.getStatus() + " with " + opponentName;
 
+        if (opponentName == "Rosa")
+        {
+            return;
+        }
+
+
         // set new card
 
         wonCardFile = opponentName + "/SkillCard" + (int)(relationshipStatus.getStatusInt() + 1);

@@ -264,6 +264,35 @@ public class Battle : MonoBehaviour
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
             }
+            else if (cardToPlay.name == "Veil of Thorns")
+            {
+                dialogueText.text = "Rosa will reflect damage back to you for two of your turns!";
+                Debug.Log("Veil of Thorns");
+            }
+            else if (cardToPlay.name == "Lament")
+            {
+                dialogueText.text = "Rosa lost 10 HP and gained 20 shield!";
+                opponentUnit.HP -= 10;
+                opponentHUD.SetHP(opponentUnit.HP);
+                opponentUnit.Guard(20);
+                opponentHUD.SetShield(opponentUnit.shield);
+            }
+            else if (cardToPlay.name == "Garden of None")
+            {
+                dialogueText.text = "Rosa expended " + opponentUnit.shield + " shield to deal " + opponentUnit.shield + " damage!";
+                isDead = playerUnit.TakeDamage(opponentUnit.shield);
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
+                opponentUnit.shield = 0;
+                opponentHUD.SetShield(opponentUnit.shield);
+            }
+            else if (cardToPlay.name == "Fate's Wreath")
+            {
+                dialogueText.text = "Rosa gained 100 shield and added a copy of Fate\'s Wreath to their hand!";
+                opponentUnit.Guard(100);
+                opponentHUD.SetShield(opponentUnit.shield);
+                opponentUnit.hand.Add("Fate's Wreath");
+            }
             opponentUnit.lastPlayedCardName = cardToPlay.name;
             cross = false;
             if (isDead)
@@ -401,6 +430,7 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.WON) // if the player has won
         {
+
             gameOverUI.gameOverScreen.SetActive(true);
             disableButtons();
             gameOverUI.LoadCard(playerUnit.relationship, opponentUnit.charName, playerUnit.deck);
