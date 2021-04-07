@@ -15,6 +15,6 @@ MonoBehaviour:
   name: Sticky Situation
   description: Player cannot play their next turn.
   cost: 7
-  artwork: {fileID: 0}
+  artwork: {fileID: 21300000, guid: d3858a241575b1940bf4172059b357a8, type: 3}
   type: 2
   effect: 0
