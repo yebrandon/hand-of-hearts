@@ -847,26 +847,26 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - Our story begins in the magical Kingdom of Amare. The kingdom has been under
-      the rule of, Rosa for many years.
-    - "In the past, Rosa was a brilliant leader that always put the needs of the
-      people first. It wasn\u2019t until the tragic death of their love that everything
-      started to change. "
-    - In a few short years, Rosa changed from following the hearts of the people
-      to becoming a tyrannical ruler.
+    - Our story begins in the Kingdom of Amare
+    - The kingdom has been under the rule of its ruler Rosa for many years
+    - In the past, Rosa was a brilliant leader that always put the needs of the people
+      first.
+    - "It wasn\u2019t until the tragic death of their love that everything started
+      to change. In a few short years, Rosa changed from following the hearts of
+      the people to becoming a tyrannical ruler."
     - With the sudden rise of taxes and farming quotas, many of the small villages
       of Amare have fallen into poverty.
-    - Our protagonist has lived in a small farming village for their whole life.
-      The world they live in has granted its people with the ability to use magic.
-    - "Ever since our protagonist was young, they\u2019ve been practicing and refining
-      their magical ability, with the belief that they\u2019ll be able to help out
-      around the village. "
-    - "However, over time, they\u2019ve witnessed the happy and charming village
-      they grew up in, descend into a dark depression."
-    - One day a knight sent from the capital announces that as of the next month,
-      the taxes and farming quota will triple from what they previously were.
-    - 'The people of the village lose any sense of hope they had previously held
-      on to. '
+    - You, our protagonist, have lived in a small farming village in Amare for your
+      whole life.
+    - "The world you live in has granted its people with the ability to use magic.
+      Ever since you were young, you\u2019ve been practicing and refining your magical
+      ability, with the belief that you\u2019ll be able to help out around the village."
+    - "However, over time, you\u2019ve witnessed the happy and charming village you
+      and your best friend, Blossom, grew up in, descend into a dark depression."
+    - "One day, a knight sent from the capital of Amare announces that, as of the
+      next month, the kingdom\u2019s taxes and farming quotas will triple from what
+      they previously were. The people of the village lose any sense of hope they
+      had previously held on to"
 --- !u!1 &2079897749
 GameObject:
   m_ObjectHideFlags: 0
