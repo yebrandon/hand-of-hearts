@@ -209,7 +209,7 @@ public class Battle : MonoBehaviour
                 }
                 else
                 {
-                    isDead = dealDamageBoid("Living On The Edge", 20);
+                    isDead = dealDamageBoid("Living On The Edge", 60);
                     dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " life]";
                 }
             }
@@ -330,10 +330,6 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
-            if (veilCount < 2 && veil)
-            {
-                veilCount++;
-            }
             if (cloak)
             {
                 CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
@@ -346,6 +342,15 @@ public class Battle : MonoBehaviour
                     }
                 };
                 cloak = false;
+            }
+            if (veilCount < 2 && veil)
+            {
+                veilCount++;
+            }
+            else if (veilCount >= 2 && veil)
+            {
+                veilCount = 0;
+                veil = false;
             }
             disableButtons();
             StartCoroutine(OpponentTurn());
