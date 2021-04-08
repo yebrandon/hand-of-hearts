@@ -105,6 +105,7 @@ public class Battle : MonoBehaviour
 
         // Pay mana cost
         playerUnit.mana -= cardPlayed.cost;
+        drawCardToggle();
         playerHUD.SetMana(playerUnit.mana);
 
         if (cardName == "Strike")
@@ -352,6 +353,7 @@ public class Battle : MonoBehaviour
                 veilCount = 0;
                 veil = false;
             }
+            state = BattleState.OPPONENTTURN;
             disableButtons();
             StartCoroutine(OpponentTurn());
         }
@@ -729,9 +731,9 @@ public class Battle : MonoBehaviour
 
         GenerateMana(playerUnit);
         playerHUD.SetMana(playerUnit.mana);
-
-        state = BattleState.PLAYERTURN;
+        
         opponentUnit.EndTurn();
+        state = BattleState.PLAYERTURN;
 
         turnText.text = "Your Turn";
         dialogueText.text = "";
@@ -805,13 +807,13 @@ public class Battle : MonoBehaviour
     public void disableButtons()
     {
         endTurnButton.GetComponent<Button>().interactable = false;
-        drawCardButton.GetComponent<Button>().interactable = false;
+        drawCardToggle();
         menuButton.GetComponent<Button>().interactable = false;
     }
 
     public void drawCardToggle()
     {
-        if (playerUnit.mana >= 3)
+        if (playerUnit.mana >= 3 && state == BattleState.PLAYERTURN)
         {
             drawCardButton.GetComponent<Button>().interactable = true;
         }
