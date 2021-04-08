@@ -23,7 +23,7 @@ public class GameOverUI : MonoBehaviour
         // Debug.Log("hello");
 
         // set relationship status
-        relationshipText.text = Relationships.relationships[opponentName] + " with " + opponentName;
+        relationshipText.text = (Relationships.relationships[opponentName]).ToString();
 
         if (opponentName == "Rosa")
         {

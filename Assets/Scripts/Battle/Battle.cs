@@ -580,7 +580,7 @@ public class Battle : MonoBehaviour
             }
 
             opponentUnit.lastPlayedCardName = cardToPlay.name;
-            cross = false;
+            // cross = false;
             if (isDead)
             {
                 state = BattleState.LOST;
@@ -800,7 +800,7 @@ public class Battle : MonoBehaviour
     public void disableButtons()
     {
         endTurnButton.GetComponent<Button>().interactable = false;
-        drawCardToggle();
+        drawCardButton.GetComponent<Button>().interactable = false;
         menuButton.GetComponent<Button>().interactable = false;
     }
 
