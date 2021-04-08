@@ -13,8 +13,8 @@ public class MenuButton : MonoBehaviour
 
         foreach (KeyValuePair<string, RelationshipStatus> entry in Relationships.relationships)
         {
-            Debug.Log("entry key" + entry.Key);
-            Debug.Log("entry value" + entry.Value);
+            // Debug.Log("entry key" + entry.Key);
+            // Debug.Log("entry value" + entry.Value);
             // If entry is not for our current opponent or Blossom and is a higher status than notmet
             if (entry.Key != battle.opponentUnit.charName && entry.Key != "Blossom" && entry.Value > 0)
             {

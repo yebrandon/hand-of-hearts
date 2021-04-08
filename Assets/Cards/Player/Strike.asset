@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Strike
   m_EditorClassIdentifier: 
   name: Strike
-  description: Deal 30 damage.
+  description: Deal 20 damage.
   cost: 2
   artwork: {fileID: 21300000, guid: 4cbecb6ea4afe9341a2f4903dbcafd58, type: 3}
   type: 0
-  effect: 30
+  effect: 20

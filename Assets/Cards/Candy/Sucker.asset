@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sucker
   m_EditorClassIdentifier: 
   name: Sucker Punch
-  description: Player takes 5 damage for each card in their hand.
-  cost: 4
+  description: Player takes 10 damage for each card in their hand.
+  cost: 3
   artwork: {fileID: 21300000, guid: 1c2091dc9b919c64986c633a3b9029d1, type: 3}
   type: 0
   effect: 0

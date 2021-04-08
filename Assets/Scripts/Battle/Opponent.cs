@@ -32,7 +32,7 @@ public class Opponent : Duelist
         }
     }
 
-    public string ChooseAction()
+    public string ChooseAction(int playerHP)
     {
         if (charName == "Constants")
         {
@@ -89,27 +89,27 @@ public class Opponent : Duelist
                     }
                     else
                     {
-                        if (mana >= 10 && hand.Contains("Exchangemint"))
+                        if (mana >= 10 && hand.Contains("Exchangemint") && HP < playerHP)
                         {
                             cardToPlayName = "Exchangemint";
                             hand.Remove("Exchangemint");
                         }
-                        else if (mana >= 7 && hand.Contains("Sticky") && draw < 3)
+                        else if (mana >= 7 && hand.Contains("Sticky") && draw < 4 && (mana - 7 >= 1))
                         {
                             cardToPlayName = "Sticky";
                             hand.Remove("Sticky");
                         }
-                        else if (mana >= 6 && hand.Contains("Candied") && draw < 2)
+                        else if (mana >= 6 && hand.Contains("Candied") && draw < 4)
                         {
                             cardToPlayName = "Candied";
                             hand.Remove("Candied");
                         }
-                        else if (mana >= 5 && hand.Contains("Toothache") && draw < 2)
+                        else if (mana >= 5 && hand.Contains("Toothache") && draw < 4)
                         {
                             cardToPlayName = "Toothache";
                             hand.Remove("Toothache");
                         }
-                        else if (mana >= 4 && hand.Contains("Sucker"))
+                        else if (mana >= 3 && hand.Contains("Sucker") && draw < 4)
                         {
                             cardToPlayName = "Sucker";
                             hand.Remove("Sucker");
@@ -212,8 +212,8 @@ public class Opponent : Duelist
                 return "EndTurn";
             }
         }
-        Debug.Log(charName);
-        Debug.Log(cardToPlayName);
+        // Debug.Log(charName);
+        // Debug.Log(cardToPlayName);
         GameObject cardGO = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlayName));
 
         cardDisplay = cardGO.GetComponent<CardDisplay>();

@@ -30,6 +30,7 @@ public class Relationship : MonoBehaviour
 
     public RelationshipStatus getStatus()
     {
+        Debug.Log(status[current]);
         return status[current];
     }
 
@@ -61,7 +62,7 @@ public class Relationship : MonoBehaviour
         SpriteRenderer oldHeart = heartsGroup.GetComponentInChildren<SpriteRenderer>();
         GameObject newHeart = (GameObject)Instantiate(Resources.Load("Prefabs/Hearts/heartFilledSparkle"));
         newHeart.transform.SetParent(heartsGroup.transform);
-        Debug.Log(oldHeart.transform.localPosition);
+        // Debug.Log(oldHeart.transform.localPosition);
         newHeart.transform.localPosition = (oldHeart.transform.localPosition);
         newHeart.transform.localScale = new Vector3(14f, 14f, 14f);
         Destroy(oldHeart);

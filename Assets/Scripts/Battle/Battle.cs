@@ -341,7 +341,7 @@ public class Battle : MonoBehaviour
                 {
                     if (x.blockedByCloak)
                     {
-                        Debug.Log(x.ToString());
+                        // Debug.Log(x.ToString());
                         x.blockedByCloak = false;
                     }
                 };
@@ -357,7 +357,7 @@ public class Battle : MonoBehaviour
     {
         CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
         // Opponent chooses an action to take
-        string action = opponentUnit.ChooseAction();
+        string action = opponentUnit.ChooseAction(playerUnit.HP);
         if (action == "EndTurn")
         {
             dialogueText.text = opponentUnit.charName + " ended their turn.";
@@ -448,7 +448,7 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Toothache")
             {
-                RelationshipStatus playerRelationship = playerUnit.relationship.getStatus();
+                RelationshipStatus playerRelationship = Relationships.relationships[opponentUnit.charName];
                 int dmg = 0;
                 if (playerRelationship == RelationshipStatus.STRANGERS)
                 {
@@ -485,8 +485,8 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Sucker Punch")
             {
-                int dmg = playerCards.Length * 5;
-                dialogueText.text = "You took 5 damage for each card in your hand!";
+                int dmg = playerCards.Length * 10;
+                dialogueText.text = "You took 10 damage for each card in your hand!";
                 isDead = dealDamage("Sucker Punch", dmg);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
@@ -549,7 +549,7 @@ public class Battle : MonoBehaviour
                 veil = true;
                 dialogueText.text = "Rosa will reflect damage back to you for two of your turns!";
                 yield return new WaitForSeconds(2f); // waits for two seconds
-                Debug.Log("Veil of Thorns");
+                // Debug.Log("Veil of Thorns");
             }
             else if (cardToPlay.name == "Lament")
             {
@@ -736,7 +736,6 @@ public class Battle : MonoBehaviour
 
         if (cloak)
         {
-            Debug.Log("ello");
             CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
             foreach (var x in playerCards)
             {

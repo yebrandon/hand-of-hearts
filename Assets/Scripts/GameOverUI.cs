@@ -20,10 +20,10 @@ public class GameOverUI : MonoBehaviour
     // if you win
     public void LoadCard(Relationship relationshipStatus, string opponentName, Deck playerDeck)
     {
-        Debug.Log("hello");
+        // Debug.Log("hello");
 
         // set relationship status
-        relationshipText.text = relationshipStatus.getStatus() + " with " + opponentName;
+        relationshipText.text = Relationships.relationships[opponentName] + " with " + opponentName;
 
         if (opponentName == "Rosa")
         {
@@ -34,7 +34,7 @@ public class GameOverUI : MonoBehaviour
         // set new card
 
         wonCardFile = opponentName + "/SkillCard" + (int)(relationshipStatus.getStatusInt() + 1);
-        Debug.Log(wonCardFile);
+        // Debug.Log(wonCardFile);
         // load card prefab
         GameObject cardPrefab = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + wonCardFile));
         cardPrefab.transform.SetParent(cardArea.transform);
@@ -57,7 +57,6 @@ public class GameOverUI : MonoBehaviour
 
     public void OnContinueButton()
     {
-        Debug.Log("continue pressed");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7);
     }
 

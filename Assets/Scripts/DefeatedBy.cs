@@ -9,7 +9,7 @@ public class DefeatedBy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(SceneTracker.lastBattleCharName);
+        // Debug.Log(SceneTracker.lastBattleCharName);
         defeatText.text = "You were defeated by \n" + SceneTracker.lastBattleCharName + "!";
     }
 }
