@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81eb0b00d2301bf46bc6666023297025, type: 3}
   m_Name: Candy4
   m_EditorClassIdentifier: 
-  name: Exchangement
+  name: Exchangemint
   description: Switch health and shield values with the opponent.
   cost: 10
   artwork: {fileID: 21300000, guid: d3858a241575b1940bf4172059b357a8, type: 3}
