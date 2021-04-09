@@ -22,10 +22,10 @@ public class Deck : MonoBehaviour
             "Recover",
             "Talk",
             "Talk",
-            // "Cross",
-            // "Burn",
-            // "Edge",
-            // "Edge"
+            "Cross",
+            "Burn",
+            "Edge",
+            "Edge"
         };
 
         // Draw 3 cards at the start of the game (+1 for start of turn)

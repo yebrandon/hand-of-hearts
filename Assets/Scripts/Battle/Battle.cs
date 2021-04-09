@@ -104,20 +104,23 @@ public class Battle : MonoBehaviour
         {
             if (veilCount < 2 && veil)
             {
-                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                dialogueText.text = opponentUnit.charName + " reflected half of the attack back at you!";
                 yield return new WaitForSeconds(2f);
                 if (cross)
                 {
-                    dialogueText.text = "Because of your Cross card, you took less damage from your own Strike! [-10 life]";
-                    playerDead = playerUnit.TakeDamage(10);
+                    dialogueText.text = "Because of your Cross card, you took less damage from your own Strike! [-5 life]";
+                    playerDead = playerUnit.TakeDamage(5);
                     cross = false;
                 }
                 else
                 {
-                    dialogueText.text = "You took damage from your own Strike! [-20 life]";
-                    playerDead = playerUnit.TakeDamage(20);
+                    dialogueText.text = "You took damage from your own Strike! [-10 life]";
+                    playerDead = playerUnit.TakeDamage(10);
                     yield return new WaitForSeconds(2f);
                 }
+                isDead = dealDamageBoid("Strike", 10);
+                dialogueText.text = "Rosa took half of the damage from your Strike! [-10 life]";
+                yield return new WaitForSeconds(2f);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 yield return new WaitForSeconds(2f);
@@ -171,23 +174,26 @@ public class Battle : MonoBehaviour
             {
                 if (veilCount < 2 && veil)
                 {
-                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                    dialogueText.text = opponentUnit.charName + " reflected half of the attack back at you!";
                     yield return new WaitForSeconds(2f);
                     if (cross)
                     {
-                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-30 life]";
+                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-15 life]";
                         yield return new WaitForSeconds(2f);
                         dialogueText.text = "";
-                        playerDead = playerUnit.TakeDamage(30);
+                        playerDead = playerUnit.TakeDamage(15);
                         cross = false;
                     }
                     else
                     {
-                        dialogueText.text = "You took damage from your own Living on the Edge! [-60 life]";
+                        dialogueText.text = "You took damage from your own Living on the Edge! [-30 life]";
                         yield return new WaitForSeconds(2f);
                         dialogueText.text = "";
-                        playerDead = playerUnit.TakeDamage(60);
+                        playerDead = playerUnit.TakeDamage(30);
                     }
+                    isDead = dealDamageBoid("Living On The Edge", 30);
+                    dialogueText.text = "Rosa took half of the damage from your Living on the Edge! [-30 life]";
+                    yield return new WaitForSeconds(2f);
                     playerHUD.SetHP(playerUnit.HP);
                     playerHUD.SetShield(playerUnit.shield);
                     if (playerDead)
@@ -208,23 +214,26 @@ public class Battle : MonoBehaviour
             {
                 if (veilCount < 2 && veil)
                 {
-                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                    dialogueText.text = opponentUnit.charName + " reflected half of the attack back at you!";
                     yield return new WaitForSeconds(2f);
                     if (cross)
                     {
-                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-10 life]";
+                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-5 life]";
                         yield return new WaitForSeconds(2f);
                         dialogueText.text = "";
-                        playerDead = playerUnit.TakeDamage(10);
+                        playerDead = playerUnit.TakeDamage(5);
                         cross = false;
                     }
                     else
                     {
-                        dialogueText.text = "You took damage from your own Living on the Edge! [-20 life]";
+                        dialogueText.text = "You took damage from your own Living on the Edge! [-10 life]";
                         yield return new WaitForSeconds(2f);
                         dialogueText.text = "";
-                        playerDead = playerUnit.TakeDamage(20);
+                        playerDead = playerUnit.TakeDamage(10);
                     }
+                    isDead = dealDamageBoid("Living on the Edge", 10);
+                    dialogueText.text = "Rosa took half of the damage from your Living on the Edge! [-10 life]";
+                    yield return new WaitForSeconds(2f);
                     playerHUD.SetHP(playerUnit.HP);
                     playerHUD.SetShield(playerUnit.shield);
                     if (playerDead)
@@ -613,24 +622,27 @@ public class Battle : MonoBehaviour
         {
             if (veilCount < 2 && veil)
             {
-                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                dialogueText.text = opponentUnit.charName + " reflected half of the attack back at you!";
                 yield return new WaitForSeconds(2f);
                 bool playerDead;
                 if (cross)
                 {
-                    dialogueText.text = "Because of your Cross card, you took less damage from your own Burn! [-10 life]";
+                    dialogueText.text = "Because of your Cross card, you took less damage from your own Burn! [-5 life]";
                     yield return new WaitForSeconds(2f);
                     dialogueText.text = "";
-                    playerDead = playerUnit.TakeDamage(10);
+                    playerDead = playerUnit.TakeDamage(5);
                     cross = false;
                 }
                 else
                 {
-                    dialogueText.text = "You took damage from your own Burn! [-20 life]";
+                    dialogueText.text = "You took damage from your own Burn! [-10 life]";
                     yield return new WaitForSeconds(2f);
                     dialogueText.text = "";
-                    playerDead = playerUnit.TakeDamage(20);
+                    playerDead = playerUnit.TakeDamage(10);
                 }
+                opponentDead = dealDamageBoid("Burn", 10);
+                dialogueText.text = "Rosa took half of the damage from your Burn! [-10 life]";
+                yield return new WaitForSeconds(2f);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 if (playerDead)
