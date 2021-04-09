@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lament
   m_EditorClassIdentifier: 
   name: Lament
-  description: Pay 10 HP. Gain 20 Shield.
+  description: Lose 10 health. Gain 20 Shield.
   cost: 1
   artwork: {fileID: 21300000, guid: eea45bbcdfec181488832049ae45c736, type: 3}
   type: 1

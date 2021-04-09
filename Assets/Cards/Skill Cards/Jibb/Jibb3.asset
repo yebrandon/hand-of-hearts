@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Jibb3
   m_EditorClassIdentifier: 
   name: Boid
-  description: Block 80% of incoming damage from your opponent's next instance of
-    damage.
+  description: Block 80% of incoming damage from your opponent's next damaging ability.
   cost: 6
   artwork: {fileID: 21300000, guid: 640991f97eb92de4b8cde87ec940d457, type: 3}
   type: 2

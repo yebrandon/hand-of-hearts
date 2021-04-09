@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Edge
   m_EditorClassIdentifier: 
   name: Living On The Edge
-  description: Deal 20 damage. The opponent will take 60 damage if the user's health
-    is under 30.
+  description: Deal 20 damage. If you have less than 30 health, deal 60 damage instead.
   cost: 3
   artwork: {fileID: 21300000, guid: 1cfdbd646b7d85f45911c44e4988cf50, type: 3}
   type: 0
