@@ -27,6 +27,7 @@ public class GameOverUI : MonoBehaviour
 
         if (opponentName == "Rosa")
         {
+            descriptionText.text = "Congratulations, you have defeated your most powerful opponent, Rosa! You have changed Rosa's heart for the better and things are starting to look up for the Kingdom of Amare.";
             return;
         }
 

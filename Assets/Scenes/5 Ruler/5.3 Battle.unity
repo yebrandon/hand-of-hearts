@@ -596,7 +596,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -5171,7 +5171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1623705869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5840,7 +5840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -553, y: -26.23}
+  m_AnchoredPosition: {x: 1.352, y: -0.0000095367}
   m_SizeDelta: {x: 304.19336, y: 107.975266}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1835975236
@@ -5875,7 +5875,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Description:'
+  m_Text: 
 --- !u!222 &1835975237
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6481,9 +6481,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 567492279790761815, guid: 772d96b3d37ab634d89ce151c850c2fe,
         type: 3}
+      propertyPath: HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 567492279790761815, guid: 772d96b3d37ab634d89ce151c850c2fe,
+        type: 3}
       propertyPath: battle
       value: 
       objectReference: {fileID: 380886180}
+    - target: {fileID: 567492279790761815, guid: 772d96b3d37ab634d89ce151c850c2fe,
+        type: 3}
+      propertyPath: shield
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 567492279790761815, guid: 772d96b3d37ab634d89ce151c850c2fe,
         type: 3}
       propertyPath: cardZone

@@ -6481,9 +6481,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5218852891243554396, guid: 60abeab7a5ffda548a9bcce481c85252,
         type: 3}
+      propertyPath: HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -5218852891243554396, guid: 60abeab7a5ffda548a9bcce481c85252,
+        type: 3}
       propertyPath: battle
       value: 
       objectReference: {fileID: 380886180}
+    - target: {fileID: -5218852891243554396, guid: 60abeab7a5ffda548a9bcce481c85252,
+        type: 3}
+      propertyPath: shield
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: -5218852891243554396, guid: 60abeab7a5ffda548a9bcce481c85252,
         type: 3}
       propertyPath: cardZone

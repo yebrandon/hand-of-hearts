@@ -30,7 +30,7 @@ public class Relationship : MonoBehaviour
 
     public RelationshipStatus getStatus()
     {
-        Debug.Log(status[current]);
+        Debug.Log("status current" + status[current]);
         return status[current];
     }
 
@@ -43,12 +43,15 @@ public class Relationship : MonoBehaviour
     {
         Debug.Log("setting status");
         Debug.Log(Relationships.relationships[charName]);
+        // Debug.Log("get int " + getStatusInt());
+        // Debug.Log(change);
         if (!start)
         {
-            current++;
-            Debug.Log(current);
+            
+            // Debug.Log(current);
             if (change)
             {
+                current++;
                 setHearts();
                 change = false;
             }

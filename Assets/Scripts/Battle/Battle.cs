@@ -120,6 +120,7 @@ public class Battle : MonoBehaviour
                     yield return new WaitForSeconds(2f);
                 }
                 isDead = dealDamageBoid("Strike", 10);
+                yield return new WaitForSeconds(2f);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 
@@ -139,8 +140,9 @@ public class Battle : MonoBehaviour
                 isDead = dealDamageBoid("Strike", 20);
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentHUD.SetShield(opponentUnit.shield);
-                // dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " life]";
                 yield return new WaitForSeconds(2f);
+                // dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " life]";
+                // yield return new WaitForSeconds(2f);
             }
         }
         else if (cardName == "Guard")
@@ -209,7 +211,8 @@ public class Battle : MonoBehaviour
                 else
                 {
                     isDead = dealDamageBoid("Living On The Edge", 60);
-                    dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " life]";
+                    yield return new WaitForSeconds(2f);
+                    // dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 60 + " life]";
                 }
             }
             else
@@ -251,7 +254,7 @@ public class Battle : MonoBehaviour
                 else
                 {
                     isDead = dealDamageBoid("Living On The Edge", 20);
-                    dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " life]";
+                    // dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " life]";
                     yield return new WaitForSeconds(2f);
                 }
             }
@@ -310,12 +313,14 @@ public class Battle : MonoBehaviour
             talksPlayed++;
 
             // Load the appropriate talk card scene
+            Debug.Log(SceneManager.GetActiveScene().buildIndex + "now");
+            Debug.Log("talk" + SceneManager.GetActiveScene().buildIndex + 1 + (talksPlayed - 1) * 2);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 + (talksPlayed - 1) * 2, LoadSceneMode.Additive);
         }
 
         dialogueText.text = "";
         yield return new WaitForSeconds(2f);
-
+        Debug.Log(isDead);
         if (isDead)
         {
             state = BattleState.WON;
@@ -561,6 +566,7 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Veil of Thorns")
             {
                 veil = true;
+                veilCount = 0;
                 dialogueText.text = "Rosa will reflect damage back to you for two of your turns!";
                 yield return new WaitForSeconds(2f);
             }
@@ -624,6 +630,7 @@ public class Battle : MonoBehaviour
 
         if (burnCount < 3 && burn)
         {
+            yield return new WaitForSeconds(1f);
             if (veilCount < 2 && veil)
             {
                 dialogueText.text = opponentUnit.charName + " reflected half of the attack back at you!";
@@ -636,6 +643,7 @@ public class Battle : MonoBehaviour
                     dialogueText.text = "";
                     playerDead = playerUnit.TakeDamage(5);
                     cross = false;
+                    burnCount++;
                 }
                 else
                 {
@@ -643,11 +651,14 @@ public class Battle : MonoBehaviour
                     yield return new WaitForSeconds(2f);
                     dialogueText.text = "";
                     playerDead = playerUnit.TakeDamage(10);
+                    burnCount++;
                 }
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 
                 opponentDead = dealDamageBoid("Burn", 10);
+                opponentHUD.SetHP(opponentUnit.HP);
+                opponentHUD.SetShield(opponentUnit.shield);
                 dialogueText.text = "Rosa took half of the damage from your Burn! [-10 life]";
                 yield return new WaitForSeconds(2f);
                 
@@ -661,11 +672,15 @@ public class Battle : MonoBehaviour
             }
             else if (boid)
             {
-                dealDamageBoid("Burn", 20);
+                opponentDead = dealDamageBoid("Burn", 20);
+                burnCount++;
+                opponentHUD.SetHP(opponentUnit.HP);
+                opponentHUD.SetShield(opponentUnit.shield);
+                yield return new WaitForSeconds(2f);
             }
             else
             {
-                opponentDead = opponentUnit.TakeDamage(20);
+                opponentDead = dealDamageBoid("Burn", 20);
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentHUD.SetShield(opponentUnit.shield);
                 burnCount++;
@@ -679,7 +694,13 @@ public class Battle : MonoBehaviour
                     yield break;
                 }
             }
-
+            if (opponentDead)
+            {
+                yield return new WaitForSeconds(2f);
+                state = BattleState.WON;
+                EndBattle();
+                yield break;
+            }
         }
         if (sugarCount < 2 && sugar)
         {
