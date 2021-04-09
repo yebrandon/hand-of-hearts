@@ -19,10 +19,6 @@ public class Duelist : MonoBehaviour
     // Deals damage and returns a boolean representing if the duelist has been defeated or not
     public bool TakeDamage(int dmg)
     {
-        if (gameObject.GetComponent<Player>() != null && playerBoid > 0)
-        {
-            dmg = Convert.ToInt32(dmg * (playerBoid / 100.0));
-        }
         if (shield > 0)
         { // if the shield has not been depleted previously
             shield -= dmg; // subtract damage from the shield

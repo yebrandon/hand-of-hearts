@@ -10,11 +10,13 @@ public class MenuButton : MonoBehaviour
     // Restock cards in the menu
     public void updateCards()
     {
+        foreach (Transform child in menu.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         foreach (KeyValuePair<string, RelationshipStatus> entry in Relationships.relationships)
         {
-            // Debug.Log("entry key" + entry.Key);
-            // Debug.Log("entry value" + entry.Value);
             // If entry is not for our current opponent or Blossom and is a higher status than notmet
             if (entry.Key != battle.opponentUnit.charName && entry.Key != "Blossom" && entry.Value > 0)
             {
@@ -31,9 +33,8 @@ public class MenuButton : MonoBehaviour
 
     public void toggleMenu()
     {
-        if (battle.state == BattleState.PLAYERTURN)
-        {
-            menu.gameObject.SetActive(!menu.gameObject.activeInHierarchy);
-        }
+
+        menu.gameObject.SetActive(!menu.gameObject.activeInHierarchy);
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -70,7 +69,6 @@ public class Battle : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab);
         playerUnit = playerGO.GetComponent<Player>();
 
-        // Set relationship status to STRANGERS
         Relationships.relationships[opponentUnit.charName] = RelationshipStatus.STRANGERS;
         Debug.Log(Relationships.relationships[opponentUnit.charName]);
         playerUnit.relationship.setStatus(opponentUnit.charName);
@@ -129,11 +127,11 @@ public class Battle : MonoBehaviour
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 yield return new WaitForSeconds(2f);
-                if (playerDead) // if the opponent is dead
+                if (playerDead)
                 {
                     yield return new WaitForSeconds(2f);
-                    state = BattleState.LOST; // change the battle state
-                    EndBattle(); // run endbattle function
+                    state = BattleState.LOST;
+                    EndBattle();
                     yield break;
                 }
             }
@@ -201,8 +199,8 @@ public class Battle : MonoBehaviour
                     if (playerDead)
                     {
                         yield return new WaitForSeconds(2f);
-                        state = BattleState.LOST; // change the battle state
-                        EndBattle(); // run endbattle function
+                        state = BattleState.LOST;
+                        EndBattle();
                         yield break;
                     }
                 }
@@ -235,11 +233,11 @@ public class Battle : MonoBehaviour
                     }
                     playerHUD.SetHP(playerUnit.HP);
                     playerHUD.SetShield(playerUnit.shield);
-                    if (playerDead) // if the opponent is dead
+                    if (playerDead)
                     {
                         yield return new WaitForSeconds(2f);
-                        state = BattleState.LOST; // change the battle state
-                        EndBattle(); // run endbattle function
+                        state = BattleState.LOST;
+                        EndBattle();
                         yield break;
                     }
                 }
@@ -261,7 +259,7 @@ public class Battle : MonoBehaviour
                 playerUnit.mana = 10;
             }
             playerHUD.SetMana(playerUnit.mana);
-            dialogueText.text = "You gained " + (cardPlayed.effect - 2).ToString() + " mana!";
+            dialogueText.text = "You gained " + (cardPlayed.effect).ToString() + " mana!";
             yield return new WaitForSeconds(2f);
         }
         else if (cardName == "Candied")
@@ -329,6 +327,7 @@ public class Battle : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
+            // Remove cloak effect
             if (cloak)
             {
                 CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
@@ -336,12 +335,12 @@ public class Battle : MonoBehaviour
                 {
                     if (x.blockedByCloak)
                     {
-                        // Debug.Log(x.ToString());
                         x.blockedByCloak = false;
                     }
                 };
                 cloak = false;
             }
+
             if (veilCount < 2 && veil)
             {
                 veilCount++;
@@ -361,6 +360,7 @@ public class Battle : MonoBehaviour
     public IEnumerator OpponentPlay()
     {
         CardDisplay[] playerCards = handCardArea.GetComponentsInChildren<CardDisplay>();
+
         // Opponent chooses an action to take
         string action = opponentUnit.ChooseAction(playerUnit.HP);
         if (action == "EndTurn")
@@ -499,7 +499,7 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Exchangemint")
             {
-                dialogueText.text = "Candy switches health values with you!";
+                dialogueText.text = "Candy switched health values with you!";
                 yield return new WaitForSeconds(0.5f);
                 int playerHP = playerUnit.HP;
                 playerUnit.HP = opponentUnit.HP;
@@ -512,7 +512,7 @@ public class Battle : MonoBehaviour
             else if (cardToPlay.name == "Boid")
             {
                 boid = true;
-                dialogueText.text = "90% of the damage from the next attack against Jibb will be absorbed.";
+                dialogueText.text = "90% of the damage from your next attack against Jibb will be absorbed.";
                 yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Cloak")
@@ -566,13 +566,11 @@ public class Battle : MonoBehaviour
             }
             else if (cardToPlay.name == "Garden of None")
             {
-                string dmgStr = opponentUnit.shield.ToString();
-                isDead = playerUnit.TakeDamage(opponentUnit.shield);
+                isDead = dealDamage("Garden of None", opponentUnit.shield);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 opponentUnit.shield = 0;
                 opponentHUD.SetShield(opponentUnit.shield);
-                dialogueText.text = "Rosa expended " + dmgStr + " shield to deal " + dmgStr + " damage!";
                 yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Fate's Wreath")
@@ -585,7 +583,6 @@ public class Battle : MonoBehaviour
             }
 
             opponentUnit.lastPlayedCardName = cardToPlay.name;
-            // cross = false;
             if (isDead)
             {
                 state = BattleState.LOST;
@@ -607,11 +604,6 @@ public class Battle : MonoBehaviour
     {
         state = BattleState.OPPONENTTURN;
         bool opponentDead = false;
-        // Close the skill card menu if open
-        if (menuButton.menu.gameObject.activeInHierarchy)
-        {
-            menuButton.menu.gameObject.SetActive(false);
-        }
 
         GenerateMana(opponentUnit);
         opponentHUD.SetMana(opponentUnit.mana);
@@ -645,11 +637,11 @@ public class Battle : MonoBehaviour
                 }
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
-                if (playerDead) // if the opponent is dead
+                if (playerDead)
                 {
                     yield return new WaitForSeconds(2f);
-                    state = BattleState.LOST; // change the battle state
-                    EndBattle(); // run endbattle function
+                    state = BattleState.LOST;
+                    EndBattle();
                     yield break;
                 }
             }
@@ -665,11 +657,11 @@ public class Battle : MonoBehaviour
                 burnCount++;
                 dialogueText.text = opponentUnit.charName + " took damage from their Burn [-20 life]";
                 yield return new WaitForSeconds(2f);
-                if (opponentDead) // if the opponent is dead
+                if (opponentDead)
                 {
                     yield return new WaitForSeconds(2f);
-                    state = BattleState.WON; // change the battle state
-                    EndBattle(); // run endbattle function
+                    state = BattleState.WON;
+                    EndBattle();
                     yield break;
                 }
             }
@@ -722,7 +714,6 @@ public class Battle : MonoBehaviour
 
     void PlayerTurn()
     {
-        playerUnit.playerBoid = 0;
         menuButton.updateCards();
         turnNum++;
 
@@ -753,13 +744,32 @@ public class Battle : MonoBehaviour
 
     public bool dealDamage(string attackName, int dmg)
     {
-        if (cross)
+        if (cross && playerUnit.playerBoid > 0)
         {
-            bool isDead = playerUnit.TakeDamage((int)(dmg / 2));
-            dialogueText.text = "Because of your Cross card," + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg / 2) + " life]";
+            bool isDead = playerUnit.TakeDamage((int)((dmg / 2) * (1.0 - playerUnit.playerBoid)));
+            dialogueText.text = "Because of your Cross and Boid cards, " + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)((dmg / 2) * (1.0 - playerUnit.playerBoid)) + " life]";
             playerHUD.SetShield(playerUnit.shield);
             playerHUD.SetHP(playerUnit.HP);
             cross = false;
+            playerUnit.playerBoid = 0;
+            return isDead;
+        }
+        else if (cross)
+        {
+            bool isDead = playerUnit.TakeDamage((int)(dmg / 2));
+            dialogueText.text = "Because of your Cross card, " + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg / 2) + " life]";
+            playerHUD.SetShield(playerUnit.shield);
+            playerHUD.SetHP(playerUnit.HP);
+            cross = false;
+            return isDead;
+        }
+        else if (playerUnit.playerBoid > 0)
+        {
+            bool isDead = playerUnit.TakeDamage((int)(dmg * (1.0 - playerUnit.playerBoid)));
+            dialogueText.text = "Because of your Boid card, " + opponentUnit.charName + "'s " + attackName + " hit you for [- " + (int)(dmg * (1.0 - playerUnit.playerBoid)) + " life]";
+            playerHUD.SetShield(playerUnit.shield);
+            playerHUD.SetHP(playerUnit.HP);
+            playerUnit.playerBoid = 0;
             return isDead;
         }
         else
@@ -805,7 +815,6 @@ public class Battle : MonoBehaviour
     {
         endTurnButton.GetComponent<Button>().interactable = false;
         drawCardToggle();
-        menuButton.GetComponent<Button>().interactable = false;
     }
 
     public void drawCardToggle()
@@ -823,15 +832,14 @@ public class Battle : MonoBehaviour
 
     void EndBattle()
     {
-        if (state == BattleState.WON) // if the player has won
+        if (state == BattleState.WON)
         {
-
             gameOverUI.gameOverScreen.SetActive(true);
             disableButtons();
             gameOverUI.LoadCard(playerUnit.relationship, opponentUnit.charName, playerUnit.deck);
-            wonLost.text = "You defeated " + opponentUnit.charName + "!"; // change the dialogue text
+            wonLost.text = "You defeated " + opponentUnit.charName + "!";
         }
-        else if (state == BattleState.LOST) // if the player has lost
+        else if (state == BattleState.LOST)
         {
             SceneManager.LoadScene("GameOver");
         }
