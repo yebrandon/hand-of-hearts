@@ -252,6 +252,7 @@ public class Battle : MonoBehaviour
             {
                 playerUnit.mana = 10;
             }
+            drawCardToggle();
             playerHUD.SetMana(playerUnit.mana);
             dialogueText.text = "You gained " + (cardPlayed.effect).ToString() + " mana!";
             yield return new WaitForSeconds(2f);
@@ -703,6 +704,7 @@ public class Battle : MonoBehaviour
         {
             playerUnit.mana -= 3;
             playerHUD.SetMana(playerUnit.mana);
+            drawCardToggle();
             playerUnit.deck.Draw();
         }
     }
@@ -728,6 +730,7 @@ public class Battle : MonoBehaviour
 
         GenerateMana(playerUnit);
         playerHUD.SetMana(playerUnit.mana);
+        drawCardToggle();
 
         playerUnit.deck.Draw();
         enableButtons();

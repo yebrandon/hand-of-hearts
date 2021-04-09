@@ -34,7 +34,7 @@ public class GameOverUI : MonoBehaviour
         // set new card
 
         wonCardFile = opponentName + "/SkillCard" + (int)(relationshipStatus.getStatusInt() + 1);
-        // Debug.Log(wonCardFile);
+        Debug.Log(wonCardFile);
         // load card prefab
         GameObject cardPrefab = (GameObject)Instantiate(Resources.Load("Prefabs/SkillCards/" + wonCardFile));
         cardPrefab.transform.SetParent(cardArea.transform);
