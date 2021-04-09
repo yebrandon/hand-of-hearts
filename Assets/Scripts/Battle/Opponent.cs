@@ -38,7 +38,7 @@ public class Opponent : Duelist
         {
             if (mana >= 10)
             {
-                if (hand.Contains("Chaos") && numButterfliesPlayed > 0)
+                if (hand.Contains("Chaos") && numButterfliesPlayed > 3)
                 {
                     cardToPlayName = "Chaos";
                     hand.Remove("Chaos");

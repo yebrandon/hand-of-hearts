@@ -222,6 +222,7 @@ MonoBehaviour:
   descriptionText: {fileID: 3907908757732672}
   costText: {fileID: 7793002491203414381}
   artworkImage: {fileID: 3907908456480657}
+  blockedByCloak: 0
 --- !u!225 &4415977739252572848
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -456,8 +457,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.38006, y: 155.52}
-  m_SizeDelta: {x: 199.6716, y: 38.973503}
+  m_AnchoredPosition: {x: -10.25, y: 155.52}
+  m_SizeDelta: {x: 219.41464, y: 38.973503}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3907908956391144
 CanvasRenderer:
@@ -488,7 +489,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 28
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2

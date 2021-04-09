@@ -430,6 +430,7 @@ public class Battle : MonoBehaviour
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 opponentUnit.hand.RemoveAll(cardName => cardName.Contains("Chaos"));
+                opponentUnit.numButterfliesPlayed = 0;
             }
             // Candy 
             else if (cardToPlay.name == "Candied")

@@ -222,6 +222,7 @@ MonoBehaviour:
   descriptionText: {fileID: 3907908757732672}
   costText: {fileID: 7793002491203414381}
   artworkImage: {fileID: 3907908456480657}
+  blockedByCloak: 0
 --- !u!225 &4415977739252572848
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -456,8 +457,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.38006, y: 155.52}
-  m_SizeDelta: {x: 199.6716, y: 38.973503}
+  m_AnchoredPosition: {x: 0.000063896, y: 155.65}
+  m_SizeDelta: {x: 249.99985, y: 38.7594}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3907908956391144
 CanvasRenderer:
@@ -482,21 +483,21 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 28
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 0
     m_MaxSize: 76
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Name
@@ -513,7 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 2, y: -2}
+  m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
 --- !u!1 &3907909059315206
 GameObject:

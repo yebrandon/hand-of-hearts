@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Chaos
   m_EditorClassIdentifier: 
   name: Chaos
-  description: Deal 10 damage for every "Butterfly" card you've played this duel.
-    Remove all copies of "Chaos" from your hand.
+  description: Deal 10 damage for every "Butterfly" card you've played since your
+    last "Chaos". Remove all copies of "Chaos" from your hand.
   cost: 10
   artwork: {fileID: 21300000, guid: b49f8c8f886060141a47884c21db07a6, type: 3}
   type: 0
