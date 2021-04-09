@@ -112,28 +112,26 @@ public class Battle : MonoBehaviour
         {
             if (veilCount < 2 && veil)
             {
-                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
-                yield return new WaitForSeconds(2f); // waits for two seconds
+                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                yield return new WaitForSeconds(2f);
                 if (cross)
                 {
-                    dialogueText.text = "Because of your Cross card, you took less damage from your own Strike! [-10 life]"; // changes the dialogue text
-                    yield return new WaitForSeconds(2f); // waits for two seconds
-                    dialogueText.text = ""; // changes the dialogue text
+                    dialogueText.text = "Because of your Cross card, you took less damage from your own Strike! [-10 life]";
                     playerDead = playerUnit.TakeDamage(10);
                     cross = false;
                 }
                 else
                 {
-                    dialogueText.text = "You took damage from your own Strike! [-20 life]"; // changes the dialogue text
-                    yield return new WaitForSeconds(2f); // waits for two seconds
-                    dialogueText.text = ""; // changes the dialogue text
+                    dialogueText.text = "You took damage from your own Strike! [-20 life]";
                     playerDead = playerUnit.TakeDamage(20);
+                    yield return new WaitForSeconds(2f);
                 }
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
+                yield return new WaitForSeconds(2f);
                 if (playerDead) // if the opponent is dead
                 {
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    yield return new WaitForSeconds(2f);
                     state = BattleState.LOST; // change the battle state
                     EndBattle(); // run endbattle function
                     yield break;
@@ -145,7 +143,7 @@ public class Battle : MonoBehaviour
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentHUD.SetShield(opponentUnit.shield);
                 // dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 30 + " life]";
-                yield return new WaitForSeconds(2f); // waits for two seconds
+                yield return new WaitForSeconds(2f);
             }
         }
         else if (cardName == "Guard")
@@ -153,27 +151,27 @@ public class Battle : MonoBehaviour
             playerUnit.Guard(15);
             playerHUD.SetShield(playerUnit.shield);
             dialogueText.text = "You gained [+" + 15 + " shield]";
-            yield return new WaitForSeconds(2f); // waits for two seconds
+            yield return new WaitForSeconds(2f);
         }
         else if (cardName == "Recover")
         {
             playerUnit.Recover(15);
             playerHUD.SetHP(playerUnit.HP);
             dialogueText.text = "You gained [+" + 15 + " life]";
-            yield return new WaitForSeconds(2f); // waits for two seconds
+            yield return new WaitForSeconds(2f);
         }
         else if (cardName == "Cross")
         {
             cross = true;
             dialogueText.text = "You will only take half of the next attack's damage";
-            yield return new WaitForSeconds(2f); // waits for two seconds
+            yield return new WaitForSeconds(2f);
         }
         else if (cardName == "Burning Desire")
         {
             burnCount = 0;
             burn = true;
             dialogueText.text = "The opponent will take 60 damage total over the next three turns";
-            yield return new WaitForSeconds(2f); // waits for two seconds
+            yield return new WaitForSeconds(2f);
         }
         else if (cardName == "Living On The Edge")
         {
@@ -181,28 +179,28 @@ public class Battle : MonoBehaviour
             {
                 if (veilCount < 2 && veil)
                 {
-                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                    yield return new WaitForSeconds(2f);
                     if (cross)
                     {
-                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-30 life]"; // changes the dialogue text
-                        yield return new WaitForSeconds(2f); // waits for two seconds
-                        dialogueText.text = ""; // changes the dialogue text
+                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-30 life]";
+                        yield return new WaitForSeconds(2f);
+                        dialogueText.text = "";
                         playerDead = playerUnit.TakeDamage(30);
                         cross = false;
                     }
                     else
                     {
-                        dialogueText.text = "You took damage from your own Living on the Edge! [-60 life]"; // changes the dialogue text
-                        yield return new WaitForSeconds(2f); // waits for two seconds
-                        dialogueText.text = ""; // changes the dialogue text
+                        dialogueText.text = "You took damage from your own Living on the Edge! [-60 life]";
+                        yield return new WaitForSeconds(2f);
+                        dialogueText.text = "";
                         playerDead = playerUnit.TakeDamage(60);
                     }
                     playerHUD.SetHP(playerUnit.HP);
                     playerHUD.SetShield(playerUnit.shield);
                     if (playerDead)
                     {
-                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        yield return new WaitForSeconds(2f);
                         state = BattleState.LOST; // change the battle state
                         EndBattle(); // run endbattle function
                         yield break;
@@ -218,28 +216,28 @@ public class Battle : MonoBehaviour
             {
                 if (veilCount < 2 && veil)
                 {
-                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                    yield return new WaitForSeconds(2f);
                     if (cross)
                     {
-                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-10 life]"; // changes the dialogue text
-                        yield return new WaitForSeconds(2f); // waits for two seconds
-                        dialogueText.text = ""; // changes the dialogue text
+                        dialogueText.text = "Because of your Cross card, you took less damage from your own Living on the Edge! [-10 life]";
+                        yield return new WaitForSeconds(2f);
+                        dialogueText.text = "";
                         playerDead = playerUnit.TakeDamage(10);
                         cross = false;
                     }
                     else
                     {
-                        dialogueText.text = "You took damage from your own Living on the Edge! [-20 life]"; // changes the dialogue text
-                        yield return new WaitForSeconds(2f); // waits for two seconds
-                        dialogueText.text = ""; // changes the dialogue text
+                        dialogueText.text = "You took damage from your own Living on the Edge! [-20 life]";
+                        yield return new WaitForSeconds(2f);
+                        dialogueText.text = "";
                         playerDead = playerUnit.TakeDamage(20);
                     }
                     playerHUD.SetHP(playerUnit.HP);
                     playerHUD.SetShield(playerUnit.shield);
                     if (playerDead) // if the opponent is dead
                     {
-                        yield return new WaitForSeconds(2f); // waits for two seconds
+                        yield return new WaitForSeconds(2f);
                         state = BattleState.LOST; // change the battle state
                         EndBattle(); // run endbattle function
                         yield break;
@@ -249,7 +247,7 @@ public class Battle : MonoBehaviour
                 {
                     isDead = dealDamageBoid("Living On The Edge", 20);
                     dialogueText.text = "Your attack hit " + opponentUnit.charName + " for [-" + 20 + " life]";
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    yield return new WaitForSeconds(2f);
                 }
             }
             opponentHUD.SetHP(opponentUnit.HP);
@@ -264,7 +262,7 @@ public class Battle : MonoBehaviour
             }
             playerHUD.SetMana(playerUnit.mana);
             dialogueText.text = "You gained " + (cardPlayed.effect - 2).ToString() + " mana!";
-            yield return new WaitForSeconds(2f); // waits for two seconds
+            yield return new WaitForSeconds(2f);
         }
         else if (cardName == "Candied")
         {
@@ -409,7 +407,7 @@ public class Battle : MonoBehaviour
                 }
                 opponentHUD.SetMana(opponentUnit.mana);
                 dialogueText.text = "Constants gained 5 mana!";
-                yield return new WaitForSeconds(2f); // waits for two seconds
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Hofstadter's Butterfly")
             {
@@ -417,7 +415,7 @@ public class Battle : MonoBehaviour
                 {
                     opponentUnit.hand.Add(opponentUnit.lastPlayedCardName);
                     dialogueText.text = "Constants added one copy of " + opponentUnit.lastPlayedCardName + " to his hand!";
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    yield return new WaitForSeconds(2f);
                 }
                 else
                 {
@@ -541,49 +539,49 @@ public class Battle : MonoBehaviour
                 opponentUnit.Guard(15);
                 opponentHUD.SetShield(opponentUnit.shield);
                 dialogueText.text = "Jibb gained [+" + 15 + " shield]";
-                yield return new WaitForSeconds(2f); // waits for two seconds
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Stolen Potion")
             {
                 opponentUnit.Recover(15);
                 opponentHUD.SetHP(opponentUnit.HP);
                 dialogueText.text = "Jibb gained [+" + 15 + " life]";
-                yield return new WaitForSeconds(2f); // waits for two seconds
+                yield return new WaitForSeconds(2f);
             }
             // Rosa
             else if (cardToPlay.name == "Veil of Thorns")
             {
                 veil = true;
                 dialogueText.text = "Rosa will reflect damage back to you for two of your turns!";
-                yield return new WaitForSeconds(2f); // waits for two seconds
-                // Debug.Log("Veil of Thorns");
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Lament")
             {
-                dialogueText.text = "Rosa lost 10 HP and gained 20 shield!";
-                yield return new WaitForSeconds(2f); // waits for two seconds
                 opponentUnit.HP -= 10;
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentUnit.Guard(20);
                 opponentHUD.SetShield(opponentUnit.shield);
+                dialogueText.text = "Rosa lost 10 HP and gained 20 shield!";
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Garden of None")
             {
-                dialogueText.text = "Rosa expended " + opponentUnit.shield + " shield to deal " + opponentUnit.shield + " damage!";
-                yield return new WaitForSeconds(2f); // waits for two seconds
+                string dmgStr = opponentUnit.shield.ToString();
                 isDead = playerUnit.TakeDamage(opponentUnit.shield);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 opponentUnit.shield = 0;
                 opponentHUD.SetShield(opponentUnit.shield);
+                dialogueText.text = "Rosa expended " + dmgStr + " shield to deal " + dmgStr + " damage!";
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Fate's Wreath")
             {
-                dialogueText.text = "Rosa gained 100 shield and added a copy of Fate\'s Wreath to their hand!";
-                yield return new WaitForSeconds(2f); // waits for two seconds
                 opponentUnit.Guard(100);
                 opponentHUD.SetShield(opponentUnit.shield);
                 opponentUnit.hand.Add("Fate's Wreath");
+                dialogueText.text = "Rosa gained 100 shield and added a copy of Garden of None to their hand!";
+                yield return new WaitForSeconds(2f);
             }
 
             opponentUnit.lastPlayedCardName = cardToPlay.name;
@@ -627,29 +625,29 @@ public class Battle : MonoBehaviour
         {
             if (veilCount < 2 && veil)
             {
-                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!"; // changes the dialogue text
-                yield return new WaitForSeconds(2f); // waits for two seconds
+                dialogueText.text = opponentUnit.charName + " reflected the attack back at you!";
+                yield return new WaitForSeconds(2f);
                 bool playerDead;
                 if (cross)
                 {
-                    dialogueText.text = "Because of your Cross card, you took less damage from your own Burn! [-10 life]"; // changes the dialogue text
-                    yield return new WaitForSeconds(2f); // waits for two seconds
-                    dialogueText.text = ""; // changes the dialogue text
+                    dialogueText.text = "Because of your Cross card, you took less damage from your own Burn! [-10 life]";
+                    yield return new WaitForSeconds(2f);
+                    dialogueText.text = "";
                     playerDead = playerUnit.TakeDamage(10);
                     cross = false;
                 }
                 else
                 {
-                    dialogueText.text = "You took damage from your own Burn! [-20 life]"; // changes the dialogue text
-                    yield return new WaitForSeconds(2f); // waits for two seconds
-                    dialogueText.text = ""; // changes the dialogue text
+                    dialogueText.text = "You took damage from your own Burn! [-20 life]";
+                    yield return new WaitForSeconds(2f);
+                    dialogueText.text = "";
                     playerDead = playerUnit.TakeDamage(20);
                 }
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
                 if (playerDead) // if the opponent is dead
                 {
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    yield return new WaitForSeconds(2f);
                     state = BattleState.LOST; // change the battle state
                     EndBattle(); // run endbattle function
                     yield break;
@@ -661,16 +659,15 @@ public class Battle : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(2f); // waits for two seconds
-                dialogueText.text = opponentUnit.charName + " took damage from their Burn [-20 life]"; // changes the dialogue text
-                yield return new WaitForSeconds(2f); // waits for two seconds
                 opponentDead = opponentUnit.TakeDamage(20);
                 opponentHUD.SetHP(opponentUnit.HP);
                 opponentHUD.SetShield(opponentUnit.shield);
                 burnCount++;
+                dialogueText.text = opponentUnit.charName + " took damage from their Burn [-20 life]";
+                yield return new WaitForSeconds(2f);
                 if (opponentDead) // if the opponent is dead
                 {
-                    yield return new WaitForSeconds(2f); // waits for two seconds
+                    yield return new WaitForSeconds(2f);
                     state = BattleState.WON; // change the battle state
                     EndBattle(); // run endbattle function
                     yield break;
@@ -680,9 +677,9 @@ public class Battle : MonoBehaviour
         }
         if (sugarCount < 2 && sugar)
         {
-            yield return new WaitForSeconds(2f); // waits for two seconds
-            dialogueText.text = opponentUnit.charName + " healed from her Sugar Rush [+ 10 health]"; // changes the dialogue text
-            yield return new WaitForSeconds(2f); // waits for two seconds
+            yield return new WaitForSeconds(2f);
+            dialogueText.text = opponentUnit.charName + " healed from her Sugar Rush [+ 10 health]";
+            yield return new WaitForSeconds(2f);
             opponentUnit.Recover(10);
             opponentHUD.SetHP(opponentUnit.HP);
             opponentHUD.SetShield(opponentUnit.shield);
@@ -731,7 +728,7 @@ public class Battle : MonoBehaviour
 
         GenerateMana(playerUnit);
         playerHUD.SetMana(playerUnit.mana);
-        
+
         opponentUnit.EndTurn();
         state = BattleState.PLAYERTURN;
 

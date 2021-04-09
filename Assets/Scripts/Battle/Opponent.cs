@@ -43,9 +43,25 @@ public class Opponent : Duelist
                     cardToPlayName = "Chaos";
                     hand.Remove("Chaos");
                 }
-                else
+                else if (hand.Count < MAX_HAND_SIZE)
                 {
                     return "Draw";
+                }
+                else if (mana >= 2 && lastPlayedCardName == "Blue Morpho Butterfly" && hand.Contains("Hofstadter's Butterfly"))
+                {
+                    cardToPlayName = "Hofstadter's Butterfly";
+                    hand.Remove("Hofstadter's Butterfly");
+                    numButterfliesPlayed++;
+                }
+                else if (mana >= 3 && hand.Contains("Blue Morpho Butterfly"))
+                {
+                    cardToPlayName = "Blue Morpho Butterfly";
+                    hand.Remove("Blue Morpho Butterfly");
+                    numButterfliesPlayed++;
+                }
+                else
+                {
+                    return "EndTurn";
                 }
             }
             else if (mana >= 2 && lastPlayedCardName == "Blue Morpho Butterfly" && hand.Contains("Hofstadter's Butterfly"))
@@ -67,12 +83,6 @@ public class Opponent : Duelist
         }
         else if (charName == "Candy")
         {
-            Debug.Log("opponent turn");
-            foreach (var x in hand)
-            {
-                Debug.Log(x.ToString());
-            };
-
             if (mana >= 2)
             {
                 if (hand.Contains("Sugar") && HP < 60 && lastPlayedCardName != "Sugar")
@@ -137,7 +147,7 @@ public class Opponent : Duelist
                 cardToPlayName = "Quick Swipe";
                 hand.Remove("Quick Swipe");
             }
-            else if (mana >= 9)
+            else if (mana >= 9 && hand.Count < MAX_HAND_SIZE)
             {
                 return "Draw";
             }
@@ -178,8 +188,9 @@ public class Opponent : Duelist
         }
         else if (charName == "Rosa")
         {
-            if (mana >= 9)
+            if (mana >= 9 && hand.Count < MAX_HAND_SIZE)
             {
+                cardToPlayName = "asdf";
                 return "Draw";
             }
             else if (mana >= 3 && shield >= 50 && hand.Contains("Garden of None"))
@@ -192,28 +203,46 @@ public class Opponent : Duelist
                 cardToPlayName = "Fate's Wreath";
                 hand.Remove("Fate's Wreath");
             }
-            else if (mana >= 3 && hand.Contains("Veil of Thorns")) // and not thorns?
-            {
-                cardToPlayName = "Veil of Thorns";
-                hand.Remove("Veil of Thorns");
-            }
             else if (mana >= 3 && shield >= 20 && hand.Contains("Garden of None"))
             {
                 cardToPlayName = "Garden of None";
                 hand.Remove("Garden of None");
+            }
+            else if (mana >= 3 && hand.Contains("Veil of Thorns")) // and not thorns?
+            {
+                cardToPlayName = "Veil of Thorns";
+                hand.Remove("Veil of Thorns");
             }
             else if (mana >= 1 && HP >= 20 && shield <= 90 && hand.Contains("Lament"))
             {
                 cardToPlayName = "Lament";
                 hand.Remove("Lament");
             }
+            else if (hand.Count == MAX_HAND_SIZE)
+            {
+                if (mana >= 7 && hand.Contains("Fate's Wreath"))
+                {
+                    cardToPlayName = "Fate's Wreath";
+                    hand.Remove("Fate's Wreath");
+                }
+                else if (mana >= 1 && HP >= 20 && hand.Contains("Lament"))
+                {
+                    cardToPlayName = "Lament";
+                    hand.Remove("Lament");
+                }
+                else
+                {
+                    cardToPlayName = "asdf";
+                    return "EndTurn";
+                }
+            }
             else
             {
+                cardToPlayName = "asdf";
                 return "EndTurn";
             }
         }
-        // Debug.Log(charName);
-        // Debug.Log(cardToPlayName);
+
         GameObject cardGO = (GameObject)Instantiate(Resources.Load("Prefabs/" + charName + "Cards/" + cardToPlayName));
 
         cardDisplay = cardGO.GetComponent<CardDisplay>();
