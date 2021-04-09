@@ -91,12 +91,6 @@ public class Battle : MonoBehaviour
     // Executes when a card is placed into the dropzone
     public IEnumerator PlayerAttack(Card cardPlayed)
     {
-        if (sticky)
-        {
-            sticky = false;
-            EndTurn();
-        }
-
         bool isDead = false;
         bool playerDead = false;
         string cardName = cardPlayed.name;
@@ -472,9 +466,9 @@ public class Battle : MonoBehaviour
                     dmg = 30;
                 }
                 isDead = dealDamage("Toothache", dmg);
-                yield return new WaitForSeconds(2f);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
+                yield return new WaitForSeconds(2f);
             }
             else if (cardToPlay.name == "Sticky Situation")
             {
@@ -717,14 +711,22 @@ public class Battle : MonoBehaviour
         menuButton.updateCards();
         turnNum++;
 
-        GenerateMana(playerUnit);
-        playerHUD.SetMana(playerUnit.mana);
-
         opponentUnit.EndTurn();
+
         state = BattleState.PLAYERTURN;
+
+        if (sticky)
+        {
+            sticky = false;
+            EndTurn();
+            return;
+        }
 
         turnText.text = "Your Turn";
         dialogueText.text = "";
+
+        GenerateMana(playerUnit);
+        playerHUD.SetMana(playerUnit.mana);
 
         playerUnit.deck.Draw();
         enableButtons();
