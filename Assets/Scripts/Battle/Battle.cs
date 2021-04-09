@@ -111,6 +111,7 @@ public class Battle : MonoBehaviour
                     dialogueText.text = "Because of your Cross card, you took less damage from your own Strike! [-5 life]";
                     playerDead = playerUnit.TakeDamage(5);
                     cross = false;
+                    yield return new WaitForSeconds(2f);
                 }
                 else
                 {
@@ -119,11 +120,12 @@ public class Battle : MonoBehaviour
                     yield return new WaitForSeconds(2f);
                 }
                 isDead = dealDamageBoid("Strike", 10);
-                dialogueText.text = "Rosa took half of the damage from your Strike! [-10 life]";
-                yield return new WaitForSeconds(2f);
                 playerHUD.SetHP(playerUnit.HP);
                 playerHUD.SetShield(playerUnit.shield);
+                
+                dialogueText.text = "Rosa took half of the damage from your Strike! [-10 life]";
                 yield return new WaitForSeconds(2f);
+                
                 if (playerDead)
                 {
                     yield return new WaitForSeconds(2f);
@@ -231,11 +233,13 @@ public class Battle : MonoBehaviour
                         dialogueText.text = "";
                         playerDead = playerUnit.TakeDamage(10);
                     }
+                    
+                    playerHUD.SetHP(playerUnit.HP);
+                    playerHUD.SetShield(playerUnit.shield);
+                    
                     isDead = dealDamageBoid("Living on the Edge", 10);
                     dialogueText.text = "Rosa took half of the damage from your Living on the Edge! [-10 life]";
                     yield return new WaitForSeconds(2f);
-                    playerHUD.SetHP(playerUnit.HP);
-                    playerHUD.SetShield(playerUnit.shield);
                     if (playerDead)
                     {
                         yield return new WaitForSeconds(2f);
@@ -640,11 +644,13 @@ public class Battle : MonoBehaviour
                     dialogueText.text = "";
                     playerDead = playerUnit.TakeDamage(10);
                 }
+                playerHUD.SetHP(playerUnit.HP);
+                playerHUD.SetShield(playerUnit.shield);
+                
                 opponentDead = dealDamageBoid("Burn", 10);
                 dialogueText.text = "Rosa took half of the damage from your Burn! [-10 life]";
                 yield return new WaitForSeconds(2f);
-                playerHUD.SetHP(playerUnit.HP);
-                playerHUD.SetShield(playerUnit.shield);
+                
                 if (playerDead)
                 {
                     yield return new WaitForSeconds(2f);
